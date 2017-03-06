@@ -32,7 +32,7 @@ function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navi
     $config = get_config('local_boost_navdrawerfumbling');
 
     // Check if admin wanted us to remove the home node from Boost's nav drawer
-    if ($config->removehomenode) {
+    if (isset($config->removehomenode) && $config->removehomenode == true) {
         // If yes, do it
         if ($homenode = $navigation->find('home', global_navigation::TYPE_ROOTNODE)) {
             // Hide home node
@@ -41,7 +41,7 @@ function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navi
     }
 
     // Check if admin wanted us to remove the calendar node from Boost's nav drawer
-    if ($config->removecalendarnode) {
+    if (isset($config->removecalendarnode) && $config->removecalendarnode == true) {
         // If yes, do it
         if ($calendarnode = $navigation->find('calendar', global_navigation::TYPE_CUSTOM)) {
             // Hide calendar node
@@ -50,7 +50,7 @@ function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navi
     }
 
     // Check if admin wanted us to remove the privatefiles node from Boost's nav drawer
-    if ($config->removeprivatefilesnode) {
+    if (isset($config->removeprivatefilesnode) && $config->removeprivatefilesnode == true) {
         // If yes, do it
         if ($privatefilesnode = local_boost_navdrawerfumbling_find_privatefiles_node($navigation)) {
             // Hide privatefiles node
@@ -59,7 +59,7 @@ function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navi
     }
 
     // Check if admin wanted us to remove the mycourses node from Boost's nav drawer
-    if ($config->removemycoursesnode) {
+    if (isset($config->removemycoursesnode) && $config->removemycoursesnode == true) {
         // If yes, do it
         if ($mycoursesnode = $navigation->find('mycourses', global_navigation::TYPE_ROOTNODE)) {
             // Hide mycourses node
