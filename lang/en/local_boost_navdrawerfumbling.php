@@ -25,6 +25,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Boost navdrawer fumbling';
+$string['setting_currentcoursepresentation'] = 'Improve the current course\'s presentation in Boost\'s nav drawer';
+$string['setting_currentcoursefullname'] = 'Switch shortname to fullname';
+$string['setting_currentcoursefullname_desc'] = 'Enabling this setting will show the course\'s fullname instead of the course\'s shortname in Boost\'s nav drawer. Technically, this can currently only be done by replacing the shortname globally at runtime, thus enabling this setting might have side effects to other parts of Moodle.';
 $string['setting_removenodesheading'] = 'Remove nodes from Boost\'s nav drawer';
 $string['setting_removenodesheading_desc'] = 'Enabling any of these settings will remove them from Boost\'s nav drawer. Technically, this is done by setting the node\'s showinflatnavigation attribute to false. Thus, the node will only be hidden from the nav drawer, but it will remain in the navigation tree and can still be accessed by other parts of Moodle.';
 $string['setting_removecalendarnode'] = 'Remove "Calendar" node';

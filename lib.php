@@ -28,6 +28,8 @@ defined('MOODLE_INTERNAL') || die();
  * Fumble with Moodle's global navigation by leveraging Moodle's *_extend_navigation() hook
  */
 function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navigation) {
+    global $PAGE;
+
     // Fetch config
     $config = get_config('local_boost_navdrawerfumbling');
 
@@ -70,6 +72,14 @@ function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navi
             foreach ($mycourseschildrennodes_keys as $k) {
                 $mycoursesnode->get($k)->showinflatnavigation = false;
             }
+        }
+    }
+
+    // Check if admin wanted us to show the current course's shortname instead of the course's fullname in Boost's nav drawer
+    if (isset($config->currentcoursefullname) && $config->currentcoursefullname == true) {
+        // If yes, do it
+        if (!empty($PAGE->course->shortname) && !empty($PAGE->course->fullname)) {
+            $PAGE->course->shortname = $PAGE->course->fullname;
         }
     }
 }

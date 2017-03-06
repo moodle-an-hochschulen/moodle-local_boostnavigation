@@ -54,6 +54,13 @@ if ($hassiteconfig) {
 
         // Create remove mycourses node control widget
         $page->add(new admin_setting_configcheckbox('local_boost_navdrawerfumbling/removemycoursesnode', get_string('setting_removemycoursesnode', 'local_boost_navdrawerfumbling', null, true), get_string('setting_removemycoursesnode_desc', 'local_boost_navdrawerfumbling', null, true), 0));
+
+
+        // Add current course presentation heading
+        $page->add(new admin_setting_heading('local_boost_navdrawerfumbling/currentcoursepresentationheading', get_string('setting_currentcoursepresentation', 'local_boost_navdrawerfumbling', null, true), ''));
+
+        // Create current course fullname control widget
+        $page->add(new admin_setting_configcheckbox('local_boost_navdrawerfumbling/currentcoursefullname', get_string('setting_currentcoursefullname', 'local_boost_navdrawerfumbling', null, true), get_string('setting_currentcoursefullname_desc', 'local_boost_navdrawerfumbling', null, true), 0));
     }
 
 
