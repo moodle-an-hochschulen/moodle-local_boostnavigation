@@ -29,7 +29,7 @@ Themes
 ------
 
 local_boost_navdrawerfumbling is designed to work with theme_boost or child themes of theme_boost.
-We can't guarantee if / how it will work with other themes.
+It does not work with other themes which are not based on Boost.
 
 
 Further information
