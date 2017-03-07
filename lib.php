@@ -81,7 +81,7 @@ function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navi
         if (!empty($PAGE->course->shortname) && !empty($PAGE->course->fullname)) {
             // Unfortunately, the navigation node with the course's shortname is contained in the flat_navigation object and not in
             // the global_navigation object. We can't access flat_navigation here, so change the strings with a sledgehammer method.
-            $PAGE->course->shortname = $PAGE->course->fullname;
+            $PAGE->course->shortname = format_string($PAGE->course->fullname);
         }
     }
 }
