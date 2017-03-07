@@ -4,7 +4,7 @@ moodle-local_boost_navdrawerfumbling
 Changes
 -------
 
-### Unreleased
+### v3.2-r2
 
 * 2017-03-07 - Some improvements from the Moodle plungin repo prechecker results
 
