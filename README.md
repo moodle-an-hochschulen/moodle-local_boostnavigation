@@ -22,7 +22,7 @@ See http://docs.moodle.org/en/Installing_plugins for details on installing Moodl
 Usage & Settings
 ----------------
 
-The local_boost_navdrawerfumbling plugin is designed to deliver static HTML documents, enriched with Moodle navigation and theme as a standard Moodle page which exist outside any course. After installing local_boost_navdrawerfumbling, the plugin does not do anything to Moodle yet.
+After installing local_boost_navdrawerfumbling, the plugin does not do anything to Moodle yet.
 To configure the plugin and its behaviour, please visit Site administration -> Appearance -> Boost navdrawer fumbling.
 
 There, you find two sections:
