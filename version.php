@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_boost_navdrawerfumbling';
-$plugin->version = 2017030701;
-$plugin->release = 'v3.2-r3';
+$plugin->version = 2017030702;
+$plugin->release = 'v3.2-r4';
 $plugin->requires = 2016120500;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->dependencies = array('theme_boost' => 2016120500);
