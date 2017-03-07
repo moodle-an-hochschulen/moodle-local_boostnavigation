@@ -26,6 +26,8 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Fumble with Moodle's global navigation by leveraging Moodle's *_extend_navigation() hook.
+ * 
+ * @param global_navigation $navigation
  */
 function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navigation) {
     global $PAGE;
@@ -90,6 +92,8 @@ function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navi
 /**
  * Moodle core does not add a key to the privatefiles node when adding it to the navigation,
  * so we need to find it with some overhead.
+ *
+ * @param global_navigation $navigation
  */
 function local_boost_navdrawerfumbling_find_privatefiles_node(global_navigation $navigation) {
     // Get front page course node.
