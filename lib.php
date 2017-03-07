@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Fumble with Moodle's global navigation by leveraging Moodle's *_extend_navigation() hook.
- * 
+ *
  * @param global_navigation $navigation
  */
 function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navigation) {
