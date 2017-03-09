@@ -1,5 +1,5 @@
-moodle-local_boost_navdrawerfumbling
-====================================
+moodle-local_boostnavigation
+============================
 
 Moodle plugin which tries to overcome some fixed appearance behaviours of Boost's nav drawer in a clean way.
 
@@ -14,7 +14,7 @@ Installation
 ------------
 
 Install the plugin like any other plugin to folder
-/local/boost_navdrawerfumbling
+/local/boostnavigation
 
 See http://docs.moodle.org/en/Installing_plugins for details on installing Moodle plugins
 
@@ -22,7 +22,7 @@ See http://docs.moodle.org/en/Installing_plugins for details on installing Moodl
 Usage & Settings
 ----------------
 
-After installing local_boost_navdrawerfumbling, the plugin does not do anything to Moodle yet.
+After installing local_boostnavigation, the plugin does not do anything to Moodle yet.
 To configure the plugin and its behaviour, please visit Site administration -> Appearance -> Boost navdrawer fumbling.
 
 There, you find two sections:
@@ -39,7 +39,7 @@ Enabling this setting will show the course's fullname instead of the course's sh
 Themes
 ------
 
-local_boost_navdrawerfumbling is designed to work with theme_boost or child themes of theme_boost.
+local_boostnavigation is designed to work with theme_boost or child themes of theme_boost.
 It does not work with other themes which are not based on Boost.
 
 
@@ -54,25 +54,25 @@ Luckily, Moodle provides the *_extend_navigation() hook which allows plugin deve
 Further information
 -------------------
 
-local_boost_navdrawerfumbling is found in the Moodle Plugins repository: http://moodle.org/plugins/view/local_boost_navdrawerfumbling
+local_boostnavigation is found in the Moodle Plugins repository: http://moodle.org/plugins/view/local_boostnavigation
 
-Report a bug or suggest an improvement: https://github.com/moodleuulm/moodle-local_boost_navdrawerfumbling/issues
+Report a bug or suggest an improvement: https://github.com/moodleuulm/moodle-local_boostnavigation/issues
 
 
 Feature proposals to this plugin
 --------------------------------
 
-Due to limited resources, the functionality of local_boost_navdrawerfumbling are primarily implemented for our own local needs and published as-is to the community. We expect that members of the community will have other needs and would love to see them solved by this plugin.
+Due to limited resources, the functionality of local_boostnavigation are primarily implemented for our own local needs and published as-is to the community. We expect that members of the community will have other needs and would love to see them solved by this plugin.
 
-We are always interested to read about your feature proposals on https://github.com/moodleuulm/moodle-local_boost_navdrawerfumbling/issues or even get a pull request from you on https://github.com/moodleuulm/moodle-local_boost_navdrawerfumbling/pulls, but please accept that we can handle your issues only as feature _proposals_ and not as feature _requests_.
+We are always interested to read about your feature proposals on https://github.com/moodleuulm/moodle-local_boostnavigation/issues or even get a pull request from you on https://github.com/moodleuulm/moodle-local_boostnavigation/pulls, but please accept that we can handle your issues only as feature _proposals_ and not as feature _requests_.
 
 
 Moodle release support
 ----------------------
 
-Due to limited resources, local_boost_navdrawerfumbling is only maintained for the most recent major release of Moodle. However, previous versions of this plugin which work in legacy major releases of Moodle are still available as-is without any further updates in the Moodle Plugins repository.
+Due to limited resources, local_boostnavigation is only maintained for the most recent major release of Moodle. However, previous versions of this plugin which work in legacy major releases of Moodle are still available as-is without any further updates in the Moodle Plugins repository.
 
-There may be several weeks after a new major release of Moodle has been published until we can do a compatibility check and fix problems if necessary. If you encounter problems with a new major release of Moodle - or can confirm that local_boost_navdrawerfumbling still works with a new major relase - please let us know on https://github.com/moodleuulm/moodle-local_boost_navdrawerfumbling/issues
+There may be several weeks after a new major release of Moodle has been published until we can do a compatibility check and fix problems if necessary. If you encounter problems with a new major release of Moodle - or can confirm that local_boostnavigation still works with a new major relase - please let us know on https://github.com/moodleuulm/moodle-local_boostnavigation/issues
 
 
 Right-to-left support

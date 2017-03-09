@@ -15,16 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Local plugin "Boost navdrawer fumbling" - Version file
+ * Local plugin "Boost navigation fumbling" - Version file
  *
- * @package    local_boost_navdrawerfumbling
+ * @package    local_boostnavigation
  * @copyright  2017 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_boost_navdrawerfumbling';
+$plugin->component = 'local_boostnavigation';
 $plugin->version = 2017030702;
 $plugin->release = 'v3.2-r4';
 $plugin->requires = 2016120500;

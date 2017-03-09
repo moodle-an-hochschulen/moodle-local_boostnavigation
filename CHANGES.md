@@ -1,8 +1,12 @@
-moodle-local_boost_navdrawerfumbling
-====================================
+moodle-local_boostnavigation
+============================
 
 Changes
 -------
+
+### Unreleased
+
+* 2017-03-09 - Rename the plugin to local_boostnavigation for multiple reasons and resubmit it to the Moodle plugin repository
 
 ### v3.2-r4 to v3.2-r2
 

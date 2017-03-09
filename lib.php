@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Local plugin "Boost navdrawer fumbling" - Library
+ * Local plugin "Boost navigation fumbling" - Library
  *
- * @package    local_boost_navdrawerfumbling
+ * @package    local_boostnavigation
  * @copyright  2017 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,11 +29,11 @@ defined('MOODLE_INTERNAL') || die();
  *
  * @param global_navigation $navigation
  */
-function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navigation) {
+function local_boostnavigation_extend_navigation(global_navigation $navigation) {
     global $PAGE;
 
     // Fetch config.
-    $config = get_config('local_boost_navdrawerfumbling');
+    $config = get_config('local_boostnavigation');
 
     // Check if admin wanted us to remove the home node from Boost's nav drawer.
     if (isset($config->removehomenode) && $config->removehomenode == true) {
@@ -56,7 +56,7 @@ function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navi
     // Check if admin wanted us to remove the privatefiles node from Boost's nav drawer.
     if (isset($config->removeprivatefilesnode) && $config->removeprivatefilesnode == true) {
         // If yes, do it.
-        if ($privatefilesnode = local_boost_navdrawerfumbling_find_privatefiles_node($navigation)) {
+        if ($privatefilesnode = local_boostnavigation_find_privatefiles_node($navigation)) {
             // Hide privatefiles node.
             $privatefilesnode->showinflatnavigation = false;
         }
@@ -95,7 +95,7 @@ function local_boost_navdrawerfumbling_extend_navigation(global_navigation $navi
  *
  * @param global_navigation $navigation
  */
-function local_boost_navdrawerfumbling_find_privatefiles_node(global_navigation $navigation) {
+function local_boostnavigation_find_privatefiles_node(global_navigation $navigation) {
     // Get front page course node.
     if ($coursenode = $navigation->find('1', null)) {
         // Get children of the front page course node.

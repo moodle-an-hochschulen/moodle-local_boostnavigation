@@ -15,16 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Local plugin "Boost navdrawer fumbling" - Language pack
+ * Local plugin "Boost navigation fumbling" - Language pack
  *
- * @package    local_boost_navdrawerfumbling
+ * @package    local_boostnavigation
  * @copyright  2017 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Boost navdrawer fumbling';
+$string['pluginname'] = 'Boost navigation fumbling';
 $string['setting_currentcoursepresentation'] = 'Improve the current course\'s presentation in Boost\'s nav drawer';
 $string['setting_currentcoursefullname'] = 'Switch shortname to fullname';
 $string['setting_currentcoursefullname_desc'] = 'Enabling this setting will show the course\'s fullname instead of the course\'s shortname in Boost\'s nav drawer. Technically, this can currently only be done by replacing the shortname globally at runtime, thus enabling this setting might have side effects to other parts of Moodle.';
