@@ -36,41 +36,56 @@ if ($hassiteconfig) {
         // Add remove nodes heading.
         $page->add(new admin_setting_heading('local_boostnavigation/removenodesheading',
                 get_string('setting_removenodesheading', 'local_boostnavigation', null, true),
-                get_string('setting_removenodesheading_desc', 'local_boostnavigation', null, true)));
+                ''));
 
         // Create remove home node control widget (switch label and description depending on what will really happen on the site).
         if (get_config('core', 'defaulthomepage') == HOMEPAGE_SITE) {
             $page->add(new admin_setting_configcheckbox('local_boostnavigation/removehomenode',
                     get_string('setting_removedashboardnode', 'local_boostnavigation', null, true),
-                    get_string('setting_removedashboardnode_desc', 'local_boostnavigation', null, true), 0));
+                    get_string('setting_removedashboardnode_desc', 'local_boostnavigation', null, true).'<br />'.
+                            get_string('setting_removenodesperformancehint', 'local_boostnavigation', null, true),
+                    0));
         } else if (get_config('core', 'defaulthomepage') == HOMEPAGE_MY) {
             $page->add(new admin_setting_configcheckbox('local_boostnavigation/removehomenode',
                     get_string('setting_removehomenode', 'local_boostnavigation', null, true),
-                    get_string('setting_removehomenode_desc', 'local_boostnavigation', null, true), 0));
+                    get_string('setting_removehomenode_desc', 'local_boostnavigation', null, true).'<br />'.
+                            get_string('setting_removenodesperformancehint', 'local_boostnavigation', null, true),
+                    0));
         } else if (get_config('core', 'defaulthomepage') == HOMEPAGE_USER) {
             $page->add(new admin_setting_configcheckbox('local_boostnavigation/removesecondhomenode',
                     get_string('setting_removesecondhomenode', 'local_boostnavigation', null, true),
-                    get_string('setting_removesecondhomenode_desc', 'local_boostnavigation', null, true), 0));
+                    get_string('setting_removesecondhomenode_desc', 'local_boostnavigation', null, true).'<br />'.
+                            get_string('setting_removenodesperformancehint', 'local_boostnavigation', null, true),
+                    0));
         } else { // This should not happen.
             $page->add(new admin_setting_configcheckbox('local_boostnavigation/removehomenode',
                     get_string('setting_removehomenode', 'local_boostnavigation', null, true),
-                    get_string('setting_removehomenode_desc', 'local_boostnavigation', null, true), 0));
+                    get_string('setting_removehomenode_desc', 'local_boostnavigation', null, true).'<br />'.
+                            get_string('setting_removenodesperformancehint', 'local_boostnavigation', null, true),
+                    0));
         }
 
         // Create remove calendar node control widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/removecalendarnode',
                 get_string('setting_removecalendarnode', 'local_boostnavigation', null, true),
-                get_string('setting_removecalendarnode_desc', 'local_boostnavigation', null, true), 0));
+                get_string('setting_removecalendarnode_desc', 'local_boostnavigation', null, true).'<br />'.
+                        get_string('setting_removenodesperformancehint', 'local_boostnavigation', null, true),
+                0));
 
         // Create remove privatefiles node control widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/removeprivatefilesnode',
                 get_string('setting_removeprivatefilesnode', 'local_boostnavigation', null, true),
-                get_string('setting_removeprivatefilesnode_desc', 'local_boostnavigation', null, true), 0));
+                get_string('setting_removeprivatefilesnode_desc', 'local_boostnavigation', null, true).'<br />'.
+                        get_string('setting_removenodesperformancehint', 'local_boostnavigation', null, true),
+                0));
 
         // Create remove mycourses node control widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/removemycoursesnode',
                 get_string('setting_removemycoursesnode', 'local_boostnavigation', null, true),
-                get_string('setting_removemycoursesnode_desc', 'local_boostnavigation', null, true), 0));
+                get_string('setting_removemycoursesnode_desc', 'local_boostnavigation', null, true).'<br />'.
+                        get_string('setting_removenodesperformancehint', 'local_boostnavigation', null, true).'<br />'.
+                        get_string('setting_removemycoursesnodeperformancehint', 'local_boostnavigation', null, true),
+                0));
 
 
         // Add current course presentation heading.
@@ -81,7 +96,8 @@ if ($hassiteconfig) {
         // Create current course fullname control widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/currentcoursefullname',
                 get_string('setting_currentcoursefullname', 'local_boostnavigation', null, true),
-                get_string('setting_currentcoursefullname_desc', 'local_boostnavigation', null, true), 0));
+                get_string('setting_currentcoursefullname_desc', 'local_boostnavigation', null, true),
+                0));
     }
 
 
