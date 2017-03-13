@@ -140,7 +140,7 @@ function local_boostnavigation_find_privatefiles_node(global_navigation $navigat
  * Moodle core does not have a built-in functionality to get all keys of all children of a navigation node,
  * so we need to get these ourselves.
  *
- * @param navigation_node $navigation
+ * @param navigation_node $navigationnode
  * @return array
  */
 function local_boostnavigation_get_all_childrenkeys(navigation_node $navigationnode) {
