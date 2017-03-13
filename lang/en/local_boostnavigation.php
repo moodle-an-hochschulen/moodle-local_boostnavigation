@@ -39,6 +39,6 @@ $string['setting_removesecondhomenode_desc'] = 'Enabling this setting will remov
 $string['setting_removedashboardnode'] = 'Remove "Dashboard" node';
 $string['setting_removedashboardnode_desc'] = 'Enabling this setting will remove the "Dashboard" node from Boost\'s nav drawer.';
 $string['setting_removemycoursesnode'] = 'Remove "My courses" node';
-$string['setting_removemycoursesnode_desc'] = 'Enabling this setting will remove the "My courses" node from Boost\'s nav drawer.';
+$string['setting_removemycoursesnode_desc'] = 'Enabling this setting will remove the "My courses" node from Boost\'s nav drawer.<br />Please note: If you enable this setting and have also enabled the setting <a href="/admin/search.php?query=navshowmycoursecategories">navshowmycoursecategories</a>, removing the "My courses" node takes more time and you should consider disabling the navshowmycoursecategories setting.';
 $string['setting_removeprivatefilesnode'] = 'Remove "Private files" node';
 $string['setting_removeprivatefilesnode_desc'] = 'Enabling this setting will remove the "Private files" node from Boost\'s nav drawer.';

@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  * @param global_navigation $navigation
  */
 function local_boostnavigation_extend_navigation(global_navigation $navigation) {
-    global $PAGE;
+    global $PAGE, $CFG;
 
     // Fetch config.
     $config = get_config('local_boostnavigation');
@@ -72,7 +72,21 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             // Hide all courses below the mycourses node.
             $mycourseschildrennodeskeys = $mycoursesnode->get_children_key_list();
             foreach ($mycourseschildrennodeskeys as $k) {
-                $mycoursesnode->get($k)->showinflatnavigation = false;
+                // If the admin decided to display categories, things get slightly complicated.
+                if ($CFG->navshowmycoursecategories) {
+                    // We need to find all children nodes first.
+                    $allchildrennodes = local_boostnavigation_get_all_childrenkeys($mycoursesnode->get($k));
+                    // Then we can hide each children node.
+                    // Unfortunately, the children nodes have navigation_node type TYPE_MY_CATEGORY or navigation_node type
+                    // TYPE_COURSE, thus we need to search without a specific navigation_node type.
+                    foreach ($allchildrennodes as $cn) {
+                        $mycoursesnode->find($cn, null)->showinflatnavigation = false;
+                    }
+                }
+                // Otherwise we have a flat navigation tree and hiding the courses is easy.
+                else {
+                    $mycoursesnode->get($k)->showinflatnavigation = false;
+                }
             }
         }
     }
@@ -94,6 +108,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
  * so we need to find it with some overhead.
  *
  * @param global_navigation $navigation
+ * @return navigation_node
  */
 function local_boostnavigation_find_privatefiles_node(global_navigation $navigation) {
     // Get front page course node.
@@ -118,5 +133,37 @@ function local_boostnavigation_find_privatefiles_node(global_navigation $navigat
 
     // This should not happen.
     return false;
+}
+
+
+/**
+ * Moodle core does not have a built-in functionality to get all keys of all children of a navigation node,
+ * so we need to get these ourselves.
+ *
+ * @param navigation_node $navigation
+ * @return array
+ */
+function local_boostnavigation_get_all_childrenkeys(navigation_node $navigationnode) {
+    // Empty array to hold all children.
+    $allchildren = array();
+
+    // No, this node does not have children anymore.
+    if (count($navigationnode->children) == 0) {
+        return array();
+    }
+    // Yes, this node has children.
+    else {
+        // Get own own children keys.
+        $childrennodeskeys = $navigationnode->get_children_key_list();
+        // Get all children keys of our children recursively.
+        foreach ($childrennodeskeys as $ck) {
+            $allchildren = array_merge($allchildren, local_boostnavigation_get_all_childrenkeys($navigationnode->get($ck)));
+        }
+        // And add our own children keys to the result.
+        $allchildren = array_merge($allchildren, $childrennodeskeys);
+
+        // Return everything.
+        return $allchildren;
+    }
 }
 
