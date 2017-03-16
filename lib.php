@@ -35,6 +35,9 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     // Fetch config.
     $config = get_config('local_boostnavigation');
 
+    // Include local library.
+    require_once(dirname(__FILE__) . '/locallib.php');
+
     // Check if admin wanted us to remove the home node from Boost's nav drawer.
     if (isset($config->removehomenode) && $config->removehomenode == true) {
         // If yes, do it.
@@ -101,69 +104,3 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         }
     }
 }
-
-
-/**
- * Moodle core does not add a key to the privatefiles node when adding it to the navigation,
- * so we need to find it with some overhead.
- *
- * @param global_navigation $navigation
- * @return navigation_node
- */
-function local_boostnavigation_find_privatefiles_node(global_navigation $navigation) {
-    // Get front page course node.
-    if ($coursenode = $navigation->find('1', null)) {
-        // Get children of the front page course node.
-        $coursechildrennodeskeys = $coursenode->get_children_key_list();
-
-        // Get text string to look for.
-        $needle = get_string('privatefiles');
-
-        // Check all children to find the privatefiles node.
-        foreach ($coursechildrennodeskeys as $k) {
-            // Get child node.
-            $childnode = $coursenode->get($k);
-            // Check if we have found the privatefiles node.
-            if ($childnode->text == $needle) {
-                // If yes, return the node.
-                return $childnode;
-            }
-        }
-    }
-
-    // This should not happen.
-    return false;
-}
-
-
-/**
- * Moodle core does not have a built-in functionality to get all keys of all children of a navigation node,
- * so we need to get these ourselves.
- *
- * @param navigation_node $navigationnode
- * @return array
- */
-function local_boostnavigation_get_all_childrenkeys(navigation_node $navigationnode) {
-    // Empty array to hold all children.
-    $allchildren = array();
-
-    // No, this node does not have children anymore.
-    if (count($navigationnode->children) == 0) {
-        return array();
-    }
-    // Yes, this node has children.
-    else {
-        // Get own own children keys.
-        $childrennodeskeys = $navigationnode->get_children_key_list();
-        // Get all children keys of our children recursively.
-        foreach ($childrennodeskeys as $ck) {
-            $allchildren = array_merge($allchildren, local_boostnavigation_get_all_childrenkeys($navigationnode->get($ck)));
-        }
-        // And add our own children keys to the result.
-        $allchildren = array_merge($allchildren, $childrennodeskeys);
-
-        // Return everything.
-        return $allchildren;
-    }
-}
-
