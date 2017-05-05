@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.2-r8
 
 * 2017-05-05 - Improve README.md
 
