@@ -86,18 +86,6 @@ if ($hassiteconfig) {
                         get_string('setting_removenodestechnicalhint', 'local_boostnavigation', null, true).'<br />'.
                         get_string('setting_removemycoursesnodeperformancehint', 'local_boostnavigation', null, true),
                 0));
-
-
-        // Add current course presentation heading.
-        $page->add(new admin_setting_heading('local_boostnavigation/currentcoursepresentationheading',
-                get_string('setting_currentcoursepresentation', 'local_boostnavigation', null, true),
-                ''));
-
-        // Create current course fullname control widget.
-        $page->add(new admin_setting_configcheckbox('local_boostnavigation/currentcoursefullname',
-                get_string('setting_currentcoursefullname', 'local_boostnavigation', null, true),
-                get_string('setting_currentcoursefullname_desc', 'local_boostnavigation', null, true),
-                0));
     }
 
 

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Local plugin "Boost navigation fumbling" - Version file
+ * Local plugin "Boost navigation fumbling" - Upgrade steps
  *
  * @package    local_boostnavigation
  * @copyright  2017 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
@@ -24,9 +24,20 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_boostnavigation';
-$plugin->version = 2017050502;
-$plugin->release = 'v3.2-r8';
-$plugin->requires = 2016120500;
-$plugin->maturity = MATURITY_STABLE;
-$plugin->dependencies = array('theme_boost' => 2016120500);
+function xmldb_local_boostnavigation_upgrade($oldversion) {
+    if ($oldversion < 2017050502) {
+        global $CFG;
+
+        // Currentcoursefullname setting was removed from this plugin.
+        // If it was set and we have the Moodle version which uses $CFG->navshowfullcoursenames to control the nav drawer,
+        // set $CFG->navshowfullcoursenames in Moodle core to achieve the same goal.
+        if (get_config('local_boostnavigation', 'currentcoursefullname') == true && $CFG->version >= 2016120500.03) {
+            unset_config('currentcoursefullname', 'local_boostnavigation');
+            set_config('navshowfullcoursenames', 1);
+        }
+
+        upgrade_plugin_savepoint(true, 2017050502, 'local', 'boostnavigation');
+    }
+
+    return true;
+}

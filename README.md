@@ -33,15 +33,11 @@ After installing local_boostnavigation, the plugin does not do anything to Moodl
 To configure the plugin and its behaviour, please visit:
 Site administration -> Appearance -> Boost navdrawer fumbling.
 
-There, you find two sections:
+There, you find only one section:
 
 ### 1. Remove nodes from Boost's nav drawer
 
 Enabling any of these settings will remove them from Boost's nav drawer. Technically, this is done by setting the node's showinflatnavigation attribute to false. Thus, the node will only be hidden from the nav drawer, but it will remain in the navigation tree and can still be accessed by other parts of Moodle.
-
-### 2. Improve the current course's presentation in Boost's nav drawer
-
-Enabling this setting will show the course's fullname instead of the course's shortname in Boost's nav drawer. Technically, this can currently only be done by replacing the shortname globally at runtime, thus enabling this setting might have side effects to other parts of Moodle.
 
 
 How this plugin works

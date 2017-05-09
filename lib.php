@@ -95,14 +95,4 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             }
         }
     }
-
-    // Check if admin wanted us to show the current course's shortname instead of the course's fullname in Boost's nav drawer.
-    if (isset($config->currentcoursefullname) && $config->currentcoursefullname == true) {
-        // If yes, do it.
-        if (!empty($PAGE->course->shortname) && !empty($PAGE->course->fullname)) {
-            // Unfortunately, the navigation node with the course's shortname is contained in the flat_navigation object and not in
-            // the global_navigation object. We can't access flat_navigation here, so change the strings with a sledgehammer method.
-            $PAGE->course->shortname = format_string($PAGE->course->fullname);
-        }
-    }
 }
