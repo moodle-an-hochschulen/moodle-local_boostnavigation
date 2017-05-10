@@ -39,5 +39,17 @@ function xmldb_local_boostnavigation_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2017050502, 'local', 'boostnavigation');
     }
 
+    if ($oldversion < 2017051000) {
+        // If Moodle is configured with 'Default home page for users' = User preference,
+        // the plugin's 'Remove second "Home" or "Dashboard" node' setting didn't have any effect.
+        // Remove the wrong setting and set it correctly.
+        if (get_config('local_boostnavigation', 'removesecondhomenode') == true) {
+            unset_config('removesecondhomenode', 'local_boostnavigation');
+            set_config('removehomenode', 1, 'local_boostnavigation');
+        }
+
+        upgrade_plugin_savepoint(true, 2017051000, 'local', 'boostnavigation');
+    }
+
     return true;
 }

@@ -52,7 +52,7 @@ if ($hassiteconfig) {
                             get_string('setting_removenodestechnicalhint', 'local_boostnavigation', null, true),
                     0));
         } else if (get_config('core', 'defaulthomepage') == HOMEPAGE_USER) {
-            $page->add(new admin_setting_configcheckbox('local_boostnavigation/removesecondhomenode',
+            $page->add(new admin_setting_configcheckbox('local_boostnavigation/removehomenode',
                     get_string('setting_removesecondhomenode', 'local_boostnavigation', null, true),
                     get_string('setting_removesecondhomenode_desc', 'local_boostnavigation', null, true).'<br />'.
                             get_string('setting_removenodestechnicalhint', 'local_boostnavigation', null, true),
