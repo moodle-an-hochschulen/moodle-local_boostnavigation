@@ -38,9 +38,16 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     // Include local library.
     require_once(dirname(__FILE__) . '/locallib.php');
 
-    // Check if admin wanted us to remove the home node from Boost's nav drawer.
+    // Check if admin wanted us to remove the myhome node from Boost's nav drawer.
     // We have to check explicitely if the configurations are set because this function will already be
     // called at installation time and would then throw PHP notices otherwise.
+    if (isset($config->removemyhomenode) && $config->removemyhomenode == true) {
+        // If yes, do it.
+        // Hide myhome node (which is basically the $navigation global_navigation node)
+        $navigation->showinflatnavigation = false;
+    }
+
+    // Check if admin wanted us to remove the home node from Boost's nav drawer.
     if (isset($config->removehomenode) && $config->removehomenode == true) {
         // If yes, do it.
         if ($homenode = $navigation->find('home', global_navigation::TYPE_ROOTNODE)) {

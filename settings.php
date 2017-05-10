@@ -38,6 +38,33 @@ if ($hassiteconfig) {
                 get_string('setting_removenodesheading', 'local_boostnavigation', null, true),
                 ''));
 
+        // Create remove myhome node control widget (switch label and description depending on what will really happen on the site).
+        if (get_config('core', 'defaulthomepage') == HOMEPAGE_SITE) {
+            $page->add(new admin_setting_configcheckbox('local_boostnavigation/removemyhomenode',
+                    get_string('setting_removehomenode', 'local_boostnavigation', null, true),
+                    get_string('setting_removehomenode_desc', 'local_boostnavigation', null, true).'<br />'.
+                            get_string('setting_removenodestechnicalhint', 'local_boostnavigation', null, true),
+                    0));
+        } else if (get_config('core', 'defaulthomepage') == HOMEPAGE_MY) {
+            $page->add(new admin_setting_configcheckbox('local_boostnavigation/removemyhomenode',
+                    get_string('setting_removedashboardnode', 'local_boostnavigation', null, true),
+                    get_string('setting_removedashboardnode_desc', 'local_boostnavigation', null, true).'<br />'.
+                            get_string('setting_removenodestechnicalhint', 'local_boostnavigation', null, true),
+                    0));
+        } else if (get_config('core', 'defaulthomepage') == HOMEPAGE_USER) {
+            $page->add(new admin_setting_configcheckbox('local_boostnavigation/removemyhomenode',
+                    get_string('setting_removefirsthomenode', 'local_boostnavigation', null, true),
+                    get_string('setting_removefirsthomenode_desc', 'local_boostnavigation', null, true).'<br />'.
+                            get_string('setting_removenodestechnicalhint', 'local_boostnavigation', null, true),
+                    0));
+        } else { // This should not happen.
+            $page->add(new admin_setting_configcheckbox('local_boostnavigation/removemyhomenode',
+                    get_string('setting_removehomenode', 'local_boostnavigation', null, true),
+                    get_string('setting_removehomenode_desc', 'local_boostnavigation', null, true).'<br />'.
+                            get_string('setting_removenodestechnicalhint', 'local_boostnavigation', null, true),
+                    0));
+        }
+
         // Create remove home node control widget (switch label and description depending on what will really happen on the site).
         if (get_config('core', 'defaulthomepage') == HOMEPAGE_SITE) {
             $page->add(new admin_setting_configcheckbox('local_boostnavigation/removehomenode',

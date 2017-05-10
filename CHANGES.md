@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2017-05-10 - Add the possibility to remove the first Home / Dashboard node, not only the unneeded second one
 * 2017-05-10 - Bugfix: If Moodle is configured with 'Default home page for users' = User preference, the plugin's 'Remove second "Home" or "Dashboard" node' setting didn't have any effect
 
 ### v3.2-r9
@@ -35,4 +36,3 @@ Changes
 ### v3.2-r1
 
 * 2017-03-06 - Initial version
-
