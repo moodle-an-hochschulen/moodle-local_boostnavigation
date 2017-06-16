@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2017-05-29 - Add Travis CI support
+
 ### v3.2-r10
 
 * 2017-05-10 - Add the possibility to remove the first Home / Dashboard node, not only the unneeded second one

@@ -1,6 +1,8 @@
 moodle-local_boostnavigation
 ============================
 
+[![Build Status](https://travis-ci.org/moodleuulm/moodle-local_boostnavigation.svg?branch=master)](https://travis-ci.org/moodleuulm/moodle-local_boostnavigation)
+
 Moodle plugin which tries to overcome some fixed appearance behaviours of Boost's nav drawer in a clean way
 
 
