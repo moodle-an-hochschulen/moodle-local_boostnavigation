@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  * @param global_navigation $navigation
  */
 function local_boostnavigation_extend_navigation(global_navigation $navigation) {
-    global $PAGE, $CFG;
+    global $CFG;
 
     // Fetch config.
     $config = get_config('local_boostnavigation');
@@ -43,7 +43,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     // called at installation time and would then throw PHP notices otherwise.
     if (isset($config->removemyhomenode) && $config->removemyhomenode == true) {
         // If yes, do it.
-        // Hide myhome node (which is basically the $navigation global_navigation node)
+        // Hide myhome node (which is basically the $navigation global_navigation node).
         $navigation->showinflatnavigation = false;
     }
 
@@ -94,9 +94,9 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                     foreach ($allchildrennodes as $cn) {
                         $mycoursesnode->find($cn, null)->showinflatnavigation = false;
                     }
-                }
-                // Otherwise we have a flat navigation tree and hiding the courses is easy.
-                else {
+
+                    // Otherwise we have a flat navigation tree and hiding the courses is easy.
+                } else {
                     $mycoursesnode->get($k)->showinflatnavigation = false;
                 }
             }

@@ -71,9 +71,9 @@ function local_boostnavigation_get_all_childrenkeys(navigation_node $navigationn
     // No, this node does not have children anymore.
     if (count($navigationnode->children) == 0) {
         return array();
-    }
-    // Yes, this node has children.
-    else {
+
+        // Yes, this node has children.
+    } else {
         // Get own own children keys.
         $childrennodeskeys = $navigationnode->get_children_key_list();
         // Get all children keys of our children recursively.
