@@ -68,7 +68,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     // Check if admin wanted us to remove the privatefiles node from Boost's nav drawer.
     if (isset($config->removeprivatefilesnode) && $config->removeprivatefilesnode == true) {
         // If yes, do it.
-        if ($privatefilesnode = local_boostnavigation_find_privatefiles_node($navigation)) {
+        if ($privatefilesnode = $navigation->find('privatefiles', global_navigation::TYPE_UNKNOWN)) {
             // Hide privatefiles node.
             $privatefilesnode->showinflatnavigation = false;
         }
