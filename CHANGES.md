@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2017-06-30 - Improve search for privatefiles node after MDL-58165 was integrated into Moodle core 3.2 and 3.3
 * 2017-05-29 - Add Travis CI support
 
 ### v3.2-r10

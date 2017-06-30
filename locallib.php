@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Moodle core does not add a key to the privatefiles node when adding it to the navigation,
- * so we need to find it with some overhead.
+ * Until MDL-58165 was integrated, Moodle core did not add a key to the privatefiles node when adding it to the navigation,
+ * so we need to find it with some overhead on previous versions.
  *
  * @param global_navigation $navigation
  * @return navigation_node

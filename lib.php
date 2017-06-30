@@ -68,9 +68,18 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     // Check if admin wanted us to remove the privatefiles node from Boost's nav drawer.
     if (isset($config->removeprivatefilesnode) && $config->removeprivatefilesnode == true) {
         // If yes, do it.
-        if ($privatefilesnode = local_boostnavigation_find_privatefiles_node($navigation)) {
-            // Hide privatefiles node.
-            $privatefilesnode->showinflatnavigation = false;
+        // We have to support Moodle core 3.2 and 3.3 versions with MDL-58165 not yet integrated.
+        if (moodle_major_version() == '3.2' && $CFG->version < 2016120503.05 ||
+                moodle_major_version() == '3.3' && $CFG->version < 2017051500.02) {
+            if ($privatefilesnode = local_boostnavigation_find_privatefiles_node($navigation)) {
+                // Hide privatefiles node.
+                $privatefilesnode->showinflatnavigation = false;
+            }
+        } else {
+            if ($privatefilesnode = $navigation->find('privatefiles', global_navigation::TYPE_SETTING)) {
+                // Hide privatefiles node.
+                $privatefilesnode->showinflatnavigation = false;
+            }
         }
     }
 
