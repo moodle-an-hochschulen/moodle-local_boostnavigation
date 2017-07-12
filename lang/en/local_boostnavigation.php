@@ -42,3 +42,9 @@ $string['setting_removemycoursesnode_desc'] = 'Enabling this setting will remove
 $string['setting_removemycoursesnodeperformancehint'] = 'Please note: If you enable this setting and have also enabled the setting <a href="/admin/search.php?query=navshowmycoursecategories">navshowmycoursecategories</a>, removing the "My courses" node takes more time and you should consider disabling the navshowmycoursecategories setting.';
 $string['setting_removeprivatefilesnode'] = 'Remove "Private files" node';
 $string['setting_removeprivatefilesnode_desc'] = 'Enabling this setting will remove the "Private files" node from Boost\'s nav drawer.';
+$string['setting_collapsenodesheading'] = 'Collapse nodes in Boost\'s nav drawer';
+$string['setting_collapsemycoursesnode'] = 'Collapse node "My Courses"';
+$string['setting_collapsemycoursesnode_desc'] = 'Enabling this setting will let users collapse the "My courses" node.';
+$string['setting_collapsemycoursesnodeperformancehint'] = 'Please note: This feature will only work if the setting <a href="/admin/search.php?query=navshowmycoursecategories">navshowmycoursecategories</a> is not active. If you enabled navshowmycoursecategories, this setting will be ignored and won\'t do anything.';
+$string['setting_collapsenodestechnicalhint'] = 'Technically, this is done by adding some JavaScript and CSS code to the page which will show or hide the second-level nodes as soon as the user clicks on the node. The collapse status of the node will be stored in each user\'s session. Thus, the nodes will only be hidden from the nav drawer at runtime, but they will remain in the navigation tree and can still be accessed by other parts of Moodle.';
+$string['setting_collapsenodestemplatehint'] = 'Please note that this feature is only working with Boost installations which have the patch from MDL-59425 integrated. See README file for details';
