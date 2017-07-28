@@ -78,7 +78,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         require_once($CFG->dirroot . '/competency/classes/course_competency.php');
         $totalcompetencies = core_competency\course_competency::count_competencies($courseid);
         if ($totalcompetencies == 0) {
-            if ($competenciesnode = $navigation->find(2,global_navigation::TYPE_SETTING)) {
+            if ($competenciesnode = $navigation->find(2, global_navigation::TYPE_SETTING)) {
                 $competenciesnode->remove();
             }
         }
@@ -141,9 +141,9 @@ function local_boostnavigation_extend_navigation_course($navigation) {
         // Fetch config.
     $config = get_config('local_boostnavigation');
 
-    //add competency page in complete settings page (after clicking on "Plus ..." menu item).
+    // Add competency page in complete settings page (after clicking on "Plus ..." menu item).
     if (isset($config->addcompetencynode) && $config->addcompetencynode == true) {
-    if (stripos($PAGE->bodyclasses, 'path-course-view') === FALSE) {
+        if (stripos($PAGE->bodyclasses, 'path-course-view') === false) {
             // Just a link to course competency.
             $courseid = $PAGE->course->id;
             $title = get_string('competencies', 'core_competency');
@@ -152,39 +152,39 @@ function local_boostnavigation_extend_navigation_course($navigation) {
         }
     }
 
-    //hiding "advanced" functionnalities. They are still available in complete course settings page.
-    if (stripos($PAGE->bodyclasses, 'path-course-view') !== FALSE) {
-    //remove gradebook setup
+    // Hiding "advanced" functionnalities. They are still available in complete course settings page.
+    if (stripos($PAGE->bodyclasses, 'path-course-view') !== false) {
+        // Remove gradebook setup
         if (isset($config->removegradebooksetupnode) && $config->removegradebooksetupnode == true) {
             if ($gradebooksetupnode = $navigation->find('gradebooksetup', navigation_node::TYPE_SETTING)) {
                 $gradebooksetupnode->hide();
             }
         }
-        //remove outcomes.
-        if (isset($config->removeoutcomesnode) && $config->removeoutcomesnode == true) {	
+        // Remove outcomes.
+        if (isset($config->removeoutcomesnode) && $config->removeoutcomesnode == true) {
             if ($outcomesnode = $navigation->find('outcomes', navigation_node::TYPE_SETTING)) {
                 $outcomesnode->hide();
             }
         }
-        //remove import other course activities.
+        // Remove import other course activities.
         if (isset($config->removeimportnode) && $config->removeimportnode == true) {
             if ($importnode = $navigation->find('import', navigation_node::TYPE_SETTING)) {
                 $importnode->hide();
             }
         }
-        //remove publish course.
+        // Remove publish course.
         if (isset($config->removepublishnode) && $config->removepublishnode == true) {
             if ($publishnode = $navigation->find('publish', navigation_node::TYPE_SETTING)) {
                 $publishnode->hide();
             }
         }
-        //remove course files (legacy files from moodle 1.9).
+        // Remove course files (legacy files from moodle 1.9).
         if (isset($config->removecoursefilesnode) && $config->removecoursefilesnode == true) {
             if ($coursefilesnode = $navigation->find('coursefiles', navigation_node::TYPE_SETTING)) {
-               $coursefilesnode->hide();
+                $coursefilesnode->hide();
             }
         }
-        //remove filters.
+        // Remove filters.
         if (isset($config->removefiltersnode) && $config->removefiltersnode == true) {
             if ($filtersnode = $navigation->find(4, navigation_node::TYPE_SETTING)) {
                 $filtersnode->hide();
