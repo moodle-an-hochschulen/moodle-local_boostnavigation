@@ -136,9 +136,9 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
  *
  * @param global_navigation $navigation
  */
-function local_boostnavigation_extend_navigation_course($navigation, $node) {
+function local_boostnavigation_extend_navigation_course($navigation) {
 
-    GLOBAL $PAGE,$CFG;
+    GLOBAL $PAGE;
 
         // Fetch config.
     $config = get_config('local_boostnavigation');
