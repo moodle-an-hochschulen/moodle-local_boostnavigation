@@ -34,7 +34,6 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
 
     // Fetch config.
     $config = get_config('local_boostnavigation');
-
     // Include local library.
     require_once(dirname(__FILE__) . '/locallib.php');
 
@@ -46,7 +45,6 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // Hide myhome node (which is basically the $navigation global_navigation node).
         $navigation->showinflatnavigation = false;
     }
-
     // Check if admin wanted us to remove the home node from Boost's nav drawer.
     if (isset($config->removehomenode) && $config->removehomenode == true) {
         // If yes, do it.
@@ -55,8 +53,6 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             $homenode->showinflatnavigation = false;
         }
     }
-
-
     // Check if admin wanted us to remove the calendar node from Boost's nav drawer.
     if (isset($config->removecalendarnode) && $config->removecalendarnode == true) {
         // If yes, do it.
@@ -71,9 +67,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
 	    GLOBAL $PAGE;
 	    $courseid = $PAGE->course->id;
 	    $type=2;
-	    //count the badges in the course
-	    $totalcount = count(badges_get_badges($type, $courseid, '', '' , 0, 0));
-	    //if no badges, remove the node    
+	    $totalcount = count(badges_get_badges($type, $courseid, '', '' , 0, 0));   
 	    if ($totalcount==0){
 		if ($badgesnode = $navigation->find('badgesview',global_navigation::TYPE_SETTING)) {
 		    $badgesnode->remove();
@@ -107,14 +101,12 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             }
         }
     }
-
     // Check if admin wanted us to remove the mycourses node from Boost's nav drawer.
     if (isset($config->removemycoursesnode) && $config->removemycoursesnode == true) {
         // If yes, do it.
         if ($mycoursesnode = $navigation->find('mycourses', global_navigation::TYPE_ROOTNODE)) {
             // Hide mycourses node.
             $mycoursesnode->showinflatnavigation = false;
-
             // Hide all courses below the mycourses node.
             $mycourseschildrennodeskeys = $mycoursesnode->get_children_key_list();
             foreach ($mycourseschildrennodeskeys as $k) {
@@ -128,7 +120,6 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                     foreach ($allchildrennodes as $cn) {
                         $mycoursesnode->find($cn, null)->showinflatnavigation = false;
                     }
-
                     // Otherwise we have a flat navigation tree and hiding the courses is easy.
                 } else {
                     $mycoursesnode->get($k)->showinflatnavigation = false;
