@@ -31,12 +31,11 @@ defined('MOODLE_INTERNAL') || die();
  */
 function local_boostnavigation_extend_navigation(global_navigation $navigation) {
     global $CFG;
-
     // Fetch config.
     $config = get_config('local_boostnavigation');
+
     // Include local library.
     require_once(dirname(__FILE__) . '/locallib.php');
-
     // Check if admin wanted us to remove the myhome node from Boost's nav drawer.
     // We have to check explicitely if the configurations are set because this function will already be
     // called at installation time and would then throw PHP notices otherwise.
@@ -63,27 +62,27 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     }
     // Check if admin wanted us to remove the badge node from Boost's nav drawer if there are no badges
     if (isset($config->removebadgenode) && $config->removebadgenode == true) {
-	    require_once($CFG->dirroot . '/lib/badgeslib.php');
-	    GLOBAL $PAGE;
-	    $courseid = $PAGE->course->id;
-	    $type=2;
-	    $totalcount = count(badges_get_badges($type, $courseid, '', '' , 0, 0));   
-	    if ($totalcount==0){
-		if ($badgesnode = $navigation->find('badgesview',global_navigation::TYPE_SETTING)) {
-		    $badgesnode->remove();
-		}
-	    }
-	}
+        require_once($CFG->dirroot . '/lib/badgeslib.php');
+        GLOBAL $PAGE;
+        $courseid = $PAGE->course->id;
+        $type=2;
+        $totalcount = count(badges_get_badges($type, $courseid, '', '' , 0, 0));
+        if ($totalcount == 0){
+            if ($badgesnode = $navigation->find('badgesview',global_navigation::TYPE_SETTING)) {
+                $badgesnode->remove();
+            }
+        }
+    }
     // Check if admin wanted us to remove the competency node from Boost's nav drawer if there are no competencies
     if (isset($config->removecompetencynode) && $config->removecompetencynode == true) {
-	    require_once($CFG->dirroot . '/competency/classes/course_competency.php');
-	    $totalcompetencies = core_competency\course_competency::count_competencies($courseid);
-	    if ($totalcompetencies==0){
-		if ($competenciesnode = $navigation->find(2,global_navigation::TYPE_SETTING)) {
-		    $competenciesnode->remove();
-		}
-	    }
-	}
+        require_once($CFG->dirroot . '/competency/classes/course_competency.php');
+        $totalcompetencies = core_competency\course_competency::count_competencies($courseid);
+        if ($totalcompetencies == 0){
+            if ($competenciesnode = $navigation->find(2,global_navigation::TYPE_SETTING)) {
+                $competenciesnode->remove();
+            }
+        }
+    }
     // Check if admin wanted us to remove the privatefiles node from Boost's nav drawer.
     if (isset($config->removeprivatefilesnode) && $config->removeprivatefilesnode == true) {
         // If yes, do it.
@@ -101,6 +100,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             }
         }
     }
+
     // Check if admin wanted us to remove the mycourses node from Boost's nav drawer.
     if (isset($config->removemycoursesnode) && $config->removemycoursesnode == true) {
         // If yes, do it.
@@ -128,8 +128,6 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         }
     }
 }
-
-
 /**
  * Fumble with Moodle's global navigation by leveraging Moodle's *_extend_navigation_course() hook.
  * Removed nodes are still available from the "Plus ..." menu item.
@@ -143,9 +141,9 @@ function local_boostnavigation_extend_navigation_course($navigation) {
         // Fetch config.
     $config = get_config('local_boostnavigation');
 
-	//add competency page in complete settings page (after clicking on "Plus ..." menu item).
-     if (isset($config->addcompetencynode) && $config->addcompetencynode == true) {   
-	if (stripos($PAGE->bodyclasses, 'path-course-view') === FALSE) {
+    //add competency page in complete settings page (after clicking on "Plus ..." menu item).
+     if (isset($config->addcompetencynode) && $config->addcompetencynode == true) {
+    if (stripos($PAGE->bodyclasses, 'path-course-view') === FALSE) {
             // Just a link to course competency.
             $courseid = $PAGE->course->id;
             $title = get_string('competencies', 'core_competency');
@@ -156,43 +154,41 @@ function local_boostnavigation_extend_navigation_course($navigation) {
 
     //hiding "advanced" functionnalities. They are still available in complete course settings page
     if (stripos($PAGE->bodyclasses, 'path-course-view') !== FALSE) {
-	//remove gradebook setup	
-    	if (isset($config->removegradebooksetupnode) && $config->removegradebooksetupnode == true) {
-    		if ($gradebooksetupnode = $navigation->find('gradebooksetup',navigation_node::TYPE_SETTING)) {
-    		    $gradebooksetupnode->hide();
-    		}
-    	}
-    	//remove outcomes
-    	if (isset($config->removeoutcomesnode) && $config->removeoutcomesnode == true) {		
-    		if ($outcomesnode = $navigation->find('outcomes',navigation_node::TYPE_SETTING)) {
-    		    $outcomesnode->hide();
-    		}
-    	}
-    	//remove import other course activities
-    	if (isset($config->removeimportnode) && $config->removeimportnode == true) {
-    		if ($importnode = $navigation->find('import',navigation_node::TYPE_SETTING)) {
-    		    $importnode->hide();
-    		}
-    	}
-    	//remove publish course
-    	if (isset($config->removepublishnode) && $config->removepublishnode == true) {		
-    		if ($publishnode = $navigation->find('publish',navigation_node::TYPE_SETTING)) {
-    		    $publishnode->hide();
-    		}
-    	}
-    	//remove course files (legacy files from moodle 1.9)
-    	if (isset($config->removecoursefilesnode) && $config->removecoursefilesnode == true) {
-    		if ($coursefilesnode = $navigation->find('coursefiles',navigation_node::TYPE_SETTING)) {
-    		    $coursefilesnode->hide();
-    		}
-    	}
-    	//remove filters
-    	if (isset($config->removefiltersnode) && $config->removefiltersnode == true) {
-    		if ($filtersnode = $navigation->find(4,navigation_node::TYPE_SETTING)) {
-    		    $filtersnode->hide();
-    		}
+    //remove gradebook setup
+        if (isset($config->removegradebooksetupnode) && $config->removegradebooksetupnode == true) {
+            if ($gradebooksetupnode = $navigation->find('gradebooksetup',navigation_node::TYPE_SETTING)) {
+                $gradebooksetupnode->hide();
+            }
+        }
+        //remove outcomes
+        if (isset($config->removeoutcomesnode) && $config->removeoutcomesnode == true) {	
+            if ($outcomesnode = $navigation->find('outcomes',navigation_node::TYPE_SETTING)) {
+                $outcomesnode->hide();
+            }
+        }
+        //remove import other course activities
+        if (isset($config->removeimportnode) && $config->removeimportnode == true) {
+            if ($importnode = $navigation->find('import',navigation_node::TYPE_SETTING)) {
+                $importnode->hide();
+            }
+        }
+        //remove publish course
+        if (isset($config->removepublishnode) && $config->removepublishnode == true) {
+            if ($publishnode = $navigation->find('publish',navigation_node::TYPE_SETTING)) {
+                $publishnode->hide();
+            }
+        }
+        //remove course files (legacy files from moodle 1.9)
+        if (isset($config->removecoursefilesnode) && $config->removecoursefilesnode == true) {
+            if ($coursefilesnode = $navigation->find('coursefiles',navigation_node::TYPE_SETTING)) {
+               $coursefilesnode->hide();
+            }
+        }
+        //remove filters
+        if (isset($config->removefiltersnode) && $config->removefiltersnode == true) {
+            if ($filtersnode = $navigation->find(4,navigation_node::TYPE_SETTING)) {
+                $filtersnode->hide();
+            }
         }
     }
-}    
-
-    
+}
