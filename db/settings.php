@@ -128,36 +128,6 @@ if ($hassiteconfig) {
                 get_string('setting_addcompetencynode', 'local_boostnavigation', null, true),
                 get_string('setting_addcompetencynode_desc', 'local_boostnavigation', null, true),
                 0));
-        // Create remove gradebook setup node control widget
-        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removegradebooksetupnode',
-                get_string('setting_removegradebooksetupnode', 'local_boostnavigation', null, true),
-                get_string('setting_removegradebooksetupnode_desc', 'local_boostnavigation', null, true),
-                0));
-        // Create remove outcomes node control widget
-        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removeoutcomesnode',
-                get_string('setting_removeoutcomesnode', 'local_boostnavigation', null, true),
-                get_string('setting_removeoutcomesnode_desc', 'local_boostnavigation', null, true),
-                0));
-        // Create remove import node control widget
-        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removeimportnode',
-                get_string('setting_removeimportnode', 'local_boostnavigation', null, true),
-                get_string('setting_removeimportnode_desc', 'local_boostnavigation', null, true),
-                0));
-        // Create remove publish node control widget
-        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removepublishnode',
-                get_string('setting_removepublishnode', 'local_boostnavigation', null, true),
-                get_string('setting_removepublishnode_desc', 'local_boostnavigation', null, true),
-                0));
-        // Create remove legacy course files node control widget
-        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removecoursefilesnode',
-                get_string('setting_removecoursefilesnode', 'local_boostnavigation', null, true),
-                get_string('setting_removecoursefilesnode_desc', 'local_boostnavigation', null, true),
-                0));
-        // Create remove filters node control widget
-        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removefiltersnode',
-                get_string('setting_removefiltersnode', 'local_boostnavigation', null, true),
-                get_string('setting_removefiltersnode_desc', 'local_boostnavigation', null, true),
-                0));
 
     }
 
