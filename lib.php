@@ -182,8 +182,8 @@ function local_boostnavigation_extend_navigation_course($navigation) {
     	}
     	//remove course files (legacy files from moodle 1.9)
     	if (isset($config->removecoursefilesnode) && $config->removecoursefilesnode == true) {
-    		if ($courselegacyfilesnode = $navigation->find('coursefiles',navigation_node::TYPE_SETTING)) {
-    		    $courselegacyfilesnode->hide();
+    		if ($coursefilesnode = $navigation->find('coursefiles',navigation_node::TYPE_SETTING)) {
+    		    $coursefilesnode->hide();
     		}
     	}
     	//remove filters
