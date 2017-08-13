@@ -186,8 +186,14 @@ function local_boostnavigation_extend_navigation_course($navigation) {
         }
         // Remove filters.
         if (isset($config->removefiltersnode) && $config->removefiltersnode == true) {
-            if ($filtersnode = $navigation->find(4, navigation_node::TYPE_SETTING)) {
-                $filtersnode->hide();
+            $filterstext = get_string('managefilters');
+            for ($i = 3; $i <= 6; $i++) {
+                if ($filtersnode = $navigation->find($i, navigation_node::TYPE_SETTING)) {
+                    if ($filtersnode->text == $filterstext) {
+                        $filtersnode->hide();
+                        break;
+                    }
+                }
             }
         }
     }
