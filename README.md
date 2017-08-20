@@ -41,6 +41,8 @@ There, you find only one section:
 
 Enabling any of these settings will remove them from Boost's nav drawer. Technically, this is done by setting the node's showinflatnavigation attribute to false. Thus, the node will only be hidden from the nav drawer, but it will remain in the navigation tree and can still be accessed by other parts of Moodle.
 
+You can also remove nodes from the course navigation menu (Filters, Import, Publish, ...).
+
 
 How this plugin works
 ---------------------
