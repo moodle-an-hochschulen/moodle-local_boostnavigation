@@ -30,7 +30,7 @@ See http://docs.moodle.org/en/Installing_plugins for details on installing Moodl
 Usage & Settings
 ----------------
 
-After installing local_boostnavigation, the plugin does not do anything to Moodle yet.
+After installing the plugin, it does not do anything to Moodle yet.
 
 To configure the plugin and its behaviour, please visit:
 Site administration -> Appearance -> Boost navdrawer fumbling.
