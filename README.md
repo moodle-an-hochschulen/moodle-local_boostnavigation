@@ -35,11 +35,19 @@ After installing the plugin, it does not do anything to Moodle yet.
 To configure the plugin and its behaviour, please visit:
 Site administration -> Appearance -> Boost navdrawer fumbling.
 
-There, you find only one section:
+There, you find two sections:
 
 ### 1. Remove nodes from Boost's nav drawer
 
 Enabling any of these settings will remove them from Boost's nav drawer. Technically, this is done by setting the node's showinflatnavigation attribute to false. Thus, the node will only be hidden from the nav drawer, but it will remain in the navigation tree and can still be accessed by other parts of Moodle.
+
+### 2. Collapse nodes in Boost's nav drawer
+
+#### Collapse "My Courses" node
+
+Enabling this setting will let users collapse the "My courses" node. Technically, this is done by adding some JavaScript and CSS code to the page which will show or hide the second-level nodes as soon as the user clicks on the node. The collapse status of the node will be stored in each user's session. Thus, the nodes will only be hidden from the nav drawer at runtime, but they will remain in the navigation tree and can still be accessed by other parts of Moodle.
+
+Please note that this feature is only working with Boost installations which have the patch from MDL-59425 (https://tracker.moodle.org/browse/MDL-59425) integrated. This patch will be part of Moodle 3.4, but can be easily backported to your local version of theme_boost if you are able and willing to add a small core hack, in this case you will find the patch on https://github.com/moodle/moodle/commit/d7d2a72faf0cc760f0f0d80402505176f9cbb8bc. The patch is also part of Ulm University's Boost child theme which you can get on https://github.com/moodleuulm/moodle-theme_boost_campus.
 
 
 How this plugin works

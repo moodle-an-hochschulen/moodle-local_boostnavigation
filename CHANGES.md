@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2017-08-16 - Setting to be able to collapse nav drawer node "My courses".
+
 ### v3.2-r11
 
 * 2017-06-30 - Improve search for privatefiles node after MDL-58165 was integrated into Moodle core 3.2 and 3.3

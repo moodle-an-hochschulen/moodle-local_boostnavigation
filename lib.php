@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  * @param global_navigation $navigation
  */
 function local_boostnavigation_extend_navigation(global_navigation $navigation) {
-    global $CFG;
+    global $CFG, $PAGE;
 
     // Fetch config.
     $config = get_config('local_boostnavigation');
@@ -83,15 +83,27 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         }
     }
 
+    // Next, we will need the mycourses node in any case and don't want to fetch it more than once.
+    $mycoursesnode = $navigation->find('mycourses', global_navigation::TYPE_ROOTNODE);
+
+    // Check if admin wanted us to remove the mycourses node from Boost's nav drawer.
+    // Or if admin wanted us to collapse the mycourses node.
+    // If one of these two settings is activated, we will need the mycourses node's children and don't want to fetch them more
+    // than once.
+    if (isset($config->removemycoursesnode) && $config->removemycoursesnode == true ||
+        isset($config->collapsenodemycourses) && $config->collapsenodemycourses == true) {
+        // Get the mycourses node children.
+        $mycourseschildrennodeskeys = $mycoursesnode->get_children_key_list();
+    }
+
     // Check if admin wanted us to remove the mycourses node from Boost's nav drawer.
     if (isset($config->removemycoursesnode) && $config->removemycoursesnode == true) {
         // If yes, do it.
-        if ($mycoursesnode = $navigation->find('mycourses', global_navigation::TYPE_ROOTNODE)) {
+        if ($mycoursesnode) {
             // Hide mycourses node.
             $mycoursesnode->showinflatnavigation = false;
 
             // Hide all courses below the mycourses node.
-            $mycourseschildrennodeskeys = $mycoursesnode->get_children_key_list();
             foreach ($mycourseschildrennodeskeys as $k) {
                 // If the admin decided to display categories, things get slightly complicated.
                 if ($CFG->navshowmycoursecategories) {
@@ -103,12 +115,60 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                     foreach ($allchildrennodes as $cn) {
                         $mycoursesnode->find($cn, null)->showinflatnavigation = false;
                     }
-
                     // Otherwise we have a flat navigation tree and hiding the courses is easy.
                 } else {
                     $mycoursesnode->get($k)->showinflatnavigation = false;
                 }
             }
+        }
+    }
+
+    // Check if admin wanted us to collapse the mycourses node.
+    // We won't support the setting navshowmycoursecategories in this feature as this would have complicated the feature's
+    // JavaScript code quite heavily.
+    if (isset($config->collapsemycoursesnode) && $config->collapsemycoursesnode == true
+            && $CFG->navshowmycoursecategories == false) {
+        // If yes, do it.
+        if ($mycoursesnode) {
+            // Remember the collapsible node for JavaScript.
+            $collapsenodesforjs[] = 'mycourses';
+            // Change the isexpandable attribute for the mycourses node to true (it's the default in Moodle core, just to be safe).
+            $mycoursesnode->isexpandable = true;
+            // Get the user preference for the collapse state of the mycourses node and set the collapse and hidden node attributes
+            // accordingly.
+            // Note: We are somehow abusing the hidden node attribute here for our own purposes. In Boost core, it is set to true
+            // for invisible courses, but these are currently displayed just as visible courses in the nav drawer,
+            // so we accept this abuse.
+            $userprefmycoursesnode = get_user_preferences('local_boostnavigation-collapse_mycoursesnode', 0);
+            if ($userprefmycoursesnode == 1) {
+                $mycoursesnode->collapse = true;
+                foreach ($mycourseschildrennodeskeys as $k) {
+                    $mycoursesnode->get($k)->hidden = true;
+                }
+            } else {
+                $mycoursesnode->collapse = false;
+                foreach ($mycourseschildrennodeskeys as $k) {
+                    $mycoursesnode->get($k)->hidden = false;
+                }
+            }
+        }
+        // If the node shouldn't be collapsed, set some node attributes to avoid side effects with the CSS styles
+        // which ship with this plugin.
+    } else {
+        // If yes, do it.
+        if ($mycoursesnode) {
+            // Change the isexpandable attribute for the mycourses node to false.
+            $mycoursesnode->isexpandable = false;
+        }
+    }
+
+    // If at least one setting to collapse a node is enabled.
+    if (!empty($collapsenodesforjs)) {
+        // Add JavaScript for collapsing nodes to the page.
+        $PAGE->requires->js_call_amd('local_boostnavigation/collapsenavdrawernodes', 'init', [$collapsenodesforjs]);
+        // Allow updating the necessary user preferences via Ajax.
+        foreach ($collapsenodesforjs as $node) {
+            user_preference_allow_ajax_update('local_boostnavigation-collapse_'.$node.'node', PARAM_BOOL);
         }
     }
 }
