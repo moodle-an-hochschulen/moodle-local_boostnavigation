@@ -1,32 +1,56 @@
 /* Collapse nodes feature.
-   This feature is currently only possible for the mycourses and the coursesections node which is directly supported by this plugin.
+   This feature is currently only possible for the mycourses, the coursesections and the activities node which are directly
+   supported by this plugin.
    In the 3.3 version of this plugin, this will be done in a more general and lighter way. */
 /* Show all second-level nav drawer items which have the attribute not hidden. */
 .list-group-item[data-key="mycourses"][data-isexpandable="1"] ~ .list-group-item[data-indent="1"][data-hidden="0"],
-.list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"] ~ .list-group-item[data-indent="0"][data-hidden="0"] {
-    display: inherit;
+/* stylelint-disable-next-line max-line-length */
+.list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="localboostnavigationcoursesections"][data-indent="0"][data-hidden="0"],
+/* stylelint-disable-next-line max-line-length */
+.list-group-item[data-key="localboostnavigationactivities"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="localboostnavigationactivities"][data-indent="0"][data-hidden="0"] {
+    display: block;
 }
 /* Hide all second-level nav drawer items which have the attribute hidden. */
 .list-group-item[data-key="mycourses"][data-isexpandable="1"] ~ .list-group-item[data-indent="1"][data-hidden="1"],
-.list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"] ~ .list-group-item[data-indent="0"][data-hidden="1"] {
+/* stylelint-disable-next-line max-line-length */
+.list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="localboostnavigationcoursesections"][data-indent="0"][data-hidden="1"],
+/* stylelint-disable-next-line max-line-length */
+.list-group-item[data-key="localboostnavigationactivities"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="localboostnavigationactivities"][data-indent="0"][data-hidden="1"] {
     display: none;
 }
 /* Add the icon for the expanded node state. */
 .jsenabled .list-group-item[data-key="mycourses"][data-isexpandable="1"][data-collapse="0"] > div::after,
-.jsenabled .list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"][data-collapse="0"] > div::after {
+.jsenabled .list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"][data-collapse="0"] > div::after,
+.jsenabled .list-group-item[data-key="localboostnavigationactivities"][data-isexpandable="1"][data-collapse="0"] > div::after {
     content: url([[pix:i/dropdown]]);
     float: right;
     padding-left: 0.2rem;
 }
 /* Add the icon for the collapsed node state. */
 .jsenabled .list-group-item[data-key="mycourses"][data-isexpandable="1"][data-collapse="1"] > div::after,
-.jsenabled .list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"][data-collapse="1"] > div::after {
+.jsenabled .list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"][data-collapse="1"] > div::after,
+.jsenabled .list-group-item[data-key="localboostnavigationactivities"][data-isexpandable="1"][data-collapse="1"] > div::after {
     content: url([[pix:t/collapsed]]);
     float: right;
     padding-left: 0.2rem;
 }
 /* Set the cursor for the collapsible nodes. */
 .jsenabled .list-group-item[data-key="mycourses"][data-isexpandable="1"],
-.jsenabled .list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"] {
+.jsenabled .list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"],
+.jsenabled .list-group-item[data-key="localboostnavigationactivities"][data-isexpandable="1"] {
     cursor: pointer;
+}
+
+/* Insert nodes feature. */
+/* Add icons to activity nodes with CSS because this isn't possible with Navigation node API. */
+.list-group-item[data-key^="localboostnavigationactivity"] > div:before {
+    background: url([[pix:i/mnethost]]) no-repeat top left; /* There is no real icon for general activities, so I picked the nice
+                                                               MNet Host icon which no-one is really using anymore. */
+    content: "";
+    display: inline-block;
+    height: 16px;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding-right: 10px;
+    width: 16px;
 }

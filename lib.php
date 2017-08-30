@@ -162,18 +162,34 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     }
 
     // Check if admin wants us to insert the coursesections node in Boost's nav drawer.
+    // Or if admin wants us to insert the activities and / or resources node in Boost's nav drawer.
+    // If one of these three settings is activated, we will need the modinfo and the coursehome node and don't want
+    // to fetch these more than once.
+    if (isset($config->insertcoursesectionscoursenode) && $config->insertcoursesectionscoursenode == true ||
+            isset($config->insertactivitiescoursenode) && $config->insertactivitiescoursenode == true ||
+            isset($config->insertresourcescoursenode) && $config->insertresourcescoursenode == true) {
+        // Fetch modinfo.
+        $modinfo = get_fast_modinfo($COURSE->id);
+        // Fetch course home node.
+        $coursehomenode = $PAGE->navigation->find($COURSE->id, navigation_node::TYPE_COURSE);
+    }
+
+    // Check if admin wants us to insert the coursesections node in Boost's nav drawer.
     if (isset($config->insertcoursesectionscoursenode) && $config->insertcoursesectionscoursenode == true) {
         // Only proceed if we are inside a course.
         if ($COURSE->id > 1) {
             // Fetch first section id from course modinfo.
-            $modinfo = get_fast_modinfo($COURSE->id);
             $firstsection = $modinfo->get_section_info(0)->id;
 
             // Only proceed if the course has a first section id.
             if ($firstsection) {
                 // Create coursesections course node.
                 $coursesectionsnode = navigation_node::create(get_string('sections', 'moodle'),
-                        new moodle_url('/course/view.php', array('id' => $COURSE->id)),
+                        new moodle_url('/course/view.php', array('id' => $COURSE->id)), // We have to add a URL to the course node,
+                                                                                        // otherwise the node wouldn't be added to
+                                                                                        // the flat navigation by Boost.
+                                                                                        // There is no better choice than the course
+                                                                                        // home page.
                         global_navigation::TYPE_CUSTOM,
                         null,
                         'localboostnavigationcoursesections',
@@ -181,8 +197,6 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                 // Prevent that the coursesections course node is marked as active and added to the breadcrumb when showing the
                 // course home page.
                 $coursesectionsnode->make_inactive();
-                // Fetch course home node.
-                $coursehomenode = $PAGE->navigation->find($COURSE->id, navigation_node::TYPE_COURSE);
                  // Add the coursesection node before the first section.
                 $coursehomenode->add_node($coursesectionsnode, $firstsection);
 
@@ -212,7 +226,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                                 $node = $coursehomenode->get($k);
                                 $url = $node->action->out_as_local_url();
                                 $urlpath = parse_url($url, PHP_URL_PATH);
-                                if ($urlpath == '/course/view.php') {
+                                if ($urlpath == '/course/view.php' && $node->key != 'localboostnavigationcoursesections') {
                                     $node->set_parent($coursesectionsnode);
                                     $node->hidden = true;
                                 }
@@ -225,7 +239,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                                 $node = $coursehomenode->get($k);
                                 $url = $node->action->out_as_local_url();
                                 $urlpath = parse_url($url, PHP_URL_PATH);
-                                if ($urlpath == '/course/view.php') {
+                                if ($urlpath == '/course/view.php' && $node->key != 'localboostnavigationcoursesections') {
                                     $node->set_parent($coursesectionsnode);
                                     $node->hidden = false;
                                 }
@@ -239,6 +253,163 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                         // Change the isexpandable attribute for the coursesections node to false
                         // (it's the default in Moodle core, just to be safe).
                         $coursesectionsnode->isexpandable = false;
+                    }
+                }
+            }
+        }
+    }
+
+    // Check if admin wants us to insert the activities and / or resources node in Boost's nav drawer.
+    // If one of these two settings is activated, we will need the modfullnames from modinfo and don't want
+    // to fetch these more than once.
+    if (isset($config->insertactivitiescoursenode) && $config->insertactivitiescoursenode == true ||
+            isset($config->insertresourcescoursenode) && $config->insertresourcescoursenode == true) {
+        // Only proceed if we are inside a course.
+        if ($COURSE->id > 1) {
+            // Fetch list of activities (gracefully copied from /blocks/activity_modules/block_activity_modules.php).
+            $modfullnames = array();
+            $archetypes = array();
+            foreach ($modinfo->cms as $cm) {
+                // Exclude activities which are not visible or have no link (=label).
+                if (!$cm->uservisible or !$cm->has_view()) {
+                    continue;
+                }
+                if (array_key_exists($cm->modname, $modfullnames)) {
+                    continue;
+                }
+                if (!array_key_exists($cm->modname, $archetypes)) {
+                    $archetypes[$cm->modname] = plugin_supports('mod', $cm->modname, FEATURE_MOD_ARCHETYPE, MOD_ARCHETYPE_OTHER);
+                }
+                if ($archetypes[$cm->modname] == MOD_ARCHETYPE_RESOURCE) {
+                    if (!array_key_exists('resources', $modfullnames)) {
+                        $modfullnames['resources'] = get_string('resources');
+                    }
+                } else {
+                    $modfullnames[$cm->modname] = $cm->modplural;
+                }
+            }
+            core_collator::asort($modfullnames);
+        }
+    }
+
+    // Check if admin wants us to insert the resources node in Boost's nav drawer.
+    if (isset($config->insertresourcescoursenode) && $config->insertresourcescoursenode == true) {
+        // Only proceed if we are inside a course.
+        if ($COURSE->id > 1) {
+            // Only proceed if the course has at least one resource activity.
+            if (array_key_exists('resources', $modfullnames)) {
+                // Create resources course node.
+                $resourcesnode = navigation_node::create(get_string('resources'),
+                        new moodle_url('/course/resources.php', array('id' => $COURSE->id)),
+                        global_navigation::TYPE_ACTIVITY,
+                        null,
+                        'localboostnavigationresources',
+                        new pix_icon('icon', '', 'mod_page')); // Boost ignores a navigation node's icon currently,
+                                                               // but we set it for future-proofness.
+                // Add the activities node to the end of the course navigation.
+                $coursehomenode->add_node($resourcesnode);
+
+                // Remove the resources element from the modfullnames array to avoid that courses which only have resources get
+                // an empty activities node.
+                unset ($modfullnames['resources']);
+            }
+        }
+    }
+
+    // Check if admin wants us to insert the activities node in Boost's nav drawer.
+    if (isset($config->insertactivitiescoursenode) && $config->insertactivitiescoursenode == true) {
+        // Only proceed if we are inside a course.
+        if ($COURSE->id > 1) {
+            // Only proceed if the course has at least one activity.
+            if (!empty($modfullnames)) {
+                // Create activities course node.
+                $activitiesnode = navigation_node::create(get_string('activities', 'moodle'),
+                        new moodle_url('/course/view.php', array('id' => $COURSE->id)), // We have to add a URL to the course node,
+                                                                                        // otherwise the node wouldn't be added to
+                                                                                        // the flat navigation by Boost.
+                                                                                        // There is no better choice than the course
+                                                                                        // home page.
+                        global_navigation::TYPE_CUSTOM,
+                        null,
+                        'localboostnavigationactivities',
+                        null);
+                // Prevent that the activities course node is marked as active and added to the breadcrumb when showing the
+                // course home page.
+                $activitiesnode->make_inactive();
+                 // Add the activities node to the end of the course navigation.
+                $coursehomenode->add_node($activitiesnode);
+
+                // Create an activity course node for each activity type.
+                foreach ($modfullnames as $modname => $modfullname) {
+                    // Process "Resources" activity type.
+                    if ($modname === 'resources') {
+                        // Do only if the admin does not want a dedicated resources node.
+                        if ($config->insertresourcescoursenode == false) {
+                            $activitynode = navigation_node::create($modfullname,
+                                    new moodle_url('/course/resources.php', array('id' => $COURSE->id)),
+                                    global_navigation::TYPE_ACTIVITY,
+                                    null,
+                                    'localboostnavigationactivity'.$modname,
+                                    new pix_icon('icon', '', 'mod_page')); // Boost ignores a navigation node's icon currently,
+                                                                           // but we set it for future-proofness.
+                            // Add the activity course node to the coursehome node.
+                            $coursehomenode->add_node($activitynode);
+                            // Remember the activity course node's key for collapsing it later.
+                            $activitiesnodechildrennodeskeys[] = $activitynode->key;
+                        }
+
+                        // Process all other activity types.
+                    } else {
+                        $activitynode = navigation_node::create($modfullname,
+                                new moodle_url('/mod/'.$modname.'/index.php', array('id' => $COURSE->id)),
+                                global_navigation::TYPE_ACTIVITY,
+                                null,
+                                'localboostnavigationactivity'.$modname,
+                                new pix_icon('icon', '', $modname)); // Boost ignores a navigation node's icon currently,
+                                                                     // but we set it for future-proofness.
+                        // Add the activity course node to the coursehome node.
+                        $coursehomenode->add_node($activitynode);
+                        // Remember the activity course node's key for collapsing it later.
+                        $activitiesnodechildrennodeskeys[] = $activitynode->key;
+                    }
+                }
+
+                // Check if admin wanted us to also collapse the activities node.
+                if ($config->collapseactivitiescoursenode == true) {
+                    // If yes, do it.
+                    if ($activitiesnode) {
+                        // Remember the collapsible node for JavaScript.
+                        $collapsenodesforjs[] = 'localboostnavigationactivities';
+                        // Change the isexpandable attribute for the activities node to true.
+                        $activitiesnode->isexpandable = true;
+                        // Get the user preference for the collapse state of the activities node and set the collapse and hidden
+                        // node attributes of the activity nodes accordingly. At the same time, reallocate the parent of the
+                        // existing section nodes.
+                        $userprefactivitiesnode = get_user_preferences('local_boostnavigation-collapse_'.
+                                'localboostnavigationactivitiesnode', 1);
+                        if ($userprefactivitiesnode == 1) {
+                            $activitiesnode->collapse = true;
+                            foreach ($activitiesnodechildrennodeskeys as $k) {
+                                $node = $coursehomenode->get($k);
+                                $node->set_parent($activitiesnode);
+                                $node->hidden = true;
+                            }
+                        } else {
+                            $activitiesnode->collapse = false;
+                            foreach ($activitiesnodechildrennodeskeys as $k) {
+                                $node = $coursehomenode->get($k);
+                                $node->set_parent($activitiesnode);
+                                $node->hidden = false;
+                            }
+                        }
+                    }
+                    // If the node shouldn't be collapsed, set some node attributes to avoid side effects with the CSS styles
+                    // which ship with this plugin.
+                } else {
+                    if ($activitiesnode) {
+                        // Change the isexpandable attribute for the activities node to false
+                        // (it's the default in Moodle core, just to be safe).
+                        $activitiesnode->isexpandable = false;
                     }
                 }
             }
