@@ -25,7 +25,10 @@ define(['jquery'], function($) {
     "use strict";
 
     function toggleClickHandler(node, nodename) {
-        node.click(function() {
+        node.click(function(e) {
+            // Prevent that the browser opens the node's default action link (if existing).
+            e.preventDefault();
+
             // If the parent node is currently expanded.
             if (node.attr('data-collapse') == 0) {
                 // Set the hidden attribute to true for all elements which have the nodename as their data-parent-key attribute.

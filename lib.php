@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  * @param global_navigation $navigation
  */
 function local_boostnavigation_extend_navigation(global_navigation $navigation) {
-    global $CFG, $PAGE;
+    global $CFG, $PAGE, $COURSE;
 
     // Fetch config.
     $config = get_config('local_boostnavigation');
@@ -134,11 +134,11 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             $collapsenodesforjs[] = 'mycourses';
             // Change the isexpandable attribute for the mycourses node to true (it's the default in Moodle core, just to be safe).
             $mycoursesnode->isexpandable = true;
-            // Get the user preference for the collapse state of the mycourses node and set the collapse and hidden node attributes
-            // accordingly.
-            // Note: We are somehow abusing the hidden node attribute here for our own purposes. In Boost core, it is set to true
-            // for invisible courses, but these are currently displayed just as visible courses in the nav drawer,
-            // so we accept this abuse.
+            // Get the user preference for the collapse state of the mycourses node and set the collapse and hidden
+            // node of the course nodes attributes accordingly.
+            // Note: We are somehow abusing the hidden node attribute here for our own purposes. In Boost core, it is
+            // set to true for invisible courses, but these are currently displayed just as visible courses in the
+            // nav drawer, so we accept this abuse.
             $userprefmycoursesnode = get_user_preferences('local_boostnavigation-collapse_mycoursesnode', 0);
             if ($userprefmycoursesnode == 1) {
                 $mycoursesnode->collapse = true;
@@ -155,10 +155,93 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // If the node shouldn't be collapsed, set some node attributes to avoid side effects with the CSS styles
         // which ship with this plugin.
     } else {
-        // If yes, do it.
         if ($mycoursesnode) {
             // Change the isexpandable attribute for the mycourses node to false.
             $mycoursesnode->isexpandable = false;
+        }
+    }
+
+    // Check if admin wants us to insert the coursesections node in Boost's nav drawer.
+    if (isset($config->insertcoursesectionscoursenode) && $config->insertcoursesectionscoursenode == true) {
+        // Only proceed if we are inside a course.
+        if ($COURSE->id > 1) {
+            // Fetch first section id from course modinfo.
+            $modinfo = get_fast_modinfo($COURSE->id);
+            $firstsection = $modinfo->get_section_info(0)->id;
+
+            // Only proceed if the course has a first section id.
+            if ($firstsection) {
+                // Create coursesections course node.
+                $coursesectionsnode = navigation_node::create(get_string('sections', 'moodle'),
+                        new moodle_url('/course/view.php', array('id' => $COURSE->id)),
+                        global_navigation::TYPE_CUSTOM,
+                        null,
+                        'localboostnavigationcoursesections',
+                        null);
+                // Prevent that the coursesections course node is marked as active and added to the breadcrumb when showing the
+                // course home page.
+                $coursesectionsnode->make_inactive();
+                // Fetch course home node.
+                $coursehomenode = $PAGE->navigation->find($COURSE->id, navigation_node::TYPE_COURSE);
+                 // Add the coursesection node before the first section.
+                $coursehomenode->add_node($coursesectionsnode, $firstsection);
+
+                // Check if admin wanted us to also collapse the coursesections node.
+                if ($config->collapsecoursesectionscoursenode == true) {
+                    // If yes, do it.
+                    if ($coursesectionsnode) {
+                        // Remember the collapsible node for JavaScript.
+                        $collapsenodesforjs[] = 'localboostnavigationcoursesections';
+                        // Get the children nodes for the coursehome node.
+                        $coursehomenodechildrennodeskeys = $coursehomenode->get_children_key_list();
+                        // Change the isexpandable attribute for the coursesections node to true.
+                        $coursesectionsnode->isexpandable = true;
+                        // Get the user preference for the collapse state of the coursesections node and set the collapse and hidden
+                        // node attributes of the existing section nodes accordingly. At the same time, reallocate the parent of the
+                        // existing section nodes.
+                        // Note: We are somehow abusing the hidden node attribute here for our own purposes. In Boost core, it is
+                        // set to true for invisible sections, but these are currently displayed just as visible sections in the
+                        // nav drawer, so we accept this abuse.
+                        $userprefcoursesectionsnode = get_user_preferences('local_boostnavigation-collapse_'.
+                                'localboostnavigationcoursesectionsnode', 0);
+                        if ($userprefcoursesectionsnode == 1) {
+                            $coursesectionsnode->collapse = true;
+                            foreach ($coursehomenodechildrennodeskeys as $k) {
+                                // As $coursehomenodechildrennodeskeys also contains some other nodes, we have to check the node's
+                                // action URL to see of we have a section node.
+                                $node = $coursehomenode->get($k);
+                                $url = $node->action->out_as_local_url();
+                                $urlpath = parse_url($url, PHP_URL_PATH);
+                                if ($urlpath == '/course/view.php') {
+                                    $node->set_parent($coursesectionsnode);
+                                    $node->hidden = true;
+                                }
+                            }
+                        } else {
+                            $coursesectionsnode->collapse = false;
+                            foreach ($coursehomenodechildrennodeskeys as $k) {
+                                // As $coursehomenodechildrennodeskeys also contains some other nodes, we have to check the node's
+                                // action URL to see of we have a section node.
+                                $node = $coursehomenode->get($k);
+                                $url = $node->action->out_as_local_url();
+                                $urlpath = parse_url($url, PHP_URL_PATH);
+                                if ($urlpath == '/course/view.php') {
+                                    $node->set_parent($coursesectionsnode);
+                                    $node->hidden = false;
+                                }
+                            }
+                        }
+                    }
+                    // If the node shouldn't be collapsed, set some node attributes to avoid side effects with the CSS styles
+                    // which ship with this plugin.
+                } else {
+                    if ($coursesectionsnode) {
+                        // Change the isexpandable attribute for the coursesections node to false
+                        // (it's the default in Moodle core, just to be safe).
+                        $coursesectionsnode->isexpandable = false;
+                    }
+                }
+            }
         }
     }
 

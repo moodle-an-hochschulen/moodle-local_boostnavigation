@@ -127,6 +127,30 @@ if ($hassiteconfig) {
                         get_string('setting_collapsemycoursesnodeperformancehint', 'local_boostnavigation', null, true).'<br />'.
                         '<strong>'.get_string('setting_collapsenodestemplatehint', 'local_boostnavigation', null, true).'</strong>',
                 0));
+
+        // Add insert course nodes heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/insertcoursenodesheading',
+                get_string('setting_insertcoursenodesheading', 'local_boostnavigation', null, true),
+                ''));
+
+        // Create insert course sections course node widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/insertcoursesectionscoursenode',
+                get_string('setting_insertcoursesectionscoursenode', 'local_boostnavigation', null, true),
+                get_string('setting_insertcoursesectionscoursenode_desc', 'local_boostnavigation', null, true),
+                0));
+
+        // Add collapse course nodes heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/collapsecoursenodesheading',
+                get_string('setting_collapsecoursenodesheading', 'local_boostnavigation', null, true),
+                ''));
+
+        // Create course sections course node collapse widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecoursesectionscoursenode',
+                get_string('setting_collapsecoursesectionscoursenode', 'local_boostnavigation', null, true),
+                get_string('setting_collapsecoursesectionscoursenode_desc', 'local_boostnavigation', null, true).'<br />'.
+                        get_string('setting_collapsenodestechnicalhint', 'local_boostnavigation', null, true).'<br />'.
+                        '<strong>'.get_string('setting_collapsenodestemplatehint', 'local_boostnavigation', null, true).'</strong>',
+                0));
     }
 
     // Add settings page to the appearance settings category.

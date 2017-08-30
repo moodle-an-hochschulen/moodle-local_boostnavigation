@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2017-08-30 - Setting to insert a "Sections" course node.
 * 2017-08-16 - Setting to be able to collapse nav drawer node "My courses".
 
 ### v3.2-r11

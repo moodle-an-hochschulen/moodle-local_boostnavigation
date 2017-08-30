@@ -87,4 +87,3 @@ function local_boostnavigation_get_all_childrenkeys(navigation_node $navigationn
         return $allchildren;
     }
 }
-
