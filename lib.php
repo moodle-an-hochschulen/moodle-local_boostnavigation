@@ -91,7 +91,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     // If one of these two settings is activated, we will need the mycourses node's children and don't want to fetch them more
     // than once.
     if (isset($config->removemycoursesnode) && $config->removemycoursesnode == true ||
-        isset($config->collapsenodemycourses) && $config->collapsenodemycourses == true) {
+        isset($config->collapsemycoursesnode) && $config->collapsemycoursesnode == true) {
         // Get the mycourses node children.
         $mycourseschildrennodeskeys = $mycoursesnode->get_children_key_list();
     }
