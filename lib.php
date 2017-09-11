@@ -36,7 +36,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     $config = get_config('local_boostnavigation');
 
     // Include local library.
-    require_once(dirname(__FILE__) . '/locallib.php');
+    require_once(__DIR__ . '/locallib.php');
 
     // Check if admin wanted us to remove the myhome node from Boost's nav drawer.
     // We have to check explicitely if the configurations are set because this function will already be
