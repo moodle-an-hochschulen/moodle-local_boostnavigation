@@ -128,6 +128,12 @@ if ($hassiteconfig) {
                         '<strong>'.get_string('setting_collapsenodestemplatehint', 'local_boostnavigation', null, true).'</strong>',
                 0));
 
+        // Create my courses node collapse default widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsemycoursesnodedefault',
+                get_string('setting_collapsemycoursesnodedefault', 'local_boostnavigation', null, true),
+                get_string('setting_collapsemycoursesnodedefault_desc', 'local_boostnavigation', null, true),
+                0));
+
         // Add insert course nodes heading.
         $page->add(new admin_setting_heading('local_boostnavigation/insertcoursenodesheading',
                 get_string('setting_insertcoursenodesheading', 'local_boostnavigation', null, true),
@@ -166,6 +172,12 @@ if ($hassiteconfig) {
                         '<strong>'.get_string('setting_collapsenodestemplatehint', 'local_boostnavigation', null, true).'</strong>',
                 0));
 
+        // Create course sections course node collapse default widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecoursesectionscoursenodedefault',
+                get_string('setting_collapsecoursesectionscoursenodedefault', 'local_boostnavigation', null, true),
+                get_string('setting_collapsecoursesectionscoursenodedefault_desc', 'local_boostnavigation', null, true),
+                0));
+
         // Create activities course node collapse widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapseactivitiescoursenode',
                 get_string('setting_collapseactivitiescoursenode', 'local_boostnavigation', null, true),
@@ -173,6 +185,12 @@ if ($hassiteconfig) {
                         get_string('setting_collapsenodestechnicalhint', 'local_boostnavigation', null, true).'<br />'.
                         '<strong>'.get_string('setting_collapsenodestemplatehint', 'local_boostnavigation', null, true).'</strong>',
                 0));
+
+        // Create activities course node collapse default widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapseactivitiescoursenodedefault',
+                get_string('setting_collapseactivitiescoursenodedefault', 'local_boostnavigation', null, true),
+                get_string('setting_collapseactivitiescoursenodedefault_desc', 'local_boostnavigation', null, true),
+                1));
     }
 
     // Add settings page to the appearance settings category.

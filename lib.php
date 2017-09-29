@@ -139,7 +139,8 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             // Note: We are somehow abusing the hidden node attribute here for our own purposes. In Boost core, it is
             // set to true for invisible courses, but these are currently displayed just as visible courses in the
             // nav drawer, so we accept this abuse.
-            $userprefmycoursesnode = get_user_preferences('local_boostnavigation-collapse_mycoursesnode', 0);
+            $userprefmycoursesnode = get_user_preferences('local_boostnavigation-collapse_mycoursesnode',
+                    $config->collapsemycoursesnodedefault);
             if ($userprefmycoursesnode == 1) {
                 $mycoursesnode->collapse = true;
                 foreach ($mycourseschildrennodeskeys as $k) {
@@ -217,7 +218,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                         // set to true for invisible sections, but these are currently displayed just as visible sections in the
                         // nav drawer, so we accept this abuse.
                         $userprefcoursesectionsnode = get_user_preferences('local_boostnavigation-collapse_'.
-                                'localboostnavigationcoursesectionsnode', 0);
+                                'localboostnavigationcoursesectionsnode', $config->collapsecoursesectionscoursenodedefault);
                         if ($userprefcoursesectionsnode == 1) {
                             $coursesectionsnode->collapse = true;
                             foreach ($coursehomenodechildrennodeskeys as $k) {
@@ -386,7 +387,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                         // node attributes of the activity nodes accordingly. At the same time, reallocate the parent of the
                         // existing section nodes.
                         $userprefactivitiesnode = get_user_preferences('local_boostnavigation-collapse_'.
-                                'localboostnavigationactivitiesnode', 1);
+                                'localboostnavigationactivitiesnode', $config->collapseactivitiescoursenodedefault);
                         if ($userprefactivitiesnode == 1) {
                             $activitiesnode->collapse = true;
                             foreach ($activitiesnodechildrennodeskeys as $k) {
