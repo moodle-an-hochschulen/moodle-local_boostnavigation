@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2017-09-29 - Bugfix: Inserting the "Sections" course node was broken after MDL-57412 was integrated into Moodle core.
+
 ### v3.2-r12
 
 * 2017-09-29 - Add admin setting for collapse default states.

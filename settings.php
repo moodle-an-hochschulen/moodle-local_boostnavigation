@@ -143,6 +143,7 @@ if ($hassiteconfig) {
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/insertcoursesectionscoursenode',
                 get_string('setting_insertcoursesectionscoursenode', 'local_boostnavigation', null, true),
                 get_string('setting_insertcoursesectionscoursenode_desc', 'local_boostnavigation', null, true).'<br />'.
+                get_string('setting_insertcoursesectionscoursenodecorehint', 'local_boostnavigation', null, true).'<br />'.
                         get_string('setting_insertnodescollapsehint', 'local_boostnavigation', null, true),
                 0));
 

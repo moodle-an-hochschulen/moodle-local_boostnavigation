@@ -176,7 +176,10 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     }
 
     // Check if admin wants us to insert the coursesections node in Boost's nav drawer.
-    if (isset($config->insertcoursesectionscoursenode) && $config->insertcoursesectionscoursenode == true) {
+    // We won't support adding the coursesections node if $CFG->linkcoursesections is not enabled as we couldn't fully rely
+    // on the section nodes being present in Boost's nav drawer.
+    if (isset($config->insertcoursesectionscoursenode) && $config->insertcoursesectionscoursenode == true &&
+           $CFG->linkcoursesections == true) {
         // Only proceed if we are inside a course.
         if ($COURSE->id > 1) {
             // Fetch first section id from course modinfo.
