@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.2-r12
 
 * 2017-09-29 - Add admin setting for collapse default states.
 * 2017-08-30 - Setting to insert an "Activities" and "Resources" course node.
