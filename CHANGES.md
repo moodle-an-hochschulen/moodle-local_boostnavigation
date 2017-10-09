@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2017-10-09 - Bugfix: Inserting course nodes failed on pages which are not really inside a course but have a course id.
+
 ### v3.2-r13
 
 * 2017-09-29 - Bugfix: Inserting the "Sections" course node was broken after MDL-57412 was integrated into Moodle core.

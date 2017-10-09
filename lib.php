@@ -181,7 +181,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     if (isset($config->insertcoursesectionscoursenode) && $config->insertcoursesectionscoursenode == true &&
            $CFG->linkcoursesections == true) {
         // Only proceed if we are inside a course.
-        if ($COURSE->id > 1) {
+        if ($PAGE->context->get_course_context(false) == true) {
             // Fetch first section id from course modinfo.
             $firstsection = $modinfo->get_section_info(0)->id;
 
@@ -269,7 +269,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     if (isset($config->insertactivitiescoursenode) && $config->insertactivitiescoursenode == true ||
             isset($config->insertresourcescoursenode) && $config->insertresourcescoursenode == true) {
         // Only proceed if we are inside a course.
-        if ($COURSE->id > 1) {
+        if ($PAGE->context->get_course_context(false) == true) {
             // Fetch list of activities (gracefully copied from /blocks/activity_modules/block_activity_modules.php).
             $modfullnames = array();
             $archetypes = array();
@@ -299,7 +299,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     // Check if admin wants us to insert the resources node in Boost's nav drawer.
     if (isset($config->insertresourcescoursenode) && $config->insertresourcescoursenode == true) {
         // Only proceed if we are inside a course.
-        if ($COURSE->id > 1) {
+        if ($PAGE->context->get_course_context(false) == true) {
             // Only proceed if the course has at least one resource activity.
             if (array_key_exists('resources', $modfullnames)) {
                 // Create resources course node.
@@ -323,7 +323,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     // Check if admin wants us to insert the activities node in Boost's nav drawer.
     if (isset($config->insertactivitiescoursenode) && $config->insertactivitiescoursenode == true) {
         // Only proceed if we are inside a course.
-        if ($COURSE->id > 1) {
+        if ($PAGE->context->get_course_context(false) == true) {
             // Only proceed if the course has at least one activity.
             if (!empty($modfullnames)) {
                 // Create activities course node.
