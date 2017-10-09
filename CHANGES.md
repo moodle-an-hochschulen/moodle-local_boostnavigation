@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.2-r14
 
 * 2017-10-09 - Bugfix: Inserting course nodes failed on pages which are not really inside a course but have a course id.
 
