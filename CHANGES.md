@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2017-10-09 - Bugfix: Collapsing the "Sections" course node resulted in a fatal error for some non-teacher users.
+
 ### v3.2-r14
 
 * 2017-10-09 - Bugfix: Inserting course nodes failed on pages which are not really inside a course but have a course id.

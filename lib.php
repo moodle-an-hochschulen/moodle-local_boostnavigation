@@ -226,26 +226,32 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                             $coursesectionsnode->collapse = true;
                             foreach ($coursehomenodechildrennodeskeys as $k) {
                                 // As $coursehomenodechildrennodeskeys also contains some other nodes, we have to check the node's
-                                // action URL to see of we have a section node.
+                                // action URL to see if we have a section node.
                                 $node = $coursehomenode->get($k);
-                                $url = $node->action->out_as_local_url();
-                                $urlpath = parse_url($url, PHP_URL_PATH);
-                                if ($urlpath == '/course/view.php' && $node->key != 'localboostnavigationcoursesections') {
-                                    $node->set_parent($coursesectionsnode);
-                                    $node->hidden = true;
+                                // If a node does not have an action URL, just skip it.
+                                if ($node->action) {
+                                    $url = $node->action->out_as_local_url();
+                                    $urlpath = parse_url($url, PHP_URL_PATH);
+                                    if ($urlpath == '/course/view.php' && $node->key != 'localboostnavigationcoursesections') {
+                                        $node->set_parent($coursesectionsnode);
+                                        $node->hidden = true;
+                                    }
                                 }
                             }
                         } else {
                             $coursesectionsnode->collapse = false;
                             foreach ($coursehomenodechildrennodeskeys as $k) {
                                 // As $coursehomenodechildrennodeskeys also contains some other nodes, we have to check the node's
-                                // action URL to see of we have a section node.
+                                // action URL to see if we have a section node.
                                 $node = $coursehomenode->get($k);
-                                $url = $node->action->out_as_local_url();
-                                $urlpath = parse_url($url, PHP_URL_PATH);
-                                if ($urlpath == '/course/view.php' && $node->key != 'localboostnavigationcoursesections') {
-                                    $node->set_parent($coursesectionsnode);
-                                    $node->hidden = false;
+                                // If a node does not have an action URL, just skip it.
+                                if ($node->action) {
+                                    $url = $node->action->out_as_local_url();
+                                    $urlpath = parse_url($url, PHP_URL_PATH);
+                                    if ($urlpath == '/course/view.php' && $node->key != 'localboostnavigationcoursesections') {
+                                        $node->set_parent($coursesectionsnode);
+                                        $node->hidden = false;
+                                    }
                                 }
                             }
                         }
