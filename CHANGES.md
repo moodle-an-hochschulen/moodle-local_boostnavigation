@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2017-11-08 - Updated travis.yml to use newer node version for fixing TravisCI error.
+
 ### v3.2-r15
 
 * 2017-10-09 - Bugfix: Collapsing the "Sections" course node resulted in a fatal error for some non-teacher users.
