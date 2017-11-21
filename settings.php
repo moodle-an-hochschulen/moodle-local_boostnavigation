@@ -140,16 +140,16 @@ if ($hassiteconfig) {
                                              ''));
 
         // Create remove badges course node control widget.
-        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removebadgesnode',
-                get_string('setting_removebadgesnode', 'local_boostnavigation', null, true),
-                get_string('setting_removebadgesnode_desc', 'local_boostnavigation', null, true).'<br />'.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removebadgescoursenode',
+                get_string('setting_removebadgescoursenode', 'local_boostnavigation', null, true),
+                get_string('setting_removebadgescoursenode_desc', 'local_boostnavigation', null, true).'<br />'.
                 get_string('setting_removecoursenodestechnicalhint', 'local_boostnavigation', null, true),
                 0));
 
         // Create remove competencies course node control widget.
-        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removecompetenciesnode',
-                get_string('setting_removecompetenciesnode', 'local_boostnavigation', null, true),
-                get_string('setting_removecompetenciesnode_desc', 'local_boostnavigation', null, true).'<br />'.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removecompetenciescoursenode',
+                get_string('setting_removecompetenciescoursenode', 'local_boostnavigation', null, true),
+                get_string('setting_removecompetenciescoursenode_desc', 'local_boostnavigation', null, true).'<br />'.
                 get_string('setting_removecoursenodestechnicalhint', 'local_boostnavigation', null, true),
                 0));
 

@@ -164,7 +164,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
 
     // Check if admin wanted us to remove the badges node from Boost's nav drawer
     // (only if there are no badges in course).
-    if ($CFG->enablebadges == true && isset($config->removebadgesnode) && $config->removebadgesnode == true) {
+    if ($CFG->enablebadges == true && isset($config->removebadgescoursenode) && $config->removebadgescoursenode == true) {
         // Only proceed if we are inside a course.
         if ($PAGE->context->get_course_context(false) == true) {
             // Check if there is any badge in the course.
@@ -185,8 +185,8 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
 
     // Check if admin wanted us to remove the competencies node from Boost's nav drawer
     // (only if there are no competencies in course).
-    if (get_config('core_competency', 'enabled') == true && isset($config->removecompetenciesnode)
-            && $config->removecompetenciesnode == true) {
+    if (get_config('core_competency', 'enabled') == true && isset($config->removecompetenciescoursenode)
+            && $config->removecompetenciescoursenode == true) {
         // Only proceed if we are inside a course.
         if ($PAGE->context->get_course_context(false) == true) {
             // Check if there is any competency in the course.
@@ -502,8 +502,8 @@ function local_boostnavigation_extend_navigation_course(navigation_node $navigat
     $config = get_config('local_boostnavigation');
 
     // Check if admin wanted us to remove the competencies node from Boost's nav drawer and insert it to the course (cog) menu.
-    if (get_config('core_competency', 'enabled') == true && isset($config->removecompetenciesnode)
-            && $config->removecompetenciesnode == true) {
+    if (get_config('core_competency', 'enabled') == true && isset($config->removecompetenciescoursenode)
+            && $config->removecompetenciescoursenode == true) {
         // Only proceed if we are inside a course.
         if ($PAGE->context->get_course_context(false) == true) {
             // Create competencies node.
