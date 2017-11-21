@@ -134,6 +134,25 @@ if ($hassiteconfig) {
                 get_string('setting_collapsemycoursesnodedefault_desc', 'local_boostnavigation', null, true),
                 0));
 
+        // Add remove course nodes heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/removecoursenodesheading',
+                                             get_string('setting_removecoursenodesheading', 'local_boostnavigation', null, true),
+                                             ''));
+
+        // Create remove badges course node control widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removebadgesnode',
+                get_string('setting_removebadgesnode', 'local_boostnavigation', null, true),
+                get_string('setting_removebadgesnode_desc', 'local_boostnavigation', null, true).'<br />'.
+                get_string('setting_removecoursenodestechnicalhint', 'local_boostnavigation', null, true),
+                0));
+
+        // Create remove competencies course node control widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removecompetenciesnode',
+                get_string('setting_removecompetenciesnode', 'local_boostnavigation', null, true),
+                get_string('setting_removecompetenciesnode_desc', 'local_boostnavigation', null, true).'<br />'.
+                get_string('setting_removecoursenodestechnicalhint', 'local_boostnavigation', null, true),
+                0));
+
         // Add insert course nodes heading.
         $page->add(new admin_setting_heading('local_boostnavigation/insertcoursenodesheading',
                 get_string('setting_insertcoursenodesheading', 'local_boostnavigation', null, true),

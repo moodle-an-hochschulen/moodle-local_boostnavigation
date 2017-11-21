@@ -47,11 +47,15 @@ Enabling any of these settings will let users collapse root nodes in Boost's nav
 
 Please note that this feature is only working with Boost installations which have the patch from MDL-59425 (https://tracker.moodle.org/browse/MDL-59425) integrated. This patch will be part of Moodle 3.4, but can be easily backported to your local version of theme_boost if you are able and willing to add a small core hack, in this case you will find the patch on https://github.com/moodle/moodle/commit/d7d2a72faf0cc760f0f0d80402505176f9cbb8bc. The patch is also part of Ulm University's Boost child theme which you can get on https://github.com/moodleuulm/moodle-theme_boost_campus.
 
-### 3. Insert course nodes to Boost's nav drawer
+### 3. Remove course nodes from Boost's nav drawer
+
+Similar to the "Remove nodes from Boost's nav drawer" section, enabling any of these settings will remove them from the course navigation section of Boost's nav drawer.
+
+### 4. Insert course nodes to Boost's nav drawer
 
 Enabling any of these settings will insert additional nodes to the course navigation section of Boost's nav drawer.
 
-### 4. Collapse course nodes in Boost's nav drawer
+### 5. Collapse course nodes in Boost's nav drawer
 
 Similar to the "Collapse root odes in Boost's nav drawer" section, enabling any of these settings will let users collapse nodes in the course navigation section of Boost's nav drawer. For these settings, the same restrictions regarding the patch from MDL-59425 apply.
 

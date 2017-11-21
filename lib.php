@@ -162,6 +162,58 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         }
     }
 
+    // Check if admin wanted us to remove the badges node from Boost's nav drawer
+    // (only if there are no badges in course).
+    if ($CFG->enablebadges == true && isset($config->removebadgesnode) && $config->removebadgesnode == true) {
+        // Only proceed if we are inside a course.
+        if ($PAGE->context->get_course_context(false) == true) {
+            // Check if there is any badge in the course.
+            require_once($CFG->dirroot . '/lib/badgeslib.php');
+
+            // Get number of badges in course.
+            $totalbadges = count(badges_get_badges(BADGE_TYPE_COURSE, $PAGE->course->id, '', '' , 0, 0));
+
+            // Only proceed if there are no badges in course.
+            if ($totalbadges == 0) {
+                if ($badgesnode = $navigation->find('badgesview', global_navigation::TYPE_SETTING)) {
+                    // Remove badges node (Just hiding it with the showinflatnavigation attribute does not work here).
+                    $badgesnode->remove();
+                }
+            }
+        }
+    }
+
+    // Check if admin wanted us to remove the competencies node from Boost's nav drawer
+    // (only if there are no competencies in course).
+    if (get_config('core_competency', 'enabled') == true && isset($config->removecompetenciesnode)
+            && $config->removecompetenciesnode == true) {
+        // Only proceed if we are inside a course.
+        if ($PAGE->context->get_course_context(false) == true) {
+            // Check if there is any competency in the course.
+            require_once($CFG->dirroot . '/competency/classes/course_competency.php');
+
+            // Get number of competencies in course.
+            $totalcompetencies = core_competency\course_competency::count_competencies($PAGE->course->id);
+
+            // Only proceed if there are no competencies in course.
+            if ($totalcompetencies == 0) {
+                // We have to support Moodle core 3.2 and 3.3 versions with MDL-59879 not yet integrated.
+                if (moodle_major_version() == '3.2' && $CFG->version < 2016120506 ||
+                        moodle_major_version() == '3.3' && $CFG->version < 2017051503) {
+                    if ($competenciesnode = local_boostnavigation_find_competencies_node($navigation)) {
+                        // Remove competencies node (Just hiding it with the showinflatnavigation attribute does not work here).
+                        $competenciesnode->remove();
+                    }
+                } else {
+                    if ($competenciesnode = $navigation->find('competencies', global_navigation::TYPE_SETTING)) {
+                        // Remove competencies node (Just hiding it with the showinflatnavigation attribute does not work here).
+                        $competenciesnode->remove();
+                    }
+                }
+            }
+        }
+    }
+
     // Check if admin wants us to insert the coursesections node in Boost's nav drawer.
     // Or if admin wants us to insert the activities and / or resources node in Boost's nav drawer.
     // If one of these three settings is activated, we will need the modinfo and the coursehome node and don't want
@@ -433,6 +485,36 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // Allow updating the necessary user preferences via Ajax.
         foreach ($collapsenodesforjs as $node) {
             user_preference_allow_ajax_update('local_boostnavigation-collapse_'.$node.'node', PARAM_BOOL);
+        }
+    }
+}
+
+
+/**
+ * Fumble with Moodle's global navigation by leveraging Moodle's *_extend_navigation_course() hook.
+ *
+ * @param navigation_node $navigation
+ */
+function local_boostnavigation_extend_navigation_course(navigation_node $navigation) {
+    global $PAGE;
+
+    // Fetch config.
+    $config = get_config('local_boostnavigation');
+
+    // Check if admin wanted us to remove the competencies node from Boost's nav drawer and insert it to the course (cog) menu.
+    if (get_config('core_competency', 'enabled') == true && isset($config->removecompetenciesnode)
+            && $config->removecompetenciesnode == true) {
+        // Only proceed if we are inside a course.
+        if ($PAGE->context->get_course_context(false) == true) {
+            // Create competencies node.
+            $competenciesnode = navigation_node::create(get_string('competencies', 'core_competency'),
+                    new moodle_url('/admin/tool/lp/coursecompetencies.php', array('courseid' => $PAGE->course->id)),
+                    navigation_node::TYPE_SETTING,
+                    null,
+                    'competencies2',
+                    null);
+            // Add the competencies node.
+            $navigation->add_node($competenciesnode);
         }
     }
 }
