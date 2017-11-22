@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.2-r16
 
 * 2017-11-21 - Setting to remove some course nodes - Thanks to Alain Bolli.
 * 2017-11-08 - Updated travis.yml to use newer node version for fixing TravisCI error.
