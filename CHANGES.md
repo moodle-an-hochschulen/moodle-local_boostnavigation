@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2017-12-05 - Added Workaround to travis.yml for fixing Behat tests with TravisCI.
+
 ### v3.2-r16
 
 * 2017-11-21 - Setting to remove some course nodes - Thanks to Alain Bolli.
