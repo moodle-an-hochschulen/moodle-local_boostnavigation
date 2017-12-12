@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2018-02-20 - Prepare compatibility for Moodle 3.3, no functionality change.
+
 ### v3.2-r18
 
 * 2018-02-19 - Bugfix: There was a fatal error with custom course nodes which only appeared in certain plugin configurations.
