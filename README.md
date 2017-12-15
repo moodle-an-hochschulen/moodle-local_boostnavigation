@@ -37,33 +37,53 @@ Site administration -> Appearance -> Boost navdrawer fumbling.
 
 There, you find four sections:
 
-### 1. Remove nodes from Boost's nav drawer
+### 1. Remove root nodes from Boost's nav drawer
 
-Enabling any of these settings will remove them from Boost's nav drawer. Technically, this is done by setting the node's showinflatnavigation attribute to false. Thus, the node will only be hidden from the nav drawer, but it will remain in the navigation tree and can still be accessed by other parts of Moodle.
+Enabling any of these settings will remove nodes from Boost's nav drawer. 
 
-### 2. Collapse root nodes in Boost's nav drawer
+### 2. Insert root nodes to Boost's nav drawer
 
-Enabling any of these settings will let users collapse root nodes in Boost's nav drawer. Technically, this is done by adding some JavaScript and CSS code to the page which will show or hide the second-level nodes as soon as the user clicks on the node. The collapse status of the node will be stored in each user's session. Thus, the nodes will only be hidden from the nav drawer at runtime, but they will remain in the navigation tree and can still be accessed by other parts of Moodle.
+Enabling any of these settings will insert additional nodes to Boost's nav drawer.
 
-Please note that this feature is only working with Boost installations which have the patch from MDL-59425 (https://tracker.moodle.org/browse/MDL-59425) integrated. This patch will be part of Moodle 3.4, but can be easily backported to your local version of theme_boost if you are able and willing to add a small core hack, in this case you will find the patch on https://github.com/moodle/moodle/commit/d7d2a72faf0cc760f0f0d80402505176f9cbb8bc. The patch is also part of Ulm University's Boost child theme which you can get on https://github.com/moodleuulm/moodle-theme_boost_campus.
+### 3. Collapse root nodes in Boost's nav drawer
 
-### 3. Remove course nodes from Boost's nav drawer
+Enabling any of these settings will let users collapse root nodes in Boost's nav drawer. 
 
-Similar to the "Remove nodes from Boost's nav drawer" section, enabling any of these settings will remove them from the course navigation section of Boost's nav drawer.
+### 4. Remove course nodes from Boost's nav drawer
 
-### 4. Insert course nodes to Boost's nav drawer
+Similar to the "Remove root nodes from Boost's nav drawer" section, enabling any of these settings will remove nodes from the course navigation section of Boost's nav drawer.
 
-Enabling any of these settings will insert additional nodes to the course navigation section of Boost's nav drawer.
+### 5. Insert course nodes to Boost's nav drawer
 
-### 5. Collapse course nodes in Boost's nav drawer
+Similar to the "Remove root nodes from Boost's nav drawer" section, enabling any of these settings will insert additional nodes to the course navigation section of Boost's nav drawer.
 
-Similar to the "Collapse root odes in Boost's nav drawer" section, enabling any of these settings will let users collapse nodes in the course navigation section of Boost's nav drawer. For these settings, the same restrictions regarding the patch from MDL-59425 apply.
+### 6. Collapse course nodes in Boost's nav drawer
+
+Similar to the "Collapse root odes in Boost's nav drawer" section, enabling any of these settings will let users collapse nodes in the course navigation section of Boost's nav drawer. 
+
+### 7. Insert bottom nodes to Boost's nav drawer
+
+Similar to the "Remove root nodes from Boost's nav drawer" section, enabling any of these settings will insert additional nodes add the end of Boost's nav drawer.
+
+### 8. Collapse bottom nodes in Boost's nav drawer
+
+Similar to the "Collapse root odes in Boost's nav drawer" section, enabling any of these settings will let users collapse nodes at the end of Boost's nav drawer. 
+
+
+Restrictions from MDL-59425
+---------------------------
+Some of this plugin's features are only working with Boost installations which have the patch from MDL-59425 (https://tracker.moodle.org/browse/MDL-59425) integrated. This patch will be part of Moodle 3.4, but can be easily backported to your local version of theme_boost if you are able and willing to add a small core hack, in this case you will find the patch on https://github.com/moodle/moodle/commit/d7d2a72faf0cc760f0f0d80402505176f9cbb8bc. The patch is also part of Ulm University's Boost child theme which you can get on https://github.com/moodleuulm/moodle-theme_boost_campus.
 
 
 How this plugin works
 ---------------------
 
 Luckily, Moodle provides the *_extend_navigation() hook which allows plugin developers to fumble with Moodle's global navigation tree at runtime. This plugin leverages this hook and does its best to change some things in the nav drawer which should behave differently in our point of view.
+
+
+Companion plugin local_profilecohort
+------------------------------------
+This plugin lets you add a restriction for showing custom nodes based on a user's cohort memberships. If you don't have cohorts yet in your Moodle instance, but custom user profile fields to make the same restrictions, you might want to look at our plugin local_profilecohort as a companion plugin. local_profilecohort is published on http://moodle.org/plugins/view/local_profilecohort and on https://github.com/moodleuulm/moodle-local_profilecohort.
 
 
 Theme support

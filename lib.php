@@ -216,13 +216,24 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
 
     // Check if admin wants us to insert the coursesections node in Boost's nav drawer.
     // Or if admin wants us to insert the activities and / or resources node in Boost's nav drawer.
-    // If one of these three settings is activated, we will need the modinfo and the coursehome node and don't want
+    // If one of these three settings is activated, we will need the modinfo and don't want
     // to fetch these more than once.
     if (isset($config->insertcoursesectionscoursenode) && $config->insertcoursesectionscoursenode == true ||
             isset($config->insertactivitiescoursenode) && $config->insertactivitiescoursenode == true ||
             isset($config->insertresourcescoursenode) && $config->insertresourcescoursenode == true) {
         // Fetch modinfo.
         $modinfo = get_fast_modinfo($COURSE->id);
+    }
+
+    // Check if admin wants us to insert the coursesections node in Boost's nav drawer.
+    // Or if admin wants us to insert the activities and / or resources node in Boost's nav drawer.
+    // Or if admin wants us to insert custom course nodes in Boost's nav drawer.
+    // If one of these four settings is activated, we will need the coursehome node and don't want
+    // to fetch these more than once.
+    if (isset($config->insertcoursesectionscoursenode) && $config->insertcoursesectionscoursenode == true ||
+            isset($config->insertactivitiescoursenode) && $config->insertactivitiescoursenode == true ||
+            isset($config->insertresourcescoursenode) && $config->insertresourcescoursenode == true ||
+            isset($config->insertcustomcoursenodes) && $config->insertcustomcoursenodes == true) {
         // Fetch course home node.
         $coursehomenode = $PAGE->navigation->find($COURSE->id, navigation_node::TYPE_COURSE);
     }
@@ -475,6 +486,96 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                     }
                 }
             }
+        }
+    }
+
+    // Check if admin wants us to insert custom nodes for users in Boost's nav drawer.
+    if (isset($config->insertcustomnodesusers) && !empty($config->insertcustomnodesusers)) {
+        // If yes, do it.
+        $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustomnodesusers, $navigation,
+                'localboostnavigationcustomrootusers', true, $config->collapsecustomnodesusers,
+                $config->collapsecustomnodesusersdefault);
+
+        // Check if admin wanted us to also collapse the custom nodes for users.
+        if ($config->collapsecustomnodesusers == true) {
+            // Remember the collapsible node for JavaScript.
+            $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+        }
+    }
+
+    // Check if admin wants us to insert custom nodes for admins in Boost's nav drawer.
+    if (isset($config->insertcustomnodesadmins) && !empty($config->insertcustomnodesadmins) && is_siteadmin()) {
+        // If yes, do it.
+        $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustomnodesadmins, $navigation,
+                'localboostnavigationcustomrootadmins', true, $config->collapsecustomnodesadmins,
+                $config->collapsecustomnodesadminsdefault);
+
+        // Check if admin wanted us to also collapse the custom nodes for admins.
+        if ($config->collapsecustomnodesadmins == true) {
+            // Remember the collapsible node for JavaScript.
+            $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+        }
+    }
+
+    // Check if admin wants us to insert custom course nodes for users in Boost's nav drawer.
+    if (isset($config->insertcustomcoursenodesusers) && !empty($config->insertcustomcoursenodesusers)) {
+        // Only proceed if we are inside a course.
+        if ($PAGE->context->get_course_context(false) == true) {
+            // If yes, do it.
+            $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustomcoursenodesusers, $coursehomenode,
+                    'localboostnavigationcustomcourseusers', false, $config->collapsecustomcoursenodesusers,
+                    $config->collapsecustomcoursenodesusersdefault);
+
+            // Check if admin wanted us to also collapse the custom course nodes for users.
+            if ($config->collapsecustomcoursenodesusers == true) {
+                // Remember the collapsible node for JavaScript.
+                $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+            }
+        }
+    }
+
+    // Check if admin wants us to insert custom course nodes for admins in Boost's nav drawer.
+    if (isset($config->insertcustomcoursenodesadmins) && !empty($config->insertcustomcoursenodesadmins) && is_siteadmin()) {
+        // Only proceed if we are inside a course.
+        if ($PAGE->context->get_course_context(false) == true) {
+            // If yes, do it.
+            $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustomcoursenodesadmins, $coursehomenode,
+                    'localboostnavigationcustomcourseadmins', false, $config->collapsecustomcoursenodesadmins,
+                    $config->collapsecustomcoursenodesadminsdefault);
+
+            // Check if admin wanted us to also collapse the custom course nodes for admins.
+            if ($config->collapsecustomcoursenodesadmins == true) {
+                // Remember the collapsible node for JavaScript.
+                $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+            }
+        }
+    }
+
+    // Check if admin wants us to insert custom bottom nodes for users in Boost's nav drawer.
+    if (isset($config->insertcustombottomnodesusers) && !empty($config->insertcustombottomnodesusers)) {
+        // If yes, do it.
+        $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustombottomnodesusers, $navigation,
+                'localboostnavigationcustombottomusers', true, $config->collapsecustombottomnodesusers,
+                $config->collapsecustombottomnodesusersdefault);
+
+        // Check if admin wanted us to also collapse the custom bottom nodes for users.
+        if ($config->collapsecustombottomnodesusers == true) {
+            // Remember the collapsible node for JavaScript.
+            $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+        }
+    }
+
+    // Check if admin wants us to insert custom bottom nodes for admins in Boost's nav drawer.
+    if (isset($config->insertcustombottomnodesadmins) && !empty($config->insertcustombottomnodesadmins) && is_siteadmin()) {
+        // If yes, do it.
+        $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustombottomnodesadmins, $navigation,
+                'localboostnavigationcustombottomadmins', true, $config->collapsecustombottomnodesadmins,
+                $config->collapsecustombottomnodesadminsdefault);
+
+        // Check if admin wanted us to also collapse the custom bottom nodes for admins.
+        if ($config->collapsecustombottomnodesadmins == true) {
+            // Remember the collapsible node for JavaScript.
+            $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
         }
     }
 
