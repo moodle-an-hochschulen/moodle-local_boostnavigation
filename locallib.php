@@ -285,7 +285,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 $lastparentnode = $customnode;
 
                 // Get the user preference for the collapse state of this custom node and set the collapse attribute accordingly.
-                $userprefcustomnode = get_user_preferences('local_boostnavigation-collapse_'.$nodekey, $collapsedefault);
+                $userprefcustomnode = get_user_preferences('local_boostnavigation-collapse_'.$nodekey.'node', $collapsedefault);
                 if ($userprefcustomnode == 1) {
                     $customnode->collapse = true;
                 } else {
@@ -316,7 +316,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 $customnode->set_parent($lastparentnode);
 
                 // Get the user preference for the collapse state of the last parent node and set the hidden attribute accordingly.
-                $userprefcustomnode = get_user_preferences('local_boostnavigation-collapse_'.$lastparentnode->key,
+                $userprefcustomnode = get_user_preferences('local_boostnavigation-collapse_'.$lastparentnode->key.'node',
                         $collapsedefault);
                 if ($userprefcustomnode == 1) {
                     $customnode->hidden = true;
