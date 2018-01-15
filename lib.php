@@ -245,11 +245,15 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
            $CFG->linkcoursesections == true) {
         // Only proceed if we are inside a course and we are _not_ on the frontpage.
         if ($PAGE->context->get_course_context(false) == true && $COURSE->id != SITEID) {
-            // Fetch first section id from course modinfo.
-            $firstsection = $modinfo->get_section_info(0)->id;
+            // Fetch all section nodes from navigation tree.
+            $allsectionnodes = $coursehomenode->children->type(navigation_node::TYPE_SECTION);
 
-            // Only proceed if the course has a first section id.
-            if ($firstsection) {
+            // Only proceed if there is at least one section node shown in the nav drawer.
+            if (count($allsectionnodes) > 0) {
+                // Get first section node key.
+                $firstsectionnode = reset($allsectionnodes);
+                $firstsectionnodekey = $firstsectionnode->key;
+
                 // Create coursesections course node.
                 $coursesectionsnode = navigation_node::create(get_string('sections', 'moodle'),
                         new moodle_url('/course/view.php', array('id' => $COURSE->id)), // We have to add a URL to the course node,
@@ -264,8 +268,8 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                 // Prevent that the coursesections course node is marked as active and added to the breadcrumb when showing the
                 // course home page.
                 $coursesectionsnode->make_inactive();
-                 // Add the coursesection node before the first section.
-                $coursehomenode->add_node($coursesectionsnode, $firstsection);
+                // Add the coursesection node before the first section node.
+                $coursehomenode->add_node($coursesectionsnode, $firstsectionnodekey);
 
                 // Check if admin wanted us to also collapse the coursesections node.
                 if ($config->collapsecoursesectionscoursenode == true) {
