@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2018-02-19 - Bugfix: There was a fatal error with custom course nodes which only appeared in certain plugin configurations.
 * 2018-02-19 - Bugfix: There were problems / debug messages with the setting to remove the competencies node.
 
 ### v3.2-r17

@@ -233,7 +233,8 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     if (isset($config->insertcoursesectionscoursenode) && $config->insertcoursesectionscoursenode == true ||
             isset($config->insertactivitiescoursenode) && $config->insertactivitiescoursenode == true ||
             isset($config->insertresourcescoursenode) && $config->insertresourcescoursenode == true ||
-            isset($config->insertcustomcoursenodes) && $config->insertcustomcoursenodes == true) {
+            isset($config->insertcustomcoursenodesusers) && $config->insertcustomcoursenodesusers == true ||
+            isset($config->insertcustomcoursenodesadmins) && $config->insertcustomcoursenodesadmins == true) {
         // Fetch course home node.
         $coursehomenode = $PAGE->navigation->find($COURSE->id, navigation_node::TYPE_COURSE);
     }
