@@ -70,11 +70,6 @@ Similar to the "Remove root nodes from Boost's nav drawer" section, enabling any
 Similar to the "Collapse root odes in Boost's nav drawer" section, enabling any of these settings will let users collapse nodes at the end of Boost's nav drawer. 
 
 
-Restrictions from MDL-59425
----------------------------
-Some of this plugin's features are only working with Boost installations which have the patch from MDL-59425 (https://tracker.moodle.org/browse/MDL-59425) integrated. This patch will be part of Moodle 3.4, but can be easily backported to your local version of theme_boost if you are able and willing to add a small core hack, in this case you will find the patch on https://github.com/moodle/moodle/commit/d7d2a72faf0cc760f0f0d80402505176f9cbb8bc. The patch is also part of Ulm University's Boost child theme which you can get on https://github.com/moodleuulm/moodle-theme_boost_campus.
-
-
 How this plugin works
 ---------------------
 
