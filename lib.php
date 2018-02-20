@@ -188,18 +188,9 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
 
             // Only proceed if there are no competencies in course.
             if ($totalcompetencies == 0) {
-                // We have to support Moodle core 3.2 and 3.3 versions with MDL-59879 not yet integrated.
-                if (moodle_major_version() == '3.2' && $CFG->version < 2016120506 ||
-                        moodle_major_version() == '3.3' && $CFG->version < 2017051503) {
-                    if ($competenciesnode = local_boostnavigation_find_competencies_node($navigation)) {
-                        // Remove competencies node (Just hiding it with the showinflatnavigation attribute does not work here).
-                        $competenciesnode->remove();
-                    }
-                } else {
-                    if ($competenciesnode = $navigation->find('competencies', global_navigation::TYPE_SETTING)) {
-                        // Remove competencies node (Just hiding it with the showinflatnavigation attribute does not work here).
-                        $competenciesnode->remove();
-                    }
+                if ($competenciesnode = $navigation->find('competencies', global_navigation::TYPE_SETTING)) {
+                    // Remove competencies node (Just hiding it with the showinflatnavigation attribute does not work here).
+                    $competenciesnode->remove();
                 }
             }
         }
