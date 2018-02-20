@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2018-02-19 - Bugfix: There were problems / debug messages with the setting to remove the competencies node.
+
 ### v3.2-r17
 
 * 2017-01-15 - Bugfix: Some course section edge cases produced an incorrect ordering of the "Sections" course node.
