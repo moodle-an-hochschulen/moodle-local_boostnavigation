@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.3-r1
 
 * 2018-02-20 - Prepare compatibility for Moodle 3.3, no functionality change.
 
