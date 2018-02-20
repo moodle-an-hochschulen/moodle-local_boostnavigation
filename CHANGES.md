@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2018-02-20 - Don't highlight active collapsible custom nodes.
 * 2018-02-20 - Remove all notes about the requirement for MDL-59425 for collapsing nodes as this is now part of Moodle 3.4.
 * 2018-02-20 - Remove fallback for missing node key of competencies files navigation node.
 * 2018-02-20 - Remove fallback for missing node key of private files navigation node.

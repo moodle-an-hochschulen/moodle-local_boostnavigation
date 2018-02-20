@@ -79,3 +79,9 @@
 .list-group-item[data-key="localboostnavigationcustombottomadmins1"] {
     margin-top: 1rem;
 }
+/* The Navigation node API highlights every node as active if its URL matches the current page URL.
+   As we have to add a URL even to collapsible custom nodes, this might have side-effects. Let's prevent the collapsible
+   custom nodes from being highlighted. */
+.list-group-item[data-key^="localboostnavigationcustom"][data-isexpandable="1"][data-isactive="1"] {
+    font-weight: normal;
+}
