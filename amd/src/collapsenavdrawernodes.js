@@ -24,6 +24,11 @@
 define(['jquery'], function($) {
     "use strict";
 
+    /**
+     * Click handler to toggle the given nav node.
+     * @param {Object} node The nav node which should be toggled.
+     * @param {string} nodename The nav node's nodename.
+     */
     function toggleClickHandler(node, nodename) {
         node.click(function(e) {
             // Prevent that the browser opens the node's default action link (if existing).
@@ -50,6 +55,10 @@ define(['jquery'], function($) {
         });
     }
 
+    /**
+     * Init function of this AMD module which initializes the click handlers.
+     * @param {string} nodename The nav node's nodename.
+     */
     function initToggleNodes(nodename) {
         // Search node to be collapsible.
         var node = $('.list-group-item[data-key="' + nodename + '"]');
