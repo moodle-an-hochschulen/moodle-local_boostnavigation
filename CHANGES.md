@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2018-02-20 - Remove fallback for missing node key of private files navigation node.
 * 2018-02-20 - Prepare compatibility for Moodle 3.4, no functionality change.
 
 ### v3.3-r1
