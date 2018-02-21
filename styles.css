@@ -54,18 +54,12 @@
     cursor: pointer;
 }
 
-/* Insert nodes feature. */
-/* Add icons to activity nodes with CSS because this isn't possible with Navigation node API. */
-.list-group-item[data-key^="localboostnavigationactivity"] > div:before {
-    background: url([[pix:i/mnethost]]) no-repeat top left; /* There is no real icon for general activities, so I picked the nice
-                                                               MNet Host icon which no-one is really using anymore. */
-    content: "";
-    display: inline-block;
-    height: 16px;
-    margin-left: .5rem;
-    margin-right: .5rem;
-    padding-right: 10px;
-    width: 16px;
+/* Add activity nodes feature */
+/* Add an indent to the activity nodes because this isn't possible with Navigation node API.
+   Setting !important is necessary because otherwise the child nodes' m-l-0 class would overrule our margin. */
+/* TODO: Remove when MDL-61298 is integrated to Moodle core. */
+.list-group-item[data-key^="localboostnavigationactivity"] > div {
+    margin-left: 1rem !important;
 }
 
 /* Custom nodes feature. */
