@@ -6,17 +6,17 @@
    supported by this plugin as well as the custom nodes which can be added with this plugin.
    In a future version of this plugin, this might be done in a more general and lighter way. */
 /* Show all second-level nav drawer items which have the attribute not hidden. */
-.list-group-item[data-key="mycourses"][data-isexpandable="1"] ~ .list-group-item[data-indent="1"][data-hidden="0"],
-.list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="localboostnavigationcoursesections"][data-indent="0"][data-hidden="0"],
-.list-group-item[data-key="localboostnavigationactivities"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="localboostnavigationactivities"][data-indent="0"][data-hidden="0"],
-.list-group-item[data-key^="localboostnavigationcustom"][data-isexpandable="1"] ~ .list-group-item[data-parent-key^="localboostnavigationcustom"][data-indent="0"][data-hidden="0"] {
+.list-group-item[data-key="mycourses"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="mycourses"][data-hidden="0"],
+.list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="localboostnavigationcoursesections"][data-hidden="0"],
+.list-group-item[data-key="localboostnavigationactivities"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="localboostnavigationactivities"][data-hidden="0"],
+.list-group-item[data-key^="localboostnavigationcustom"][data-isexpandable="1"] ~ .list-group-item[data-parent-key^="localboostnavigationcustom"][data-hidden="0"] {
     display: block;
 }
 /* Hide all second-level nav drawer items which have the attribute hidden. */
-.list-group-item[data-key="mycourses"][data-isexpandable="1"] ~ .list-group-item[data-indent="1"][data-hidden="1"],
-.list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="localboostnavigationcoursesections"][data-indent="0"][data-hidden="1"],
-.list-group-item[data-key="localboostnavigationactivities"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="localboostnavigationactivities"][data-indent="0"][data-hidden="1"],
-.list-group-item[data-key^="localboostnavigationcustom"][data-isexpandable="1"] ~ .list-group-item[data-parent-key^="localboostnavigationcustom"][data-indent="0"][data-hidden="1"] {
+.list-group-item[data-key="mycourses"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="mycourses"][data-hidden="1"],
+.list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="localboostnavigationcoursesections"][data-hidden="1"],
+.list-group-item[data-key="localboostnavigationactivities"][data-isexpandable="1"] ~ .list-group-item[data-parent-key="localboostnavigationactivities"][data-hidden="1"],
+.list-group-item[data-key^="localboostnavigationcustom"][data-isexpandable="1"] ~ .list-group-item[data-parent-key^="localboostnavigationcustom"][data-hidden="1"] {
     display: none;
 }
 /* Add the icon for the expanded node state. */
