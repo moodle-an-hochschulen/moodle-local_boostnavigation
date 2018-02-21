@@ -486,7 +486,11 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // Check if admin wanted us to also collapse the custom nodes for users.
         if ($config->collapsecustomnodesusers == true) {
             // Remember the collapsible node for JavaScript.
-            $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+            if (!empty($collapsenodesforjs) && is_array($collapsenodesforjs)) {
+                $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+            } else {
+                $collapsenodesforjs = $customnodesret;
+            }
         }
     }
 
@@ -500,7 +504,11 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // Check if admin wanted us to also collapse the custom nodes for admins.
         if ($config->collapsecustomnodesadmins == true) {
             // Remember the collapsible node for JavaScript.
-            $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+            if (!empty($collapsenodesforjs) && is_array($collapsenodesforjs)) {
+                $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+            } else {
+                $collapsenodesforjs = $customnodesret;
+            }
         }
     }
 
@@ -516,7 +524,11 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             // Check if admin wanted us to also collapse the custom course nodes for users.
             if ($config->collapsecustomcoursenodesusers == true) {
                 // Remember the collapsible node for JavaScript.
-                $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+                if (!empty($collapsenodesforjs) && is_array($collapsenodesforjs)) {
+                    $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+                } else {
+                    $collapsenodesforjs = $customnodesret;
+                }
             }
         }
     }
@@ -533,7 +545,11 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             // Check if admin wanted us to also collapse the custom course nodes for admins.
             if ($config->collapsecustomcoursenodesadmins == true) {
                 // Remember the collapsible node for JavaScript.
-                $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+                if (!empty($collapsenodesforjs) && is_array($collapsenodesforjs)) {
+                    $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+                } else {
+                    $collapsenodesforjs = $customnodesret;
+                }
             }
         }
     }
@@ -548,7 +564,11 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // Check if admin wanted us to also collapse the custom bottom nodes for users.
         if ($config->collapsecustombottomnodesusers == true) {
             // Remember the collapsible node for JavaScript.
-            $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+            if (!empty($collapsenodesforjs) && is_array($collapsenodesforjs)) {
+                $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+            } else {
+                $collapsenodesforjs = $customnodesret;
+            }
         }
     }
 
@@ -562,7 +582,11 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // Check if admin wanted us to also collapse the custom bottom nodes for admins.
         if ($config->collapsecustombottomnodesadmins == true) {
             // Remember the collapsible node for JavaScript.
-            $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+            if (is_array($collapsenodesforjs)) {
+                $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
+            } else {
+                $collapsenodesforjs = $customnodesret;
+            }
         }
     }
 

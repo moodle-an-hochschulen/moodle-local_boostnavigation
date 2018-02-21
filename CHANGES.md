@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2018-02-21 - Bugfix: Collapsing only custom nodes did not work.
 * 2018-02-21 - Fix collapsing of mycourses node in theme_boost_campus.
 * 2018-02-20 - Don't highlight active collapsible custom nodes.
 * 2018-02-20 - Remove all notes about the requirement for MDL-59425 for collapsing nodes as this is now part of Moodle 3.4.
