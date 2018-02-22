@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2018-02-22 - Add icons to custom nodes to be displayed in theme_boost_campus
 * 2018-02-21 - Change the icons which were added to the activity nodes to a simple indent. This will simplify our work with theme_boost_campus, thanks for understanding.
 * 2018-02-21 - Bugfix: Collapsing only custom nodes did not work.
 * 2018-02-21 - Fix collapsing of mycourses node in theme_boost_campus.

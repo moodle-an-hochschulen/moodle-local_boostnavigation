@@ -364,8 +364,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                         global_navigation::TYPE_ACTIVITY,
                         null,
                         'localboostnavigationresources',
-                        new pix_icon('icon', '', 'mod_page')); // Boost ignores a navigation node's icon currently,
-                                                               // but we set it for future-proofness.
+                        new pix_icon('resources', '', 'local_boostnavigation'));
                 // Add the activities node to the end of the course navigation.
                 $coursehomenode->add_node($resourcesnode);
 
@@ -410,8 +409,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                                     global_navigation::TYPE_ACTIVITY,
                                     null,
                                     'localboostnavigationactivity'.$modname,
-                                    new pix_icon('icon', '', 'mod_page')); // Boost ignores a navigation node's icon currently,
-                                                                           // but we set it for future-proofness.
+                                    new pix_icon('resources', '', 'local_boostnavigation'));
                             // Add the activity course node to the coursehome node.
                             $coursehomenode->add_node($activitynode);
                             // Remember the activity course node's key for collapsing it later.
@@ -425,8 +423,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                                 global_navigation::TYPE_ACTIVITY,
                                 null,
                                 'localboostnavigationactivity'.$modname,
-                                new pix_icon('icon', '', $modname)); // Boost ignores a navigation node's icon currently,
-                                                                     // but we set it for future-proofness.
+                                new pix_icon('activities', '', 'local_boostnavigation'));
                         // Add the activity course node to the coursehome node.
                         $coursehomenode->add_node($activitynode);
                         // Remember the activity course node's key for collapsing it later.
@@ -629,4 +626,15 @@ function local_boostnavigation_extend_navigation_course(navigation_node $navigat
             $navigation->add_node($competenciesnode);
         }
     }
+}
+
+/**
+ * Get icon mapping for font-awesome.
+ */
+function local_boostnavigation_get_fontawesome_icon_map() {
+    return [
+            'local_boostnavigation:customnode' => 'fa-circle-o local-boostnavigation-fa-sm',
+            'local_boostnavigation:resources' => 'fa-archive',
+            'local_boostnavigation:activities' => 'fa-share-alt',
+    ];
 }

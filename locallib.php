@@ -224,6 +224,11 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                     $customnode->collapse = false;
                 }
 
+                // Finally, if the node shouldn't be collapsed or if it does not have children, set the node icon.
+                if (!$collapse || $customnode->has_children() == false) {
+                    $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
+                }
+
                 // Otherwise, if it's a child node.
             } else {
                 // If the nodes should be collapsed and collapsing hasn't been prepared yet, prepare collapsing of the parent node.
@@ -255,6 +260,9 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 } else {
                     $customnode->hidden = false;
                 }
+
+                // Finally, set the node icon.
+                $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
             }
         }
     }
