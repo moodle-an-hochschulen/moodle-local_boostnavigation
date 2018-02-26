@@ -74,18 +74,10 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         }
     }
 
-    // Next, we will need the mycourses node in any case and don't want to fetch it more than once.
-    $mycoursesnode = $navigation->find('mycourses', global_navigation::TYPE_ROOTNODE);
-
-    // Check if admin wanted us to remove the mycourses node from Boost's nav drawer.
-    // Or if admin wanted us to collapse the mycourses node.
-    // If one of these two settings is activated, we will need the mycourses node's children and don't want to fetch them more
+    // Next, we will need the mycourses node and the mycourses node children in any case and don't want to fetch them more
     // than once.
-    if (isset($config->removemycoursesnode) && $config->removemycoursesnode == true ||
-        isset($config->collapsemycoursesnode) && $config->collapsemycoursesnode == true) {
-        // Get the mycourses node children.
-        $mycourseschildrennodeskeys = $mycoursesnode->get_children_key_list();
-    }
+    $mycoursesnode = $navigation->find('mycourses', global_navigation::TYPE_ROOTNODE);
+    $mycourseschildrennodeskeys = $mycoursesnode->get_children_key_list();
 
     // Check if admin wanted us to remove the mycourses node from Boost's nav drawer.
     if (isset($config->removemycoursesnode) && $config->removemycoursesnode == true) {
@@ -130,17 +122,23 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             // Note: We are somehow abusing the hidden node attribute here for our own purposes. In Boost core, it is
             // set to true for invisible courses, but these are currently displayed just as visible courses in the
             // nav drawer, so we accept this abuse.
+            // Additionally, for some crazy reason, the mycourses child nodes also have the isexpandable attribute set to true
+            // by default. We set this to false here as only the mycourses parent node should have isexpandable set to true.
             $userprefmycoursesnode = get_user_preferences('local_boostnavigation-collapse_mycoursesnode',
                     $config->collapsemycoursesnodedefault);
             if ($userprefmycoursesnode == 1) {
                 $mycoursesnode->collapse = true;
                 foreach ($mycourseschildrennodeskeys as $k) {
-                    $mycoursesnode->get($k)->hidden = true;
+                    $childnode = $mycoursesnode->get($k);
+                    $childnode->hidden = true;
+                    $childnode->isexpandable = false;
                 }
             } else {
                 $mycoursesnode->collapse = false;
                 foreach ($mycourseschildrennodeskeys as $k) {
-                    $mycoursesnode->get($k)->hidden = false;
+                    $childnode = $mycoursesnode->get($k);
+                    $childnode->hidden = false;
+                    $childnode->isexpandable = false;
                 }
             }
         }
@@ -148,8 +146,13 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // which ship with this plugin.
     } else {
         if ($mycoursesnode) {
-            // Change the isexpandable attribute for the mycourses node to false.
+            // Change the isexpandable attribute for the mycourses parent node to false.
             $mycoursesnode->isexpandable = false;
+            // Change the isexpandable attribute for the mycourses child node to false.
+            foreach ($mycourseschildrennodeskeys as $k) {
+                $childnode = $mycoursesnode->get($k);
+                $childnode->isexpandable = false;
+            }
         }
     }
 
