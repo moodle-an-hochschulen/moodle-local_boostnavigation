@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.4-r2
 
 * 2018-02-27 - Fix a note in the language pack.
 
