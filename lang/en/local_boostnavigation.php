@@ -75,7 +75,6 @@ Please note:
 <ul>
 <li>For technical reasons, a parent node always needs a valid URL, even if the node will be made collapsible afterwards.</li>
 <li>Additionally, if a parent node is not shown because a (language or cohort) restriction applies, its children nodes also won\'t be shown.</li>
-<li>For Boost installations without MDL-59425 integrated, the child nodes will be shown but will be visually indistinguishable from their parent nodes. See README file for details</li>
 </ul>';
 $string['setting_customnodesusageadmins'] = 'Each line consists of a link title, a link URL and supported language(s) (optional) - separated by pipe characters. Each custom node needs to be written in a new line.<br />
 For example:<br />

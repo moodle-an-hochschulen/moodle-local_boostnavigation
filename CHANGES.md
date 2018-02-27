@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2018-02-27 - Fix a note in the language pack.
+
 ### v3.4-r1
 
 * 2018-02-26 - Always set the data-isexpandable attribute of the mycourses child nodes.
