@@ -636,7 +636,7 @@ function local_boostnavigation_extend_navigation_course(navigation_node $navigat
  */
 function local_boostnavigation_get_fontawesome_icon_map() {
     return [
-            'local_boostnavigation:customnode' => 'fa-circle-o local-boostnavigation-fa-sm',
+            'local_boostnavigation:customnode' => 'fa-square local-boostnavigation-fa-sm',
             'local_boostnavigation:resources' => 'fa-archive',
             'local_boostnavigation:activities' => 'fa-share-alt',
     ];

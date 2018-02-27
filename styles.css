@@ -82,6 +82,6 @@
 /* Add a plugin-specific class to shrink fa-icons. This is needed for the custom nodes' icons.
    Font-Awesome 5 will contain a similar class officially, but currently Moodle still uses Font-Awesome 4.. */
 .local-boostnavigation-fa-sm {
-    font-size: 0.75em !important;
-    margin-top: 0.5em !important;
+    font-size: 0.5em !important;
+    margin-top: 1em !important;
 }

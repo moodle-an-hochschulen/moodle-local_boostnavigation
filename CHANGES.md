@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2018-02-27 - Change the icon for custom nodes based on early adopter feedback.
+
 ### v3.4-r2
 
 * 2018-02-27 - Fix a note in the language pack.
