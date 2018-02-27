@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.4-r1
 
 * 2018-02-26 - Always set the data-isexpandable attribute of the mycourses child nodes.
 * 2018-02-22 - Add icons to custom nodes to be displayed in theme_boost_campus
