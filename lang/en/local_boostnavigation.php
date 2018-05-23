@@ -25,6 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Boost navigation fumbling';
+$string['privacy:metadata:preference:collapse'] = 'The collapse status of a navigation node in the nav drawer.';
+$string['privacy:request:preference:collapse'] = 'The collapse status of the navigation node "{$a->nodename}" in the nav drawer is {$a->collapse}';
 $string['setting_collapseactivitiescoursenode_desc'] = 'Enabling this setting will let users collapse the "Activities" node.<br /><em>This setting is only processed when the "Inserting node \'Activities\'" setting is also activated.</em>';
 $string['setting_collapseactivitiescoursenode'] = 'Collapse node "Activities"';
 $string['setting_collapseactivitiescoursenodedefault_desc'] = 'Enabling this setting will collapse the "Activities" node by default. Otherwise, it will be expanded by default. This setting just controls the default for each user when the node is rendered for him for the first time.<br /><em>This setting is only processed when collapsing the node is activated at all.</em>';
