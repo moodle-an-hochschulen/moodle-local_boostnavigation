@@ -134,7 +134,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                         case 1:
                             // Get the URL.
                             try {
-                                $nodeurl = new moodle_url($setting);
+                                $nodeurl = local_boostnavigation_build_node_url($setting);
                                 $nodevisible = true;
                             } catch (moodle_exception $exception) {
                                 // We're not actually worried about this, we don't want to mess up the navigation
@@ -308,4 +308,33 @@ function local_boostnavigation_cohort_is_member($userid, $cohortidnumber) {
 
     // Return the result.
     return $ismember;
+}
+
+/**
+ * This function takes the plugin's custom node url, replaces placeholders if necessary and returns the url.
+ *
+ * @param string $url
+ * @return object
+ */
+function local_boostnavigation_build_node_url($url) {
+    global $USER, $COURSE, $PAGE;
+
+    // Define placeholders which should be replaced later.
+    $placeholders = array('courseid' => (isset($COURSE->id) ? $COURSE->id : ''),
+            'courseshortname' => (isset($COURSE->shortname) ? $COURSE->shortname : ''),
+            'userid' => (isset($USER->id) ? $USER->id : ''),
+            'userusername' => (isset($USER->username) ? $USER->username : ''),
+            'pagecontextid' => (isset($PAGE->context) ? $PAGE->context->id : ''),
+            'pagepath' => (is_object($PAGE->url) ? $PAGE->url->out_as_local_url() : ''),
+            'sesskey' => sesskey());
+
+    // Check if there is any placeholder in the url.
+    if (strpos($url, '{') !== false) {
+        // If yes, replace the placeholders in the url.
+        foreach ($placeholders as $search => $replace) {
+            $url = str_replace('{' . $search . '}', $replace, $url);
+        }
+    }
+
+    return new moodle_url($url);
 }

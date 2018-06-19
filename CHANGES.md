@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2018-06-19 - Add support for placeholders in custom node URLs.
+
 ### v3.4-r4
 
 * 2018-05-16 - Implement Privacy API.
