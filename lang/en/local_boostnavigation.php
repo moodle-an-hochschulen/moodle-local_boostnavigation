@@ -90,7 +90,7 @@ Further information to the parameters:
 </ul>
 Please note:
 <ul>
-<li>The link parameter can contain placeholders, for example /course/edit.php?id={courseid} to create a node linking to the current course\'s settings page. Placeholders are encapsulated in curly brackets and will be replaced automatically when then custom node is created.<br />Available placeholders are:
+<li>The link parameter can contain placeholders, for example /course/edit.php?id={courseid} to create a node linking to the current course\'s settings page. Placeholders are encapsulated in curly brackets and will be replaced automatically when the custom node is created.<br />Available placeholders are:
 <ul>
 <li>{courseid}: The course\'s (internal) ID</li>
 <li>{courseshortname}: The course\'s shortname</li>
@@ -121,7 +121,7 @@ Further information to the parameters:
 Please note:
 <ul>
 <li>Pipe dividing for optional parameters is always needed if they are located between other options. This means that you have to separate params with the pipe character although they are empty. Also see the example for the Faculty of mathematics custom node above.</li>
-<li>The link parameter can contain placeholders, for example /course/edit.php?id={courseid} to create a node linking to the current course\'s settings page. Placeholders are encapsulated in curly brackets and will be replaced automatically when then custom node is created.<br />Available placeholders are:
+<li>The link parameter can contain placeholders, for example /course/edit.php?id={courseid} to create a node linking to the current course\'s settings page. Placeholders are encapsulated in curly brackets and will be replaced automatically when the custom node is created.<br />Available placeholders are:
 <ul>
 <li>{courseid}: The course\'s (internal) ID</li>
 <li>{courseshortname}: The course\'s shortname</li>
