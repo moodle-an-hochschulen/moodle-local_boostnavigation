@@ -338,7 +338,7 @@ function local_boostnavigation_build_node_url($url) {
             'courseshortname' => (isset($COURSE->shortname) ? $COURSE->shortname : ''),
             'userid' => (isset($USER->id) ? $USER->id : ''),
             'userusername' => (isset($USER->username) ? $USER->username : ''),
-            'pagecontextid' => (isset($PAGE->context) ? $PAGE->context->id : ''),
+            'pagecontextid' => (is_object($PAGE->context) ? $PAGE->context->id : ''),
             'pagepath' => (is_object($PAGE->url) ? $PAGE->url->out_as_local_url() : ''),
             'sesskey' => sesskey());
 

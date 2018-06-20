@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2018-06-20 - Bugfix: {pagecontextid} placeholder in custom node URLs was broken.
+
 ### v3.4-r5
 
 * 2018-06-20 - Bugfix: Display custom nodes for multiple cohorts did not work
