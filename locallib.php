@@ -285,11 +285,11 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
  * regardless of cohort visibility), so we need to get this information ourselves.
  *
  * @param int $userid
- * @param string $cohortidnumber
+ * @param string $setting A comma-seperated whitelist of allowed cohort idnumbers.
  *
  * @return bool
  */
-function local_boostnavigation_cohort_is_member($userid, $cohortidnumber) {
+function local_boostnavigation_cohort_is_member($userid, $setting) {
     global $DB;
 
     // Initialize variable for memberships.
@@ -312,8 +312,13 @@ function local_boostnavigation_cohort_is_member($userid, $cohortidnumber) {
         $allmemberships = $ret;
     }
 
-    // Second: Check if the user if a member of the given cohort.
-    $ismember = in_array($cohortidnumber, $allmemberships);
+    // Second: Check if the user if a member of the given cohort(s).
+    $cohortids = explode(',', $setting);
+    if ($cohortids < 2) {
+        $ismember = in_array($setting, $allmemberships);
+    } else {
+        $ismember = count(array_intersect($cohortids, $allmemberships)) > 0;
+    }
 
     // Return the result.
     return $ismember;
