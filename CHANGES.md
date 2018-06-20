@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.4-r5
 
 * 2018-06-20 - Bugfix: Display custom nodes for multiple cohorts did not work
 * 2018-06-20 - Add support for role specific custom nodes. With warm greetings from Moodle-DACH18-DevCamp - Cheers Jonathan and Christian
