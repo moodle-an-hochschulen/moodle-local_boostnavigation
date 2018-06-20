@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2018-06-20 - Add support for role specific custom nodes. With warm greetings from Moodle-DACH18-DevCamp - Cheers Jonathan and Christian
 * 2018-06-19 - Add support for placeholders in custom node URLs.
 
 ### v3.4-r4

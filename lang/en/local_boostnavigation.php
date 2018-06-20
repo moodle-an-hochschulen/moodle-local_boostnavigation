@@ -76,7 +76,7 @@ Administration|/admin/index.php<br />
 Please note:
 <ul>
 <li>For technical reasons, a parent node always needs a valid URL, even if the node will be made collapsible afterwards.</li>
-<li>Additionally, if a parent node is not shown because a (language or cohort) restriction applies, its children nodes also won\'t be shown.</li>
+<li>Additionally, if a parent node is not shown because a (language, cohort or role) restriction applies, its children nodes also won\'t be shown.</li>
 </ul>';
 $string['setting_customnodesusageadmins'] = 'Each line consists of a link title, a link URL and supported language(s) (optional) - separated by pipe characters. Each custom node needs to be written in a new line.<br />
 For example:<br />
@@ -104,17 +104,19 @@ Please note:
 <li>If the custom node does not show up in Boost\'s nav drawer, please check if all mandatory params are set correctly and if the optional language setting fits to your current Moodle user language.</li>
 <li>Due to the way how Boost\'s nav drawer is built in Moodle core, all custom nodes are displayed equally. Adding custom CSS classes, custom HTML element ids or a target attribute to open the link in a new window is impossible.</li>
 </ul>';
-$string['setting_customnodesusageusers'] = 'Each line consists of a link title, a link URL, supported language(s) (optional) and supported cohort(s) (optional) - separated by pipe characters. Each custom node needs to be written in a new line.<br />
+$string['setting_customnodesusageusers'] = 'Each line consists of a link title, a link URL, supported language(s) (optional), supported cohort(s) (optional) and supported role(s) (optional) - separated by pipe characters. Each custom node needs to be written in a new line.<br />
 For example:<br />
 Moodle.org website|http://www.moodle.org|en,de<br />
 Our university|http://www.our-university.edu<br />
-Faculty of mathematics|http://www.our-university.edu/math||math<br /><br />
+Faculty of mathematics|http://www.our-university.edu/math||math<br />
+Teachers\' handbook|http://www.our-university.edu/teacher-handbook|||editingteacher,teacher<br /><br />
 Further information to the parameters:
 <ul>
 <li><b>Title:</b> This text will be shown as the clickable text / label of the custom node.</li>
 <li><b>Link:</b> The link target can be defined by a full web URL(e.g. https://moodle.org) or a relative path within your Moodle instance (e.g. /login/logout.php).</li>
 <li><b>Supported language(s) (optional):</b> This setting can be used for displaying the custom node to users of the specified language only. Separate more than one supported language with commas. If the custom node should be displayed in all languages, then leave this field empty.</li >
-<li><b>Supported cohort(s) (optional):</b> This setting can be used for displaying the custom node to members of the specified cohort only. Use the cohort\'s ID, not the cohort\'s name, for this setting. Separate more than one supported cohort with commas. If the custom node should be displayed for users regardless of any cohort membership, then leave this field empty.
+<li><b>Supported cohort(s) (optional):</b> This setting can be used for displaying the custom node to members of the specified cohort only. Use the cohort\'s ID, not the cohort\'s name, for this setting. Separate more than one supported cohort with commas. If the custom node should be displayed for users regardless of any cohort membership, then leave this field empty.</li>
+<li><b>Supported role(s) (optional):</b> This setting can be used for displaying the custom node only to members with the specified role in each context. Use the role\'s shortname for this setting. Separate more than one supported role with commas. If the custom node should be displayed for users regardless of any role, then leave this field empty.</li>
 </ul>
 Please note:
 <ul>
