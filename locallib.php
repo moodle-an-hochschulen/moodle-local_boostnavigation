@@ -363,7 +363,12 @@ function local_boostnavigation_user_has_role_on_page($userid, $setting) {
     // Is the user's course role switched?
     if (!empty($USER->access['rsw'][$PAGE->context->path])) {
         // Check only switched role.
-        $allroles = get_all_roles();
+
+        // Fetch all information for all roles only once and remember for next calls of this function.
+        static $allroles;
+        if ($allroles == null) {
+            $allroles = get_all_roles();
+        }
 
         // Check if the user has switch to a required role.
         return in_array($allroles[$USER->access['rsw'][$PAGE->context->path]]->shortname, $showforroles);
@@ -372,13 +377,16 @@ function local_boostnavigation_user_has_role_on_page($userid, $setting) {
     } else {
         // Check all of the user's course roles.
 
-        // Retrieve the assigned roles for the current page.
-        $rolesincontext = get_user_roles($PAGE->context, $userid);
-
-        $rolesincontextshortnames = array();
-        foreach ($rolesincontext as $role) {
-            array_push($rolesincontextshortnames, $role->shortname);
+        // Retrieve the assigned roles for the current page only once and remember for next calls of this function.
+        static $rolesincontextshortnames;
+        if ($rolesincontextshortnames == null) {
+            $rolesincontext = get_user_roles($PAGE->context, $userid);
+            $rolesincontextshortnames = array();
+            foreach ($rolesincontext as $role) {
+                array_push($rolesincontextshortnames, $role->shortname);
+            }
         }
+
         // Check if the user has at least one of the required roles.
         return count(array_intersect($rolesincontextshortnames, $showforroles)) > 0;
     }
