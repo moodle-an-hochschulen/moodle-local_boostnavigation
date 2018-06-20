@@ -285,11 +285,11 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
  * regardless of cohort visibility), so we need to get this information ourselves.
  *
  * @param int $userid
- * @param string $cohortidnumber
+ * @param string $setting A comma-seperated whitelist of allowed cohort idnumbers.
  *
  * @return bool
  */
-function local_boostnavigation_cohort_is_member($userid, $cohortidnumber) {
+function local_boostnavigation_cohort_is_member($userid, $setting) {
     global $DB;
 
     // Initialize variable for memberships.
@@ -312,8 +312,13 @@ function local_boostnavigation_cohort_is_member($userid, $cohortidnumber) {
         $allmemberships = $ret;
     }
 
-    // Second: Check if the user if a member of the given cohort.
-    $ismember = in_array($cohortidnumber, $allmemberships);
+    // Second: Check if the user if a member of the given cohort(s).
+    $cohortids = explode(',', $setting);
+    if ($cohortids < 2) {
+        $ismember = in_array($setting, $allmemberships);
+    } else {
+        $ismember = count(array_intersect($cohortids, $allmemberships)) > 0;
+    }
 
     // Return the result.
     return $ismember;
@@ -363,7 +368,12 @@ function local_boostnavigation_user_has_role_on_page($userid, $setting) {
     // Is the user's course role switched?
     if (!empty($USER->access['rsw'][$PAGE->context->path])) {
         // Check only switched role.
-        $allroles = get_all_roles();
+
+        // Fetch all information for all roles only once and remember for next calls of this function.
+        static $allroles;
+        if ($allroles == null) {
+            $allroles = get_all_roles();
+        }
 
         // Check if the user has switch to a required role.
         return in_array($allroles[$USER->access['rsw'][$PAGE->context->path]]->shortname, $showforroles);
@@ -372,13 +382,16 @@ function local_boostnavigation_user_has_role_on_page($userid, $setting) {
     } else {
         // Check all of the user's course roles.
 
-        // Retrieve the assigned roles for the current page.
-        $rolesincontext = get_user_roles($PAGE->context, $userid);
-
-        $rolesincontextshortnames = array();
-        foreach ($rolesincontext as $role) {
-            array_push($rolesincontextshortnames, $role->shortname);
+        // Retrieve the assigned roles for the current page only once and remember for next calls of this function.
+        static $rolesincontextshortnames;
+        if ($rolesincontextshortnames == null) {
+            $rolesincontext = get_user_roles($PAGE->context, $userid);
+            $rolesincontextshortnames = array();
+            foreach ($rolesincontext as $role) {
+                array_push($rolesincontextshortnames, $role->shortname);
+            }
         }
+
         // Check if the user has at least one of the required roles.
         return count(array_intersect($rolesincontextshortnames, $showforroles)) > 0;
     }
