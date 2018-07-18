@@ -360,7 +360,7 @@ function local_boostnavigation_build_node_url($url) {
  * @return bool
  */
 function local_boostnavigation_user_has_role_on_page($userid, $setting) {
-    global $PAGE, $USER;
+    global $PAGE, $USER, $COURSE, $DB, $CFG;
 
     // Split optional setting by comma.
     $showforroles = explode(',', $setting);
@@ -385,10 +385,30 @@ function local_boostnavigation_user_has_role_on_page($userid, $setting) {
         // Retrieve the assigned roles for the current page only once and remember for next calls of this function.
         static $rolesincontextshortnames;
         if ($rolesincontextshortnames == null) {
+            // Get the assigned roles.
             $rolesincontext = get_user_roles($PAGE->context, $userid);
             $rolesincontextshortnames = array();
             foreach ($rolesincontext as $role) {
                 array_push($rolesincontextshortnames, $role->shortname);
+            }
+
+            // As get_user_roles only returns roles for enrolled users, we have to check whether a user
+            // is viewing the course as guest or is not logged in separately.
+            // Is the user not logged in?
+            if (isguestuser($userid)) {
+                $notloggedinroleshortname = $DB->get_field('role', 'shortname', array('id' => $CFG->notloggedinroleid),
+                        IGNORE_MISSING);
+                if ($notloggedinroleshortname) {
+                    array_push($rolesincontextshortnames, $notloggedinroleshortname);
+                }
+            }
+
+            // Only proceed if we are inside a course and we are _not_ on the frontpage.
+            if ($PAGE->context->get_course_context(false) == true && $COURSE->id != SITEID) {
+                // Is the user viewing the course as guest?
+                if (is_guest($PAGE->context, $userid)) {
+                    array_push($rolesincontextshortnames, get_guest_role()->shortname);
+                }
             }
         }
 

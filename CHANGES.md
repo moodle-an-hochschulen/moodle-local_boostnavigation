@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2018-07-18 - Support guest and non-logged-in users for role specific custom nodes.
+
 ### v3.4-r6
 
 * 2018-06-20 - Bugfix: {pagecontextid} placeholder in custom node URLs was broken.
