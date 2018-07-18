@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.5-r1
 
 * 2018-07-18 - Some changes after navdrawer icons have landed in core.
 * 2018-07-18 - Check compatibility for Moodle 3.5, no functionality change.
