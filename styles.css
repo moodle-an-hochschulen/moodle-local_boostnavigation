@@ -24,20 +24,24 @@
 .jsenabled .list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"][data-collapse="0"] > div::after,
 .jsenabled .list-group-item[data-key="localboostnavigationactivities"][data-isexpandable="1"][data-collapse="0"] > div::after,
 .jsenabled .list-group-item[data-key^="localboostnavigationcustom"][data-isexpandable="1"][data-collapse="0"] > div::after {
-    content: url([[pix:i/dropdown]]);
+    content: "\f0d7";
+    font-family: FontAwesome;
+    font-size: 1.2rem;
     position: absolute;
-    top: 0.75rem;
     right: 0.75rem;
+    top: 0.55rem;
 }
 /* Add the icon for the collapsed node state. */
 .jsenabled .list-group-item[data-key="mycourses"][data-isexpandable="1"][data-collapse="1"] > div::after,
 .jsenabled .list-group-item[data-key="localboostnavigationcoursesections"][data-isexpandable="1"][data-collapse="1"] > div::after,
 .jsenabled .list-group-item[data-key="localboostnavigationactivities"][data-isexpandable="1"][data-collapse="1"] > div::after,
 .jsenabled .list-group-item[data-key^="localboostnavigationcustom"][data-isexpandable="1"][data-collapse="1"] > div::after {
-    content: url([[pix:t/collapsed]]);
+    content: "\f0da";
+    font-family: FontAwesome;
+    font-size: 1.2rem;
     position: absolute;
-    top: 0.75rem;
     right: 0.75rem;
+    top: 0.55rem;
 }
 /* Make sure that the icon does not overlap with the node text. */
 .jsenabled .list-group-item[data-key="mycourses"][data-isexpandable="1"] > div,

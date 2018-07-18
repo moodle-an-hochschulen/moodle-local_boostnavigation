@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2018-07-19 - Change collapse node icon to FontAwesome.
+
 ### v3.5-r1
 
 * 2018-07-18 - Some changes after navdrawer icons have landed in core.
