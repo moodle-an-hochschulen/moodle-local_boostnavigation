@@ -9,7 +9,7 @@ Moodle plugin which tries to overcome some fixed appearance behaviours of Boost'
 Requirements
 ------------
 
-This plugin requires Moodle 3.4+
+This plugin requires Moodle 3.5+
 
 
 Motivation for this plugin

@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2018-07-18 - Check compatibility for Moodle 3.5, no functionality change.
+
 ### v3.4-r7
 
 * 2018-07-18 - Support guest and non-logged-in users for role specific custom nodes.
