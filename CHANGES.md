@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.4-r7
 
 * 2018-07-18 - Support guest and non-logged-in users for role specific custom nodes.
 
