@@ -582,7 +582,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // Check if admin wanted us to also collapse the custom bottom nodes for admins.
         if ($config->collapsecustombottomnodesadmins == true) {
             // Remember the collapsible node for JavaScript.
-            if (is_array($collapsenodesforjs)) {
+            if (!empty($collapsenodesforjs) && is_array($collapsenodesforjs)) {
                 $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
             } else {
                 $collapsenodesforjs = $customnodesret;
