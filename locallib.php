@@ -233,6 +233,12 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                     $customnode->collapse = false;
                 }
 
+                // If the code should be collapsed, remove the active status in any case because otherwise it might get highlighted
+                // as active which does not make sense for collapse parent nodes.
+                if ($collapse) {
+                    $customnode->make_inactive();
+                }
+
                 // Finally, if the node shouldn't be collapsed or if it does not have children, set the node icon.
                 if (!$collapse || $customnode->has_children() == false) {
                     $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
