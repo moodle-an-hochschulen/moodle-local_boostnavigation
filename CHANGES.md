@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2018-07-19 - Split settings onto multiple settings pages.
 * 2018-07-19 - Change collapse node icon to FontAwesome.
 
 ### v3.5-r1
