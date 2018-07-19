@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.5-r2
 
 * 2018-07-19 - Adapt the mechanism to de-activate collapsible custom parent nodes.
 * 2018-07-19 - Cleanup: Remove a PHP notice in a forgotten edge case.
