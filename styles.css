@@ -94,7 +94,7 @@
 }
 /* ... and remove the indent of the mycourses child nodes. */
 .list-group-item[data-parent-key="mycourses"] > div {
-    margin-left: 0!important;
+    margin-left: 0 !important;
 }
 /* Hide the icon for collapsible custom parent nodes ... */
 .jsenabled .list-group-item[data-key^="localboostnavigationcustom"][data-isexpandable="1"] .icon {
