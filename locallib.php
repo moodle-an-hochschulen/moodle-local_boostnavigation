@@ -103,6 +103,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         $nodevisible = false;
         $nodeischild = false;
         $nodekey = null;
+        $nodelanguage = null;
 
         // Make a new array on delimiter "|".
         $settings = explode('|', $line);
@@ -110,7 +111,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         // Check for the mandatory conditions first.
         // If array contains too less or too many settings, do not proceed and therefore do not create the node.
         // Furthermore check it at least the first two mandatory params are not an empty string.
-        if (count($settings) >= 2 && count($settings) <= 5 && $settings[0] !== '' && $settings[1] !== '') {
+        if (count($settings) >= 2 && count($settings) <= 7 && $settings[0] !== '' && $settings[1] !== '') {
             foreach ($settings as $i => $setting) {
                 $setting = trim($setting);
                 if (!empty($setting)) {
@@ -149,7 +150,8 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             // Only proceed if something is entered here. This parameter is optional.
                             // If no language is given the node will be added to the navigation by default.
                             $nodelanguages = array_map('trim', explode(',', $setting));
-                            $nodevisible &= in_array(current_language(), $nodelanguages);
+                            $nodelanguage = in_array(current_language(), $nodelanguages);
+                            $nodevisible &= $nodelanguage;
 
                             break;
                         // Check for the optional fourth param: cohort filter.
@@ -166,6 +168,28 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             // Otherwise, it is checked whether the user has any of the provided roles,
                             // so that the custom node is displayed.
                             $nodevisible &= local_boostnavigation_user_has_role_on_page($USER->id, $setting);
+
+                            break;
+                        // Check for the optional sixth parameter: system role filter.
+                        case 5:
+                            // Only proceed if some role is entered here. This parameter is optional.
+                            // If no system role shortnames are given, the node will not be added to the navigation by default.
+                            // Otherwise, it is checked whether the user has any of the provided roles,
+                            // so that the custom node is displayed.
+                            if (local_boostnavigation_user_has_role_on_system($USER->id, $setting) && $nodelanguage) {
+                                $nodevisible = true;
+                            }
+
+                            break;
+                        // Check for the optional seventh parameter: admin filter.
+                        case 6:
+                            // Only proceed if some value is entered here. This parameter is optional.
+                            // If no value is given, the node will not be added to the navigation by default.
+                            // Otherwise, it is checked whether the user is a site-admin,
+                            // so that the custom node is displayed.
+                            if (local_boostnavigation_user_is_admin($USER->id, $setting) && $nodelanguage) {
+                                $nodevisible = true;
+                            }
 
                             break;
                     }
@@ -420,5 +444,44 @@ function local_boostnavigation_user_has_role_on_page($userid, $setting) {
 
         // Check if the user has at least one of the required roles.
         return count(array_intersect($rolesincontextshortnames, $showforroles)) > 0;
+    }
+}
+
+/**
+ * Checks if the user has any of the allowed global system roles.
+ * @param int $userid
+ * @param string $setting A comma-separated whitelist of allowed system roles.
+ * @return bool
+ */
+function local_boostnavigation_user_has_role_on_system($userid, $setting) {
+
+    $hasrole = null;
+
+    // Split optional setting by comma.
+    $showforroles = explode(',', $setting);
+
+    // Get roles for user.
+    $roles = get_user_roles(context_system::instance(), $userid, false);
+
+    foreach ($roles as $role) {
+        if (in_array($role->shortname, $showforroles)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Checks if the user is a site-admin and the parameter is set true.
+ * @param int $userid
+ * @param string $setting A value which describes the state, e.g. true.
+ * @return bool
+ */
+function local_boostnavigation_user_is_admin($userid, $setting) {
+    if ($setting == "true") {
+        return is_siteadmin($userid);
+    } else {
+        return false;
     }
 }

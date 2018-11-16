@@ -117,6 +117,8 @@ Further information to the parameters:
 <li><b>Supported language(s) (optional):</b> This setting can be used for displaying the custom node to users of the specified language only. Separate more than one supported language with commas. If the custom node should be displayed in all languages, then leave this field empty.</li >
 <li><b>Supported cohort(s) (optional):</b> This setting can be used for displaying the custom node to members of the specified cohort only. Use the cohort\'s ID, not the cohort\'s name, for this setting. Separate more than one supported cohort with commas. If the custom node should be displayed for users regardless of any cohort membership, then leave this field empty.</li>
 <li><b>Supported role(s) (optional):</b> This setting can be used for displaying the custom node only to members with the specified role in each context. Use the role\'s shortname for this setting. Separate more than one supported role with commas. If the custom node should be displayed for users regardless of any role, then leave this field empty.</li>
+<li><b>Supported global role(s) (optional):</b> This setting can be used for displaying the custom node only to users with the specified global role. Use the role\'s shortname for this setting. Separate more than one supported role with commas. If the custom node should not be displayed for users with global role(s), then leave this field empty.</li>
+<li><b>Supported admin (optional):</b> This setting can be used for displaying the custom node additionally for site-admins. Use "true" for this setting. If the custom node should not be displayed for admin users, then leave this field empty.</li>
 </ul>
 Please note:
 <ul>
