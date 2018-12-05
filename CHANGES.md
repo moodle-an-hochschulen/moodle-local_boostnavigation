@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2018-12-05 - Changed travis.yml due to upstream changes.
 * 2018-07-23 - Remove deprecated strings file as the strings were fully depreated before.
 
 ### v3.5-r2
