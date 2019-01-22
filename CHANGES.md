@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2019-03-13 - Check compatibility for Moodle 3.6, no functionality change.
+
 ### v3.5-r8
 
 * 2019-03-12 - Allow participants node to be removed from the course navigation.
