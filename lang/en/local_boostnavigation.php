@@ -95,7 +95,7 @@ Please note:
 <li>{coursefullname}: The course\'s full name</li>
 <li>{courseshortname}: The course\'s shortname</li>
 <li>{editingtoggle}: The value \'Turn editing on\' or \'Turn editing off\' from the currently used language pack</li>
-<li>{userusername}: The logged in user\'s full name</li>
+<li>{userfullname}: The logged in user\'s full name</li>
 <li>{userusername}: The logged in user\'s username</li>
 </ul>
 </li>
@@ -136,7 +136,7 @@ Please note:
 <li>{coursefullname}: The course\'s full name</li>
 <li>{courseshortname}: The course\'s shortname</li>
 <li>{editingtoggle}: The value \'Turn editing on\' or \'Turn editing off\' from the currently used language pack</li>
-<li>{userusername}: The logged in user\'s full name</li>
+<li>{userfullname}: The logged in user\'s full name</li>
 <li>{userusername}: The logged in user\'s username</li>
 </ul>
 <li>The link parameter can contain placeholders, for example /course/edit.php?id={courseid} to create a node linking to the current course\'s settings page. Placeholders are encapsulated in curly brackets and will be replaced automatically when the custom node is created.<br />Available placeholders are:
