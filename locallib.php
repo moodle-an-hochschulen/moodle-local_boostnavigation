@@ -70,7 +70,12 @@ function local_boostnavigation_get_all_childrenkeys(navigation_node $navigationn
 function local_boostnavigation_build_custom_nodes($customnodes, navigation_node $node,
         $keyprefix='localboostnavigationcustom', $showinflatnavigation=true, $collapse=false,
         $collapsedefault=false) {
-    global $USER;
+    global $USER, $FULLME;
+
+    // Build full page URL if we have it available to be used down below.
+    if (!empty($FULLME)) {
+        $pagefullurl = new moodle_url($FULLME);
+    }
 
     // Initialize counter which is later used for the node IDs.
     $nodecount = 0;
@@ -274,6 +279,14 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                     $customnode->hidden = true;
                 } else {
                     $customnode->hidden = false;
+                }
+
+                // For some strange reason, Moodle core does only compare the URL base when searching the active navigation node.
+                // This will result in the wrong node being highlighted if we add multiple nodes which only differ by the URL
+                // parameter as custom nodes.
+                // We try to overcome this problem as best as possible by actively setting the active node.
+                if ($pagefullurl instanceof moodle_url && $nodeurl->compare($pagefullurl, URL_MATCH_PARAMS)) {
+                    $customnode->make_active();
                 }
 
                 // Finally, set the node icon.
