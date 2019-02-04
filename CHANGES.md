@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.5-r4
 
 * 2019-02-04 - Fix a flaw in the language pack for the node title placeholders.
 
