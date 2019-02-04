@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.5-r3
 
 * 2019-02-04 - Improvement: Add placeholders for node titles.
 * 2019-02-04 - Improvement: Add editingtoggle placeholder for custom nodes.
