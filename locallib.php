@@ -355,6 +355,7 @@ function local_boostnavigation_build_node_url($url) {
     // Define placeholders which should be replaced later.
     $placeholders = array('courseid' => (isset($COURSE->id) ? $COURSE->id : ''),
             'courseshortname' => (isset($COURSE->shortname) ? $COURSE->shortname : ''),
+            'editingtoggle' => ($PAGE->user_is_editing() ? 'off' : 'on'),
             'userid' => (isset($USER->id) ? $USER->id : ''),
             'userusername' => (isset($USER->username) ? $USER->username : ''),
             'pagecontextid' => (is_object($PAGE->context) ? $PAGE->context->id : ''),

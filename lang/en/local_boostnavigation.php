@@ -94,6 +94,7 @@ Please note:
 <ul>
 <li>{courseid}: The course\'s (internal) ID</li>
 <li>{courseshortname}: The course\'s shortname</li>
+<li>{editingtoggle}: The value \'on\' or \'off\' which is needed to toggle edit mode</li>
 <li>{userid}: The logged in user\'s (internal) ID</li>
 <li>{userusername}: The logged in user\'s username</li>
 <li>{pagecontextid}: The current page\'s context ID</li>
@@ -125,6 +126,7 @@ Please note:
 <ul>
 <li>{courseid}: The course\'s (internal) ID</li>
 <li>{courseshortname}: The course\'s shortname</li>
+<li>{editingtoggle}: The value \'on\' or \'off\' which is needed to toggle edit mode</li>
 <li>{userid}: The logged in user\'s (internal) ID</li>
 <li>{userusername}: The logged in user\'s username</li>
 <li>{pagecontextid}: The current page\'s context ID</li>
