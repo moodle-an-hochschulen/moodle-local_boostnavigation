@@ -125,10 +125,10 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             // Check if this is a child node and get the node title.
                             if (substr($setting, 0, 1) == '-') {
                                 $nodeischild = true;
-                                $nodetitle = substr($setting, 1);
+                                $nodetitle = local_boostnavigation_build_node_title(substr($setting, 1));
                             } else {
                                 $nodeischild = false;
-                                $nodetitle = $setting;
+                                $nodetitle = local_boostnavigation_build_node_title($setting);
                             }
 
                             // Set the node to be basically visible.
@@ -371,6 +371,33 @@ function local_boostnavigation_build_node_url($url) {
     }
 
     return new moodle_url($url);
+}
+
+/**
+ * This function takes the plugin's custom node title, replaces placeholders if necessary and returns the title.
+ *
+ * @param string $title
+ * @return string
+ */
+function local_boostnavigation_build_node_title($title) {
+    global $USER, $COURSE, $PAGE;
+
+    // Define placeholders which should be replaced later.
+    $placeholders = array('coursefullname' => (isset($COURSE->fullname) ? format_string($COURSE->fullname) : ''),
+            'courseshortname' => (isset($COURSE->shortname) ? $COURSE->shortname : ''),
+            'editingtoggle' => ($PAGE->user_is_editing() ? get_string('turneditingoff') : get_string('turneditingon')),
+            'userfullname' => fullname($USER),
+            'userusername' => (isset($USER->username) ? $USER->username : ''));
+
+    // Check if there is any placeholder in the title.
+    if (strpos($title, '{') !== false) {
+        // If yes, replace the placeholders in the title.
+        foreach ($placeholders as $search => $replace) {
+            $title = str_replace('{' . $search . '}', $replace, $title);
+        }
+    }
+
+    return $title;
 }
 
 /**

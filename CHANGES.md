@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-02-04 - Improvement: Add placeholders for node titles.
 * 2019-02-04 - Improvement: Add editingtoggle placeholder for custom nodes.
 * 2019-02-04 - Improvement: Make sure that the right custom node with parameters is active and highlighted.
 * 2018-12-05 - Changed travis.yml due to upstream changes.
