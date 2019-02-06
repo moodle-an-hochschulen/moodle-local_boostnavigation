@@ -115,7 +115,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         // Check for the mandatory conditions first.
         // If array contains too less or too many settings, do not proceed and therefore do not create the node.
         // Furthermore check it at least the first two mandatory params are not an empty string.
-        if (count($settings) >= 2 && count($settings) <= 5 && $settings[0] !== '' && $settings[1] !== '') {
+        if (count($settings) >= 2 && count($settings) <= 6 && $settings[0] !== '' && $settings[1] !== '') {
             foreach ($settings as $i => $setting) {
                 $setting = trim($setting);
                 if (!empty($setting)) {
@@ -171,6 +171,15 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             // Otherwise, it is checked whether the user has any of the provided roles,
                             // so that the custom node is displayed.
                             $nodevisible &= local_boostnavigation_user_has_role_on_page($USER->id, $setting);
+
+                            break;
+                        // Check for the optional sixth parameter: system role filter.
+                        case 5:
+                            // Only proceed if some role is entered here. This parameter is optional.
+                            // If no system role shortnames are given, the node will be added to the navigation by default.
+                            // Otherwise, it is checked whether the user has any of the provided roles,
+                            // so that the custom node is displayed.
+                            $nodevisible &= local_boostnavigation_user_has_role_on_system($USER->id, $setting);
 
                             break;
                     }
@@ -462,4 +471,36 @@ function local_boostnavigation_user_has_role_on_page($userid, $setting) {
         // Check if the user has at least one of the required roles.
         return count(array_intersect($rolesincontextshortnames, $showforroles)) > 0;
     }
+}
+
+/**
+ * Checks if the user has any of the allowed global system roles.
+ * @param int $userid
+ * @param string $setting A comma-separated whitelist of allowed system role shortnames.
+ * @return bool
+ */
+function local_boostnavigation_user_has_role_on_system($userid, $setting) {
+
+    // Split optional setting by comma.
+    $showforroles = explode(',', $setting);
+
+    // Retrieve the assigned roles for the system context only once and remember for next calls of this function.
+    static $rolesinsystemshortnames;
+    if ($rolesinsystemshortnames == null) {
+        // Get the assigned roles.
+        $rolesinsystem = get_user_roles(context_system::instance(), $userid);
+        $rolesinsystemshortnames = array();
+        foreach ($rolesinsystem as $role) {
+            array_push($rolesinsystemshortnames, $role->shortname);
+        }
+
+        // Is the user an admin?
+        if (is_siteadmin($userid)) {
+            // Add it to the list of system roles.
+            array_push($rolesinsystemshortnames, 'admin');
+        }
+    }
+
+    // Check if the user has at least one of the required roles.
+    return count(array_intersect($rolesinsystemshortnames, $showforroles)) > 0;
 }
