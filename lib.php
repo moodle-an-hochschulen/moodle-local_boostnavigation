@@ -676,12 +676,16 @@ function local_boostnavigation_get_fontawesome_icon_map() {
             // Make a new array on delimiter "|".
             $settings = explode('|', $line);
 
-            // Pick the setting which represents the icon.
-            $icon = trim($settings[6]);
+            // Check if there is an icon configured.
+            if (!empty($settings[6])) {
 
-            // If a valid icon is given, we remember it for the iconmapping.
-            if (local_boostnavigation_verify_faicon($icon)) {
-                $iconmapping['local_boostnavigation:'.$icon] = $icon;
+                // Pick the setting which represents the icon.
+                $icon = trim($settings[6]);
+
+                // If a valid icon is given, we remember it for the iconmapping.
+                if (local_boostnavigation_verify_faicon($icon)) {
+                    $iconmapping['local_boostnavigation:'.$icon] = $icon;
+                }
             }
         }
     }
