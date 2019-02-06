@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2019-02-06 - Add the new custom node definition fields to the settings description.
+
 ### v3.5-r6
 
 * 2019-02-06 - Bugfix: Get rid of a debug message which appeared when there wasn't an icon defined for a custom node.

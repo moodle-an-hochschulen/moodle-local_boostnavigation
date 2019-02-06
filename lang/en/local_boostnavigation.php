@@ -114,7 +114,7 @@ Please note:
 <li>If the custom node does not show up in Boost\'s nav drawer, please check if all mandatory params are set correctly and if the optional language setting fits to your current Moodle user language.</li>
 <li>Due to the way how Boost\'s nav drawer is built in Moodle core, all custom nodes are displayed equally. Adding custom CSS classes, custom HTML element ids or a target attribute to open the link in a new window is impossible.</li>
 </ul>';
-$string['setting_customnodesusageusers'] = 'Each line consists of a link title, a link URL, supported language(s) (optional), supported cohort(s) (optional) and supported role(s) (optional) - separated by pipe characters. Each custom node needs to be written in a new line.<br />
+$string['setting_customnodesusageusers'] = 'Each line consists of a link title, a link URL, supported language(s) (optional), supported cohort(s) (optional), supported role(s) (optional), supported global roles(s) (optional) and an icon (optional) - separated by pipe characters. Each custom node needs to be written in a new line.<br />
 For example:<br />
 Moodle.org website|http://www.moodle.org|en,de<br />
 Our university|http://www.our-university.edu<br />
