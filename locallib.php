@@ -431,7 +431,7 @@ function local_boostnavigation_build_node_title($title) {
 
 /**
  * Checks if the provided string is a valid FontAwesome icon name.
- * @param string $icon.
+ * @param string $icon
  * @return bool
  */
 function local_boostnavigation_verify_faicon($icon) {
