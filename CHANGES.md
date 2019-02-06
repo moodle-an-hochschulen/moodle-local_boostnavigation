@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.5-r5
 
 * 2019-02-06 - Add support for icons in custom nodes.
 * 2019-02-06 - Improve processing of the language parameter - Credits to Adrian Perez.
