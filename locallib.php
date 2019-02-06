@@ -108,6 +108,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         $nodevisible = false;
         $nodeischild = false;
         $nodekey = null;
+        $nodelanguage = null;
 
         // Make a new array on delimiter "|".
         $settings = explode('|', $line);
@@ -154,7 +155,8 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             // Only proceed if something is entered here. This parameter is optional.
                             // If no language is given the node will be added to the navigation by default.
                             $nodelanguages = array_map('trim', explode(',', $setting));
-                            $nodevisible &= in_array(current_language(), $nodelanguages);
+                            $nodelanguage = in_array(current_language(), $nodelanguages);
+                            $nodevisible &= $nodelanguage;
 
                             break;
                         // Check for the optional fourth param: cohort filter.

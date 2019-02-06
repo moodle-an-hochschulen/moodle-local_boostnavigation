@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-02-06 - Improve processing of the language parameter - Credits to Adrian Perez.
 * 2019-02-06 - Add support for system roles and site-admin on custom course nodes - Credits to Adrian Perez.
 * 2019-02-05 - Improve the accessibility of the collapsible nodes, let users open / close the MyCourses node with the keyboard.
 
