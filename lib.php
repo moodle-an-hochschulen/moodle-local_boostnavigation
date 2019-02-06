@@ -632,12 +632,73 @@ function local_boostnavigation_extend_navigation_course(navigation_node $navigat
 }
 
 /**
- * Get icon mapping for font-awesome.
+ * Get icon mapping for FontAwesome.
+ * This function is only processed when the Moodle cache is cleared and not on every page load.
+ * That's why we created the local_boostnavigation_reset_fontawesome_icon_map function and added it as a callback to this plugin's
+ * settings for mapping icons as configured in the plugin's in custom nodes.
  */
 function local_boostnavigation_get_fontawesome_icon_map() {
-    return [
+    // Fetch config.
+    $config = get_config('local_boostnavigation');
+
+    // Include local library.
+    require_once(__DIR__ . '/locallib.php');
+
+    // Create the icon map with the icons which are used in any case.
+    $iconmapping = [
             'local_boostnavigation:customnode' => 'fa-square local-boostnavigation-fa-sm',
             'local_boostnavigation:resources' => 'fa-archive',
             'local_boostnavigation:activities' => 'fa-share-alt',
     ];
+
+    // Fetch all FontAwesome icons from the custom nodes settings.
+    // Collect all settings which contain custom nodes.
+    $customnodesettings = array($config->insertcustomnodesusers,
+            $config->insertcustomnodesadmins,
+            $config->insertcustomcoursenodesusers,
+            $config->insertcustomcoursenodesadmins,
+            $config->insertcustombottomnodesusers,
+            $config->insertcustombottomnodesadmins);
+    // Process the settings one by one.
+    foreach ($customnodesettings as $c) {
+
+        // Make a new array on delimiter "new line".
+        $lines = explode("\n", $c);
+
+        // Parse node settings.
+        foreach ($lines as $line) {
+
+            // Skip empty lines.
+            if (strlen($line) == 0) {
+                continue;
+            }
+
+            // Make a new array on delimiter "|".
+            $settings = explode('|', $line);
+
+            // Pick the setting which represents the icon.
+            $icon = trim($settings[6]);
+
+            // If a valid icon is given, we remember it for the iconmapping.
+            if (local_boostnavigation_verify_faicon($icon)) {
+                $iconmapping['local_boostnavigation:'.$icon] = $icon;
+            }
+        }
+    }
+
+    return $iconmapping;
+}
+
+/**
+ * Helper function to reset the icon system used as updatecallback function when saving some of the plugin's settings.
+ */
+function local_boostnavigation_reset_fontawesome_icon_map() {
+    // Reset the icon system cache.
+    // There is the function \core\output\icon_system::reset_caches() which does seem to be only usable in unit tests.
+    // Thus, we clear the icon system cache brutally.
+    $cache = \cache::make('core', 'fontawesomeiconmapping');
+    $cache->delete('mapping');
+    // And rebuild it brutally.
+    $instance = \core\output\icon_system::instance(\core\output\icon_system::FONTAWESOME);
+    $instance->get_icon_name_map();
 }

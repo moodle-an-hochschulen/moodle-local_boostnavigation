@@ -147,22 +147,26 @@ if ($hassiteconfig) {
                 ''));
 
         // Create insert custom nodes for users widget.
-        $page->add(new admin_setting_configtextarea('local_boostnavigation/insertcustomnodesusers',
+        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustomnodesusers',
                 get_string('setting_insertcustomnodesusers', 'local_boostnavigation', null, true),
                 get_string('setting_insertcustomnodesusers_desc', 'local_boostnavigation', null, true).'<br /><br />'.
                         get_string('setting_customnodesusageusers', 'local_boostnavigation', null, true).
                         get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
                 '',
-                PARAM_RAW));
+                PARAM_RAW);
+        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
+        $page->add($setting);
 
         // Create insert custom nodes for admins widget.
-        $page->add(new admin_setting_configtextarea('local_boostnavigation/insertcustomnodesadmins',
+        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustomnodesadmins',
                 get_string('setting_insertcustomnodesadmins', 'local_boostnavigation', null, true),
                 get_string('setting_insertcustomnodesadmins_desc', 'local_boostnavigation', null, true).'<br /><br />'.
                         get_string('setting_customnodesusageadmins', 'local_boostnavigation', null, true).
                         get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
                 '',
-                PARAM_RAW));
+                PARAM_RAW);
+        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
+        $page->add($setting);
 
         // Add collapse nodes heading.
         $page->add(new admin_setting_heading('local_boostnavigation/collapsenodesheading',
@@ -265,22 +269,26 @@ if ($hassiteconfig) {
                 0));
 
         // Create insert custom course nodes for users widget.
-        $page->add(new admin_setting_configtextarea('local_boostnavigation/insertcustomcoursenodesusers',
+        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustomcoursenodesusers',
                 get_string('setting_insertcustomcoursenodesusers', 'local_boostnavigation', null, true),
                 get_string('setting_insertcustomcoursenodesusers_desc', 'local_boostnavigation', null, true).'<br /><br />'.
                         get_string('setting_customnodesusageusers', 'local_boostnavigation', null, true).
                         get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
                 '',
-                PARAM_RAW));
+                PARAM_RAW);
+        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
+        $page->add($setting);
 
         // Create insert custom course nodes for admins widget.
-        $page->add(new admin_setting_configtextarea('local_boostnavigation/insertcustomcoursenodesadmins',
+        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustomcoursenodesadmins',
                 get_string('setting_insertcustomcoursenodesadmins', 'local_boostnavigation', null, true),
                 get_string('setting_insertcustomcoursenodesadmins_desc', 'local_boostnavigation', null, true).'<br /><br />'.
                         get_string('setting_customnodesusageadmins', 'local_boostnavigation', null, true).
                         get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
                 '',
-                PARAM_RAW));
+                PARAM_RAW);
+        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
+        $page->add($setting);
 
         // Add collapse course nodes heading.
         $page->add(new admin_setting_heading('local_boostnavigation/collapsecoursenodesheading',
@@ -354,22 +362,26 @@ if ($hassiteconfig) {
                 ''));
 
         // Create insert custom bottom nodes for users widget.
-        $page->add(new admin_setting_configtextarea('local_boostnavigation/insertcustombottomnodesusers',
+        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustombottomnodesusers',
                 get_string('setting_insertcustombottomnodesusers', 'local_boostnavigation', null, true),
                 get_string('setting_insertcustombottomnodesusers_desc', 'local_boostnavigation', null, true).'<br /><br />'.
                         get_string('setting_customnodesusageusers', 'local_boostnavigation', null, true).
                         get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
                 '',
-                PARAM_RAW));
+                PARAM_RAW);
+        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
+        $page->add($setting);
 
         // Create insert custom bottom nodes for admins widget.
-        $page->add(new admin_setting_configtextarea('local_boostnavigation/insertcustombottomnodesadmins',
+        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustombottomnodesadmins',
                 get_string('setting_insertcustombottomnodesadmins', 'local_boostnavigation', null, true),
                 get_string('setting_insertcustombottomnodesadmins_desc', 'local_boostnavigation', null, true).'<br /><br />'.
                         get_string('setting_customnodesusageadmins', 'local_boostnavigation', null, true).
                         get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
                 '',
-                PARAM_RAW));
+                PARAM_RAW);
+        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
+        $page->add($setting);
 
         // Add collapse bottom nodes heading.
         $page->add(new admin_setting_heading('local_boostnavigation/collapsebottomnodesheading',

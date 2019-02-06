@@ -109,6 +109,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         $nodeischild = false;
         $nodekey = null;
         $nodelanguage = null;
+        $nodeicon = null;
 
         // Make a new array on delimiter "|".
         $settings = explode('|', $line);
@@ -116,7 +117,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         // Check for the mandatory conditions first.
         // If array contains too less or too many settings, do not proceed and therefore do not create the node.
         // Furthermore check it at least the first two mandatory params are not an empty string.
-        if (count($settings) >= 2 && count($settings) <= 6 && $settings[0] !== '' && $settings[1] !== '') {
+        if (count($settings) >= 2 && count($settings) <= 7 && $settings[0] !== '' && $settings[1] !== '') {
             foreach ($settings as $i => $setting) {
                 $setting = trim($setting);
                 if (!empty($setting)) {
@@ -182,6 +183,15 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             // Otherwise, it is checked whether the user has any of the provided roles,
                             // so that the custom node is displayed.
                             $nodevisible &= local_boostnavigation_user_has_role_on_system($USER->id, $setting);
+
+                            break;
+                        // Check for the optional seventh parameter: icon.
+                        case 6:
+                            // Only proceed if some valid FontAwesome icon is entered here. This parameter is optional.
+                            // If no valid icon is given, the node will be added to the navigation with the default icon.
+                            if (local_boostnavigation_verify_faicon($setting) == true) {
+                                $nodeicon = new pix_icon($setting, '', 'local_boostnavigation');
+                            }
 
                             break;
                     }
@@ -257,7 +267,11 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
 
                 // Finally, if the node shouldn't be collapsed or if it does not have children, set the node icon.
                 if (!$collapse || $customnode->has_children() == false) {
-                    $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
+                    if ($nodeicon instanceof pix_icon) {
+                        $customnode->icon = $nodeicon;
+                    } else {
+                        $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
+                    }
                 }
 
                 // Otherwise, if it's a child node.
@@ -301,7 +315,11 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 }
 
                 // Finally, set the node icon.
-                $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
+                if ($nodeicon instanceof pix_icon) {
+                    $customnode->icon = $nodeicon;
+                } else {
+                    $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
+                }
             }
         }
     }
@@ -409,6 +427,23 @@ function local_boostnavigation_build_node_title($title) {
     }
 
     return $title;
+}
+
+/**
+ * Checks if the provided string is a valid FontAwesome icon name.
+ * @param string $icon.
+ * @return bool
+ */
+function local_boostnavigation_verify_faicon($icon) {
+    // The regex to identify a FontAwesome icon name.
+    $faiconpattern = '~^fa-[\w\d-]+$~';
+
+    // Check if it's matching the Font Awesome pattern.
+    if (preg_match($faiconpattern, $icon) > 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /**
