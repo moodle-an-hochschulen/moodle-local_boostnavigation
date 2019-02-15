@@ -119,9 +119,11 @@ For example:<br />
 Moodle.org website|http://www.moodle.org|en,de<br />
 Our university|http://www.our-university.edu<br />
 Faculty of mathematics|http://www.our-university.edu/math||math<br />
-Teachers\' handbook|http://www.our-university.edu/teacher-handbook|||editingteacher,teacher<br /><br />
+Teachers\' handbook|http://www.our-university.edu/teacher-handbook|||editingteacher,teacher<br />
+OR|{editingtoggle}|/course/view.php?id={courseid}&sesskey={sesskey}&edit={editingtoggle}|||editingteacher|admin,manager<br /><br />
 Further information to the parameters:
 <ul>
+<li><b>Logical operator (optional):</b> This setting can be used to change the behaviour of the optional fields. The default behaviour are AND connections. Setting this to OR let you the flexibility to show the node to users with a given role in a course and parallel show this to a system-role user.</li>
 <li><b>Title:</b> This text will be shown as the clickable text / label of the custom node.</li>
 <li><b>Link:</b> The link target can be defined by a full web URL(e.g. https://moodle.org) or a relative path within your Moodle instance (e.g. /login/logout.php).</li>
 <li><b>Supported language(s) (optional):</b> This setting can be used for displaying the custom node to users of the specified language only. Separate more than one supported language with commas. If the custom node should be displayed in all languages, then leave this field empty.</li >

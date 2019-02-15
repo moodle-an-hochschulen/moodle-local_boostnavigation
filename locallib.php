@@ -111,8 +111,29 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         $nodelanguage = null;
         $nodeicon = null;
 
+        // Initialize helper variables.
+        $logicaloperator = 'and';
+        $logicaloperators = ['and', 'or'];
+
         // Make a new array on delimiter "|".
         $settings = explode('|', $line);
+
+        // Check if a logical operator is given as first parameter. This parameter is optional.
+        // The logical operator AND correspond to the default behaviour, if no logical operator is given.
+        // To change this behaviour you can only use the OR operator.
+        $setting = trim($settings[0]);
+        if (!empty($setting)) {
+            $setting = strtolower($setting);
+
+            if (in_array($setting, $logicaloperators)) {
+                switch ($setting) {
+                    case 'or':
+                        $logicaloperator = 'or';
+                        break;
+                }
+                array_shift($settings);
+            }
+        }
 
         // Check for the mandatory conditions first.
         // If array contains too less or too many settings, do not proceed and therefore do not create the node.
@@ -157,14 +178,22 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             // If no language is given the node will be added to the navigation by default.
                             $nodelanguages = array_map('trim', explode(',', $setting));
                             $nodelanguage = in_array(current_language(), $nodelanguages);
-                            $nodevisible &= $nodelanguage;
+                            if ($logicaloperator == 'or') {
+                                $nodevisible |= $nodelanguage;
+                            } else {
+                                $nodevisible &= $nodelanguage;
+                            }
 
                             break;
                         // Check for the optional fourth param: cohort filter.
                         case 3:
                             // Only proceed if something is entered here. This parameter is optional.
                             // If no cohort is given the node will be added to the navigation by default.
-                            $nodevisible &= local_boostnavigation_cohort_is_member($USER->id, $setting);
+                            if ($logicaloperator == 'or') {
+                                $nodevisible |= local_boostnavigation_cohort_is_member($USER->id, $setting);
+                            } else {
+                                $nodevisible &= local_boostnavigation_cohort_is_member($USER->id, $setting);
+                            }
 
                             break;
                         // Check for the optional fifth parameter: role filter.
@@ -173,7 +202,11 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             // If no role shortnames are given, the node will be added to the navigation by default.
                             // Otherwise, it is checked whether the user has any of the provided roles,
                             // so that the custom node is displayed.
-                            $nodevisible &= local_boostnavigation_user_has_role_on_page($USER->id, $setting);
+                            if ($logicaloperator == 'or') {
+                                $nodevisible |= local_boostnavigation_user_has_role_on_page($USER->id, $setting);
+                            } else {
+                                $nodevisible &= local_boostnavigation_user_has_role_on_page($USER->id, $setting);
+                            }
 
                             break;
                         // Check for the optional sixth parameter: system role filter.
@@ -182,7 +215,11 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             // If no system role shortnames are given, the node will be added to the navigation by default.
                             // Otherwise, it is checked whether the user has any of the provided roles,
                             // so that the custom node is displayed.
-                            $nodevisible &= local_boostnavigation_user_has_role_on_system($USER->id, $setting);
+                            if ($logicaloperator == 'or') {
+                                $nodevisible |= local_boostnavigation_user_has_role_on_system($USER->id, $setting);
+                            } else {
+                                $nodevisible &= local_boostnavigation_user_has_role_on_system($USER->id, $setting);
+                            }
 
                             break;
                         // Check for the optional seventh parameter: icon.
