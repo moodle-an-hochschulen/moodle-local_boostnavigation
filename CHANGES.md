@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-03-11 - Add node with icon to example section.
 * 2019-03-11 - Target link to FontAwesome icon list to FontAwesome 4.7.0 which is still used by Moodle core.
 
 ### v3.5-r7

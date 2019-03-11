@@ -119,7 +119,8 @@ For example:<br />
 Moodle.org website|http://www.moodle.org|en,de<br />
 Our university|http://www.our-university.edu<br />
 Faculty of mathematics|http://www.our-university.edu/math||math<br />
-Teachers\' handbook|http://www.our-university.edu/teacher-handbook|||editingteacher,teacher<br /><br />
+Teachers\' handbook|http://www.our-university.edu/teacher-handbook|||editingteacher,teacher<br />
+Student information course|/course/view.php?id=1234|||||fa-graduation-cap<br /><br />
 Further information to the parameters:
 <ul>
 <li><b>Title:</b> This text will be shown as the clickable text / label of the custom node.</li>
@@ -128,7 +129,7 @@ Further information to the parameters:
 <li><b>Supported cohort(s) (optional):</b> This setting can be used for displaying the custom node to members of the specified cohort only. Use the cohort\'s ID, not the cohort\'s name, for this setting. Separate more than one supported cohort with commas. If the custom node should be displayed for users regardless of any cohort membership, then leave this field empty.</li>
 <li><b>Supported role(s) (optional):</b> This setting can be used for displaying the custom node only to members with the specified role in each context. Use the role\'s shortname for this setting. Separate more than one supported role with commas. If the custom node should be displayed for users regardless of any role, then leave this field empty.</li>
 <li><b>Supported system role(s) (optional):</b> This setting can be used for displaying the custom node only to users with the specified role in system context. Use the role\'s shortname for this setting. The shortname \'admin\' is supported to check if the user is a site admin. Separate more than one supported role with commas. If the custom node should be displayed for users regardless of any system role, then leave this field empty.</li>
-<li><b>Icon (optional):</b> This icon will be used as icon for the custom node, for example fa-flag. Use a Font Awesome icon identifier (<a href="https://fontawesome.com/v4.7.0/icons/">See the icon list on fontawesome.com</a>) to identify which icon should be used. Font Awesome is included in Boost, classic Moodle pix icons are not supported here. If you just want to use a standard bullet icon for the custom node, then leave this field empty.</li>
+<li><b>Icon (optional):</b> This icon will be used as icon for the custom node, for example fa-flag. Use a Font Awesome icon identifier (<a href="https://fontawesome.com/v4.7.0/icons/">See the icon list on fontawesome.com</a>) to identify which icon should be used. Font Awesome is included in Boost, classic Moodle pix icons are not supported here. If you just want to use a standard bullet icon for the custom node, then leave this field empty. Custom nodes which don\'t get a standard bullet icon automatically also can\'t get a custom icon currently.</li>
 </ul>
 Please note:
 <ul>
