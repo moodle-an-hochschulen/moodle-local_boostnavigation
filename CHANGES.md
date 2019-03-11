@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2019-03-11 - Target link to FontAwesome icon list to FontAwesome 4.7.0 which is still used by Moodle core.
+
 ### v3.5-r7
 
 * 2019-02-06 - Add the new custom node definition fields to the settings description.
