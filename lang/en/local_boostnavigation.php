@@ -205,6 +205,8 @@ $string['setting_removemycoursesnode'] = 'Remove "My courses" node';
 $string['setting_removemycoursesnodeperformancehint'] = 'Please note: If you enable this setting and have also enabled the setting <a href="/admin/search.php?query=navshowmycoursecategories">navshowmycoursecategories</a>, removing the "My courses" node takes more time and you should consider disabling the navshowmycoursecategories setting.';
 $string['setting_removenodesheading'] = 'Remove root nodes from Boost\'s nav drawer';
 $string['setting_removenodestechnicalhint'] = 'Technical background: This is done by setting the node\'s showinflatnavigation attribute to false. Thus, the node will only be hidden from the nav drawer, but it will remain in the navigation tree and can still be accessed by other parts of Moodle.';
+$string['setting_removeparticipantscoursenode_desc'] = 'Enabling this setting will remove the "Participants" node from Boost\'s nav drawer. It is removed for all users, regardless of a users capabilities.';
+$string['setting_removeparticipantscoursenode'] = 'Remove "Participants" node';
 $string['setting_removeprivatefilesnode_desc'] = 'Enabling this setting will remove the "Private files" node from Boost\'s nav drawer.';
 $string['setting_removeprivatefilesnode'] = 'Remove "Private files" node';
 $string['setting_removesecondhomenode_desc'] = 'Enabling this setting will remove the "Home" or "Dashboard" node, depending on what the user chose not to be his home page, from Boost\'s nav drawer.';

@@ -248,6 +248,13 @@ if ($hassiteconfig) {
                 get_string('setting_removecoursenodestechnicalhint', 'local_boostnavigation', null, true),
                 0));
 
+        // Create remove participants course node control widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/removeparticipantscoursenode',
+                get_string('setting_removeparticipantscoursenode', 'local_boostnavigation', null, true),
+                get_string('setting_removeparticipantscoursenode_desc', 'local_boostnavigation', null, true).'<br /><br />'.
+                get_string('setting_removecoursenodestechnicalhint', 'local_boostnavigation', null, true),
+                0));
+
         // Add insert course nodes heading.
         $page->add(new admin_setting_heading('local_boostnavigation/insertcoursenodesheading',
                 get_string('setting_insertcoursenodesheading', 'local_boostnavigation', null, true),

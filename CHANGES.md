@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-03-12 - Allow participants node to be removed from the course navigation.
 * 2019-03-12 - Allow grade node to be removed from the course navigation - Credits to Dan Marsden.
 * 2019-03-12 - Add support for setting the node id attribute.
 * 2019-03-12 - Announce undocumented parameters for custom nodes for admins.  
