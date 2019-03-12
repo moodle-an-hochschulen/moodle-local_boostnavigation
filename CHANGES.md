@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-03-12 - Allow grade node to be removed from the course navigation - Credits to Dan Marsden.
 * 2019-03-12 - Add support for setting the node id attribute.
 * 2019-03-12 - Announce undocumented parameters for custom nodes for admins.  
 * 2019-03-12 - Add logical combination operator for the cohort, role and system role settings - Credits to Adrian Perez for the idea.

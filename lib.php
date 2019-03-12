@@ -199,6 +199,17 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         }
     }
 
+    // Check if admin wanted us to remove the grades node from Boost's nav drawer.
+    if (isset($config->removegradescoursenode) && $config->removegradescoursenode == true) {
+        // Only proceed if we are inside a course and we are _not_ on the frontpage.
+        if ($PAGE->context->get_course_context(false) == true && $COURSE->id != SITEID) {
+            if ($gradesnode = $navigation->find('grades', global_navigation::TYPE_SETTING)) {
+                // Remove grades node (Just hiding it with the showinflatnavigation attribute does not work here).
+                $gradesnode->remove();
+            }
+        }
+    }
+
     // Check if admin wants us to insert the coursesections node in Boost's nav drawer.
     // Or if admin wants us to insert the activities and / or resources node in Boost's nav drawer.
     // If one of these three settings is activated, we will need the modinfo and don't want
