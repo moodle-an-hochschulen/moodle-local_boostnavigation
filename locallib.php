@@ -121,7 +121,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         // Check for the mandatory conditions first.
         // If array contains too less or too many settings, do not proceed and therefore do not create the node.
         // Furthermore check it at least the first two mandatory params are not an empty string.
-        if (count($settings) >= 2 && count($settings) <= 8 && $settings[0] !== '' && $settings[1] !== '') {
+        if (count($settings) >= 2 && count($settings) <= 9 && $settings[0] !== '' && $settings[1] !== '') {
             foreach ($settings as $i => $setting) {
                 $setting = trim($setting);
                 if (!empty($setting)) {
@@ -218,6 +218,13 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             }
 
                             break;
+                        // Check for the optional eighth parameter: id.
+                        case 8:
+                            // Only proceed if some id is entered here. This parameter is optional.
+                            // If no id is given, the node will get an automatically created id later.
+                            $nodekey = $keyprefix.clean_param($setting, PARAM_ALPHANUM);
+
+                            break;
                     }
                 }
             }
@@ -257,8 +264,10 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         // This is if all mandatory params are set and the node is visible.
         if ($nodevisible) {
 
-            // Generate node key.
-            $nodekey = $keyprefix.++$nodecount;
+            // Generate automatic node key if no custom node key was set.
+            if ($nodekey == null) {
+                $nodekey = $keyprefix.++$nodecount;
+            }
 
             // Create custom node.
             $customnode = navigation_node::create($nodetitle,
