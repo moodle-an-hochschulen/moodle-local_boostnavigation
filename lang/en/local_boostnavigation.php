@@ -90,6 +90,7 @@ Further information to the parameters:
 </ul>
 Please note:
 <ul>
+<li>Custom nodes for admins are processed by the same function as custom nodes for users are. Thus, in addition to the parameters which are given above, the same list of parameters that custom nodes for users support are also supported here. Feel free to use them here if you really need them for any special scenario even if they are not documented here once more for the sake of simplicity.</li>
 <li>The title parameter can contain placeholders, for example {coursefullname} to create a node labeled with the current course\'s full name. Placeholders are encapsulated in curly brackets and will be replaced automatically when the custom node is created.<br />Available placeholders are:
 <ul>
 <li>{coursefullname}: The course\'s full name</li>
