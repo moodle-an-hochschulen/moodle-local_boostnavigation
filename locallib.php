@@ -111,13 +111,17 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         $nodelanguage = null;
         $nodeicon = null;
 
+        // Initialize the logical combination operator and stack.
+        $logicalcombinationoperator = 'AND';
+        $logicalcombinationstack = array();
+
         // Make a new array on delimiter "|".
         $settings = explode('|', $line);
 
         // Check for the mandatory conditions first.
         // If array contains too less or too many settings, do not proceed and therefore do not create the node.
         // Furthermore check it at least the first two mandatory params are not an empty string.
-        if (count($settings) >= 2 && count($settings) <= 7 && $settings[0] !== '' && $settings[1] !== '') {
+        if (count($settings) >= 2 && count($settings) <= 8 && $settings[0] !== '' && $settings[1] !== '') {
             foreach ($settings as $i => $setting) {
                 $setting = trim($setting);
                 if (!empty($setting)) {
@@ -164,29 +168,49 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                         case 3:
                             // Only proceed if something is entered here. This parameter is optional.
                             // If no cohort is given the node will be added to the navigation by default.
-                            $nodevisible &= local_boostnavigation_cohort_is_member($USER->id, $setting);
+                            // Otherwise, it is checked whether the user is a member of any of the provided cohorts and the result
+                            // will be added to the logical combination stack for later evaluation.
+                            $logicalcombinationstack[] = local_boostnavigation_cohort_is_member($USER->id, $setting);
 
                             break;
                         // Check for the optional fifth parameter: role filter.
                         case 4:
                             // Only proceed if some role is entered here. This parameter is optional.
                             // If no role shortnames are given, the node will be added to the navigation by default.
-                            // Otherwise, it is checked whether the user has any of the provided roles,
-                            // so that the custom node is displayed.
-                            $nodevisible &= local_boostnavigation_user_has_role_on_page($USER->id, $setting);
+                            // Otherwise, it is checked whether the user has any of the provided roles and the result
+                            // will be added to the logical combination stack for later evaluation.
+                            $logicalcombinationstack[] = local_boostnavigation_user_has_role_on_page($USER->id, $setting);
 
                             break;
                         // Check for the optional sixth parameter: system role filter.
                         case 5:
                             // Only proceed if some role is entered here. This parameter is optional.
                             // If no system role shortnames are given, the node will be added to the navigation by default.
-                            // Otherwise, it is checked whether the user has any of the provided roles,
-                            // so that the custom node is displayed.
-                            $nodevisible &= local_boostnavigation_user_has_role_on_system($USER->id, $setting);
+                            // Otherwise, it is checked whether the user has any of the provided system roles and the result
+                            // will be added to the logical combination stack for later evaluation.
+                            $logicalcombinationstack[] = local_boostnavigation_user_has_role_on_system($USER->id, $setting);
 
                             break;
-                        // Check for the optional seventh parameter: icon.
+                        // Check for the optional seventh parameter: logical combination operator.
                         case 6:
+                            // Check if a valid logical combination operator is given and remember it for later use.
+                            // The logical combination operator AND corresponds to the default combination which is automatically
+                            // used if no logical operator is given.
+                            // To change the combination only the OR operator is valid.
+                            if (in_array($setting, ['AND', 'OR'])) {
+                                switch ($setting) {
+                                    case 'OR':
+                                        $logicalcombinationoperator = 'OR';
+                                        break;
+                                    case 'AND':
+                                    default:
+                                        $logicalcombinationoperator = 'AND';
+                                }
+                            }
+
+                            break;
+                        // Check for the optional eighth parameter: icon.
+                        case 7:
                             // Only proceed if some valid FontAwesome icon is entered here. This parameter is optional.
                             // If no valid icon is given, the node will be added to the navigation with the default icon.
                             if (local_boostnavigation_verify_faicon($setting) == true) {
@@ -195,23 +219,42 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
 
                             break;
                     }
-
-                    // Support for inheritance of the parent node's visibility to his child notes.
-                    if ($nodeischild == false) {
-                        // To inherit the parent node's visibility to his child nodes later, we have to remember
-                        // this visibility now.
-                        $lastparentnodevisible = $nodevisible;
-                    } else {
-                        // Inherit the parent node's visibility. This overrules the child node's visibility.
-                        $nodevisible &= $lastparentnodevisible;
-                    }
-
                 }
+            }
+
+            // Evaluate the cohort, role and system role settings together with the logical combination operator and calculate
+            // these settings into node visibility.
+            if (count($logicalcombinationstack) >= 2) {
+                if ($logicalcombinationoperator == 'OR') {
+                    $nodevisible &= array_reduce($logicalcombinationstack,
+                            function($a, $b) {
+                                return $a || $b;
+                            },
+                            false);
+                } else {
+                    $nodevisible &= array_reduce($logicalcombinationstack,
+                            function($a, $b) {
+                                return $a && $b;
+                            },
+                            true);
+                }
+            } else if (count($logicalcombinationstack) == 1) {
+                $nodevisible &= $logicalcombinationstack[0];
+            }
+
+            // Support for inheritance of the parent node's visibility to his child notes.
+            if ($nodeischild == false) {
+                // To inherit the parent node's visibility to his child nodes later, we have to remember
+                // this visibility now.
+                $lastparentnodevisible = $nodevisible;
+            } else {
+                // Inherit the parent node's visibility. This overrules the child node's visibility.
+                $nodevisible &= $lastparentnodevisible;
             }
         }
 
         // Add a custom node to the given navigation_node.
-        // This is if all mandatory params are set and the node matches the optional given language setting.
+        // This is if all mandatory params are set and the node is visible.
         if ($nodevisible) {
 
             // Generate node key.

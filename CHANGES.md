@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-03-12 - Add logical combination operator for the cohort, role and system role settings - Credits to Adrian Perez for the idea.
 * 2019-03-11 - Add node with icon to example section.
 * 2019-03-11 - Target link to FontAwesome icon list to FontAwesome 4.7.0 which is still used by Moodle core.
 

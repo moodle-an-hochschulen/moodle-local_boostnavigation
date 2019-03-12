@@ -56,5 +56,41 @@ function xmldb_local_boostnavigation_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2017051000, 'local', 'boostnavigation');
     }
 
+    if ($oldversion < 2019031201) {
+        // After the logical combination operator has been added as node setting, we need to push the icon node settings
+        // (if existing) one place to the right.
+        $insertcustomnodesusers = get_config('local_boostnavigation', 'insertcustomnodesusers');
+        $insertcustomnodesusers = str_replace('|fa-', '||fa-', $insertcustomnodesusers);
+        set_config('insertcustomnodesusers', $insertcustomnodesusers, 'local_boostnavigation');
+        unset($insertcustomnodesusers);
+
+        $insertcustomnodesadmins = get_config('local_boostnavigation', 'insertcustomnodesadmins');
+        $insertcustomnodesadmins = str_replace('|fa-', '||fa-', $insertcustomnodesadmins);
+        set_config('insertcustomnodesadmins', $insertcustomnodesadmins, 'local_boostnavigation');
+        unset($insertcustomnodesadmins);
+
+        $insertcustomcoursenodesusers = get_config('local_boostnavigation', 'insertcustomcoursenodesusers');
+        $insertcustomcoursenodesusers = str_replace('|fa-', '||fa-', $insertcustomcoursenodesusers);
+        set_config('insertcustomcoursenodesusers', $insertcustomcoursenodesusers, 'local_boostnavigation');
+        unset($insertcustomcoursenodesusers);
+
+        $insertcustomcoursenodesadmins = get_config('local_boostnavigation', 'insertcustomcoursenodesadmins');
+        $insertcustomcoursenodesadmins = str_replace('|fa-', '||fa-', $insertcustomcoursenodesadmins);
+        set_config('insertcustomcoursenodesadmins', $insertcustomcoursenodesadmins, 'local_boostnavigation');
+        unset($insertcustomcoursenodesadmins);
+
+        $insertcustombottomnodesusers = get_config('local_boostnavigation', 'insertcustombottomnodesusers');
+        $insertcustombottomnodesusers = str_replace('|fa-', '||fa-', $insertcustombottomnodesusers);
+        set_config('insertcustombottomnodesusers', $insertcustombottomnodesusers, 'local_boostnavigation');
+        unset($insertcustombottomnodesusers);
+
+        $insertcustombottomnodesadmins = get_config('local_boostnavigation', 'insertcustombottomnodesadmins');
+        $insertcustombottomnodesadmins = str_replace('|fa-', '||fa-', $insertcustombottomnodesadmins);
+        set_config('insertcustombottomnodesadmins', $insertcustombottomnodesadmins, 'local_boostnavigation');
+        unset($insertcustombottomnodesadmins);
+
+        upgrade_plugin_savepoint(true, 2019031201, 'local', 'boostnavigation');
+    }
+
     return true;
 }
