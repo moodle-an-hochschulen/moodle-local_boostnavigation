@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.5-r8
 
 * 2019-03-12 - Allow participants node to be removed from the course navigation.
 * 2019-03-12 - Allow grade node to be removed from the course navigation - Credits to Dan Marsden.
