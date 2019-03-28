@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.6-r2
 
 * 2019-03-28 - Remove user preferences when being uninstalled.
 
