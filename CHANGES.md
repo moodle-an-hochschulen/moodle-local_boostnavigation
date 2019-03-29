@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2019-03-29 - Bugfix: Remove debugging notices about undefined properties when running unit tests - Credits to G El-Zoghbi.
+
 ### v3.6-r2
 
 * 2019-03-28 - Remove user preferences when being uninstalled.

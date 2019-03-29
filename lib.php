@@ -675,12 +675,26 @@ function local_boostnavigation_get_fontawesome_icon_map() {
 
     // Fetch all FontAwesome icons from the custom nodes settings.
     // Collect all settings which contain custom nodes.
-    $customnodesettings = array($config->insertcustomnodesusers,
-            $config->insertcustomnodesadmins,
-            $config->insertcustomcoursenodesusers,
-            $config->insertcustomcoursenodesadmins,
-            $config->insertcustombottomnodesusers,
-            $config->insertcustombottomnodesadmins);
+    $customnodesettings = array();
+    if (isset($config->insertcustomnodesusers) && !empty($config->insertcustomnodesusers)) {
+        $customnodesettings[] = $config->insertcustomnodesusers;
+    }
+    if (isset($config->insertcustomnodesadmins) && !empty($config->insertcustomnodesadmins)) {
+        $customnodesettings[] = $config->insertcustomnodesadmins;
+    }
+    if (isset($config->insertcustomcoursenodesusers) && !empty($config->insertcustomcoursenodesusers)) {
+        $customnodesettings[] = $config->insertcustomcoursenodesusers;
+    }
+    if (isset($config->insertcustomcoursenodesadmins) && !empty($config->insertcustomcoursenodesadmins)) {
+        $customnodesettings[] = $config->insertcustomcoursenodesadmins;
+    }
+    if (isset($config->insertcustombottomnodesusers) && !empty($config->insertcustombottomnodesusers)) {
+        $customnodesettings[] = $config->insertcustombottomnodesusers;
+    }
+    if (isset($config->insertcustombottomnodesadmins) && !empty($config->insertcustombottomnodesadmins)) {
+        $customnodesettings[] = $config->insertcustombottomnodesadmins;
+    }
+
     // Process the settings one by one.
     foreach ($customnodesettings as $c) {
 
