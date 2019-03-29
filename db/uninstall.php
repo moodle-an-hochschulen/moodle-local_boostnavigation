@@ -15,15 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Block "course overview (campus)" - Uninstall file
+ * Local plugin "Boost navigation fumbling" - Uninstall file
  *
- * @package    block_course_overview_campus
+ * @package    local_boostnavigation
  * @copyright  2019 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Plugin uninstall steps.
+ */
 function xmldb_local_boostnavigation_uninstall() {
     global $DB;
 
