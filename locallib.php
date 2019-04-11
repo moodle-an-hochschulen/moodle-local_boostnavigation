@@ -110,6 +110,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         $nodekey = null;
         $nodelanguage = null;
         $nodeicon = null;
+        $nodebeforenodekey = null;
 
         // Initialize the logical combination operator and stack.
         $logicalcombinationoperator = 'AND';
@@ -121,7 +122,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         // Check for the mandatory conditions first.
         // If array contains too less or too many settings, do not proceed and therefore do not create the node.
         // Furthermore check it at least the first two mandatory params are not an empty string.
-        if (count($settings) >= 2 && count($settings) <= 9 && $settings[0] !== '' && $settings[1] !== '') {
+        if (count($settings) >= 2 && count($settings) <= 10 && $settings[0] !== '' && $settings[1] !== '') {
             foreach ($settings as $i => $setting) {
                 $setting = trim($setting);
                 if (!empty($setting)) {
@@ -225,6 +226,14 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             $nodekey = $keyprefix.clean_param($setting, PARAM_ALPHANUM);
 
                             break;
+                        // Check for the optional eighth parameter: before node key.
+                        case 9:
+                            // Only proceed if some before node key is entered here. This parameter is optional.
+                            // If no before node key is given, the node will be added to the end of the navigation.
+                            $nodebeforenodekey = clean_param($setting, PARAM_ALPHANUM);
+
+                            break;
+
                     }
                 }
             }
@@ -298,7 +307,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 }
 
                 // Add the custom node to the given navigation_node.
-                $node->add_node($customnode);
+                $node->add_node($customnode, $nodebeforenodekey);
 
                 // Remember the node as a potential parent node for the next node.
                 $lastparentnode = $customnode;
@@ -345,7 +354,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 // For some crazy reason, if we add the child node directly to the parent node, it is not shown in the
                 // course navigation section.
                 // Thus, add the custom node to the given navigation_node.
-                $node->add_node($customnode);
+                $node->add_node($customnode, $nodebeforenodekey);
                 // And change the parent node directly afterwards.
                 $customnode->set_parent($lastparentnode);
 

@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-04-12 - Add option to position custom nodes - Credits to Jean-Roch.
 * 2019-04-12 - Fix a wrong node example in the language pack.
 
 ### v3.6-r3
