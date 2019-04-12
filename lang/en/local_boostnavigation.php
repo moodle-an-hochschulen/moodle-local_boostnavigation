@@ -122,7 +122,7 @@ Our university|http://www.our-university.edu<br />
 Faculty of mathematics|http://www.our-university.edu/math||math<br />
 Teachers\' handbook|http://www.our-university.edu/teacher-handbook|||editingteacher,teacher<br />
 Student information course|/course/view.php?id=1234||||||fa-graduation-cap<br />
-{editingtoggle}|/course/view.php?id={courseid}&sesskey={sesskey}&edit={editingtoggle}|||editingteacher|admin,manager|OR|editing<br /<br />
+{editingtoggle}|/course/view.php?id={courseid}&sesskey={sesskey}&edit={editingtoggle}|||editingteacher|admin,manager|OR|fa-pencil|editing<br /><br />
 Further information to the parameters:
 <ul>
 <li><b>Title:</b> This text will be shown as the clickable text / label of the custom node.</li>
