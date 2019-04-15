@@ -187,6 +187,12 @@ if ($hassiteconfig) {
                 get_string('setting_collapsemycoursesnodedefault_desc', 'local_boostnavigation', null, true),
                 0));
 
+        // Create my courses node collapse session widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsemycoursesnodesession',
+                get_string('setting_collapsemycoursesnodesession', 'local_boostnavigation', null, true),
+                get_string('setting_collapsemycoursesnodesession_desc', 'local_boostnavigation', null, true),
+                0));
+
         // Create custom nodes for users collapse widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustomnodesusers',
                 get_string('setting_collapsecustomnodesusers', 'local_boostnavigation', null, true),
@@ -200,6 +206,12 @@ if ($hassiteconfig) {
                 get_string('setting_collapsecustomnodesusersdefault_desc', 'local_boostnavigation', null, true),
                 0));
 
+        // Create custom nodes for users collapse session widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustomnodesuserssession',
+                get_string('setting_collapsecustomnodesuserssession', 'local_boostnavigation', null, true),
+                get_string('setting_collapsecustomnodesuserssession_desc', 'local_boostnavigation', null, true),
+                0));
+
         // Create custom nodes for admins collapse widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustomnodesadmins',
                 get_string('setting_collapsecustomnodesadmins', 'local_boostnavigation', null, true),
@@ -211,6 +223,12 @@ if ($hassiteconfig) {
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustomnodesadminsdefault',
                 get_string('setting_collapsecustomnodesadminsdefault', 'local_boostnavigation', null, true),
                 get_string('setting_collapsecustomnodesadminsdefault_desc', 'local_boostnavigation', null, true),
+                0));
+
+        // Create custom nodes for admins collapse session widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustomnodesadminssession',
+                get_string('setting_collapsecustomnodesadminssession', 'local_boostnavigation', null, true),
+                get_string('setting_collapsecustomnodesadminssession_desc', 'local_boostnavigation', null, true),
                 0));
 
         // Add settings page to the admin settings category.
@@ -322,6 +340,12 @@ if ($hassiteconfig) {
                 get_string('setting_collapsecoursesectionscoursenodedefault_desc', 'local_boostnavigation', null, true),
                 0));
 
+        // Create course sections course node collapse session widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecoursesectionscoursenodesession',
+                get_string('setting_collapsecoursesectionscoursenodesession', 'local_boostnavigation', null, true),
+                get_string('setting_collapsecoursesectionscoursenodesession_desc', 'local_boostnavigation', null, true),
+                0));
+
         // Create activities course node collapse widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapseactivitiescoursenode',
                 get_string('setting_collapseactivitiescoursenode', 'local_boostnavigation', null, true),
@@ -334,6 +358,12 @@ if ($hassiteconfig) {
                 get_string('setting_collapseactivitiescoursenodedefault', 'local_boostnavigation', null, true),
                 get_string('setting_collapseactivitiescoursenodedefault_desc', 'local_boostnavigation', null, true),
                 1));
+
+        // Create activities course node collapse session widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapseactivitiescoursenodesession',
+                get_string('setting_collapseactivitiescoursenodesession', 'local_boostnavigation', null, true),
+                get_string('setting_collapseactivitiescoursenodesession_desc', 'local_boostnavigation', null, true),
+                0));
 
         // Create custom course nodes for users collapse widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustomcoursenodesusers',
@@ -348,6 +378,12 @@ if ($hassiteconfig) {
                 get_string('setting_collapsecustomcoursenodesusersdefault_desc', 'local_boostnavigation', null, true),
                 0));
 
+        // Create custom course nodes for users collapse session widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustomcoursenodesuserssession',
+                get_string('setting_collapsecustomcoursenodesuserssession', 'local_boostnavigation', null, true),
+                get_string('setting_collapsecustomcoursenodesuserssession_desc', 'local_boostnavigation', null, true),
+                0));
+
         // Create custom course nodes for admins collapse widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustomcoursenodesadmins',
                 get_string('setting_collapsecustomcoursenodesadmins', 'local_boostnavigation', null, true),
@@ -359,6 +395,12 @@ if ($hassiteconfig) {
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustomcoursenodesadminsdefault',
                 get_string('setting_collapsecustomcoursenodesadminsdefault', 'local_boostnavigation', null, true),
                 get_string('setting_collapsecustomcoursenodesadminsdefault_desc', 'local_boostnavigation', null, true),
+                0));
+
+        // Create custom course nodes for admins collapse session widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustomcoursenodesadminssession',
+                get_string('setting_collapsecustomcoursenodesadminssession', 'local_boostnavigation', null, true),
+                get_string('setting_collapsecustomcoursenodesadminssession_desc', 'local_boostnavigation', null, true),
                 0));
 
         // Add settings page to the admin settings category.
@@ -414,6 +456,12 @@ if ($hassiteconfig) {
                 get_string('setting_collapsecustombottomnodesusersdefault_desc', 'local_boostnavigation', null, true),
                 0));
 
+        // Create custom bottom nodes for users collapse session widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustombottomnodesuserssession',
+                get_string('setting_collapsecustombottomnodesuserssession', 'local_boostnavigation', null, true),
+                get_string('setting_collapsecustombottomnodesuserssession_desc', 'local_boostnavigation', null, true),
+                0));
+
         // Create custom bottom nodes for admins collapse widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustombottomnodesadmins',
                 get_string('setting_collapsecustombottomnodesadmins', 'local_boostnavigation', null, true),
@@ -425,6 +473,12 @@ if ($hassiteconfig) {
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustombottomnodesadminsdefault',
                 get_string('setting_collapsecustombottomnodesadminsdefault', 'local_boostnavigation', null, true),
                 get_string('setting_collapsecustombottomnodesadminsdefault_desc', 'local_boostnavigation', null, true),
+                0));
+
+        // Create custom bottom nodes for admins collapse session widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustombottomnodesadminssession',
+                get_string('setting_collapsecustombottomnodesadminssession', 'local_boostnavigation', null, true),
+                get_string('setting_collapsecustombottomnodesadminssession_desc', 'local_boostnavigation', null, true),
                 0));
 
         // Add settings page to the admin settings category.
