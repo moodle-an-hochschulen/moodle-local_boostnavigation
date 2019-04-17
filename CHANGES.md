@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-04-30 - Add support for collapsing other custom nodes when a collapsible custom node is expanded (to produce an accordion).
 * 2019-04-17 - Bugfix: Collapse nodes didn't work on IE11.
 * 2019-04-12 - Add the possibility to remember the collapse status only for the current session.
 * 2019-04-12 - Add option to position custom nodes - Credits to Jean-Roch.

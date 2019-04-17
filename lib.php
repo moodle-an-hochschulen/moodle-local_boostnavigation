@@ -503,7 +503,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // If yes, do it.
         $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustomnodesusers, $navigation,
                 'localboostnavigationcustomrootusers', true, $config->collapsecustomnodesusers,
-                $config->collapsecustomnodesusersdefault);
+                $config->collapsecustomnodesusersdefault, $config->collapsecustomnodesusersaccordion);
 
         // Check if admin wanted us to also collapse the custom nodes for users.
         if ($config->collapsecustomnodesusers == true) {
@@ -513,6 +513,11 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             } else {
                 $collapsenodesforjs = $customnodesret;
             }
+
+            // Check if admin wanted us to collapse the custom nodes for users as accordion.
+            if ($config->collapsecustomnodesusersaccordion == true) {
+                $accordionnodesforjs[] = 'localboostnavigationcustomrootusers';
+            }
         }
     }
 
@@ -521,7 +526,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // If yes, do it.
         $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustomnodesadmins, $navigation,
                 'localboostnavigationcustomrootadmins', true, $config->collapsecustomnodesadmins,
-                $config->collapsecustomnodesadminsdefault);
+                $config->collapsecustomnodesadminsdefault, $config->collapsecustomnodesadminsaccordion);
 
         // Check if admin wanted us to also collapse the custom nodes for admins.
         if ($config->collapsecustomnodesadmins == true) {
@@ -530,6 +535,11 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                 $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
             } else {
                 $collapsenodesforjs = $customnodesret;
+            }
+
+            // Check if admin wanted us to collapse the custom nodes for admins as accordion.
+            if ($config->collapsecustomnodesadminsaccordion == true) {
+                $accordionnodesforjs[] = 'localboostnavigationcustomrootadmins';
             }
         }
     }
@@ -541,7 +551,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             // If yes, do it.
             $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustomcoursenodesusers, $coursehomenode,
                     'localboostnavigationcustomcourseusers', false, $config->collapsecustomcoursenodesusers,
-                    $config->collapsecustomcoursenodesusersdefault);
+                    $config->collapsecustomcoursenodesusersdefault, $config->collapsecustomcoursenodesusersaccordion);
 
             // Check if admin wanted us to also collapse the custom course nodes for users.
             if ($config->collapsecustomcoursenodesusers == true) {
@@ -550,6 +560,11 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                     $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
                 } else {
                     $collapsenodesforjs = $customnodesret;
+                }
+
+                // Check if admin wanted us to collapse the custom course nodes for users as accordion.
+                if ($config->collapsecustomcoursenodesusersaccordion == true) {
+                    $accordionnodesforjs[] = 'localboostnavigationcustomcourseusers';
                 }
             }
         }
@@ -562,7 +577,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             // If yes, do it.
             $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustomcoursenodesadmins, $coursehomenode,
                     'localboostnavigationcustomcourseadmins', false, $config->collapsecustomcoursenodesadmins,
-                    $config->collapsecustomcoursenodesadminsdefault);
+                    $config->collapsecustomcoursenodesadminsdefault, $config->collapsecustomcoursenodesadminsaccordion);
 
             // Check if admin wanted us to also collapse the custom course nodes for admins.
             if ($config->collapsecustomcoursenodesadmins == true) {
@@ -571,6 +586,11 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                     $collapsenodesforjs = array_merge($collapsenodesforjs, $customnodesret);
                 } else {
                     $collapsenodesforjs = $customnodesret;
+                }
+
+                // Check if admin wanted us to collapse the custom course nodes for admins as accordion.
+                if ($config->collapsecustomcoursenodesadminsaccordion == true) {
+                    $accordionnodesforjs[] = 'localboostnavigationcustomcourseadmins';
                 }
             }
         }
@@ -581,7 +601,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // If yes, do it.
         $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustombottomnodesusers, $navigation,
                 'localboostnavigationcustombottomusers', true, $config->collapsecustombottomnodesusers,
-                $config->collapsecustombottomnodesusersdefault);
+                $config->collapsecustombottomnodesusersdefault, $config->collapsecustombottomnodesusersaccordion);
 
         // Check if admin wanted us to also collapse the custom bottom nodes for users.
         if ($config->collapsecustombottomnodesusers == true) {
@@ -591,6 +611,11 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             } else {
                 $collapsenodesforjs = $customnodesret;
             }
+
+            // Check if admin wanted us to collapse the custom bottom nodes for users as accordion.
+            if ($config->collapsecustombottomnodesusersaccordion == true) {
+                $accordionnodesforjs[] = 'localboostnavigationcustombottomusers';
+            }
         }
     }
 
@@ -599,7 +624,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // If yes, do it.
         $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustombottomnodesadmins, $navigation,
                 'localboostnavigationcustombottomadmins', true, $config->collapsecustombottomnodesadmins,
-                $config->collapsecustombottomnodesadminsdefault);
+                $config->collapsecustombottomnodesadminsdefault, $config->collapsecustombottomnodesadminsaccordion);
 
         // Check if admin wanted us to also collapse the custom bottom nodes for admins.
         if ($config->collapsecustombottomnodesadmins == true) {
@@ -609,13 +634,27 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             } else {
                 $collapsenodesforjs = $customnodesret;
             }
+
+            // Check if admin wanted us to collapse the custom bottom nodes for admins as accordion.
+            if ($config->collapsecustombottomnodesadminsaccordion == true) {
+                $accordionnodesforjs[] = 'localboostnavigationcustombottomadmins';
+            }
         }
     }
 
     // If at least one setting to collapse a node is enabled.
     if (!empty($collapsenodesforjs)) {
-        // Add JavaScript for collapsing nodes to the page.
-        $PAGE->requires->js_call_amd('local_boostnavigation/collapsenavdrawernodes', 'init', [$collapsenodesforjs]);
+        // If at least one setting to collapse a node as accordion is enabled.
+        if (!empty($accordionnodesforjs)) {
+            // Add JavaScript for collapsing nodes to the page and pass the $collapsenodesforjs and $accordionnodesforjs data.
+            $PAGE->requires->js_call_amd('local_boostnavigation/collapsenavdrawernodes', 'init',
+                    [$collapsenodesforjs, $accordionnodesforjs]);
+            // Otherwise.
+        } else {
+            // Add JavaScript for collapsing nodes to the page and pass the $collapsenodesforjs data only.
+            $PAGE->requires->js_call_amd('local_boostnavigation/collapsenavdrawernodes', 'init',
+                    [$collapsenodesforjs, []]);
+        }
         // Allow updating the necessary user preferences via Ajax.
         foreach ($collapsenodesforjs as $node) {
             user_preference_allow_ajax_update('local_boostnavigation-collapse_'.$node.'node', PARAM_BOOL);

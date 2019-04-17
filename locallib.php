@@ -65,11 +65,12 @@ function local_boostnavigation_get_all_childrenkeys(navigation_node $navigationn
  * @param bool $showinflatnavigation
  * @param bool $collapse
  * @param bool $collapsedefault
+ * @param bool $accordion
  * @return array
  */
 function local_boostnavigation_build_custom_nodes($customnodes, navigation_node $node,
         $keyprefix='localboostnavigationcustom', $showinflatnavigation=true, $collapse=false,
-        $collapsedefault=false) {
+        $collapsedefault=false, $accordion=false) {
     global $USER, $FULLME;
 
     // Build full page URL if we have it available to be used down below.
@@ -87,6 +88,9 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
     // Initialize variables for remembering the node keys for collapsing.
     $collapsenodesforjs = array();
     $collapselastparentprepared = false;
+
+    // Initialize variables for remembering the status of an accordion.
+    $accordionalreadyopen = false;
 
     // Make a new array on delimiter "new line".
     $lines = explode("\n", $customnodes);
@@ -314,10 +318,34 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
 
                 // Get the user preference for the collapse state of this custom node and set the collapse attribute accordingly.
                 $userprefcustomnode = get_user_preferences('local_boostnavigation-collapse_'.$nodekey.'node', $collapsedefault);
+                // The user preference is to collapse the node.
                 if ($userprefcustomnode == 1) {
+                    // Set the node to be collapsed.
                     $customnode->collapse = true;
+
+                    // The user preference is to expand the node.
                 } else {
-                    $customnode->collapse = false;
+                    // If we create an accordion, we have to be careful now.
+                    if ($accordion == true) {
+                        // If have already created one expanded node, we must not open another one,
+                        // regardless of the user preference.
+                        if ($accordionalreadyopen == true) {
+                            // Set the node to be collapsed.
+                            $customnode->collapse = true;
+                        } else {
+                            // Set the node to be expanded.
+                            $customnode->collapse = false;
+
+                            // If we have set this node to be the expanded node, we must remember this fact for the
+                            // remaining accordion nodes.
+                            $accordionalreadyopen = true;
+                        }
+
+                        // If we don't create an accordion, we can respect the user preference in any case.
+                    } else {
+                        // Set the node to be expanded.
+                        $customnode->collapse = false;
+                    }
                 }
 
                 // If the code should be collapsed, remove the active status in any case because otherwise it might get highlighted
@@ -358,14 +386,8 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 // And change the parent node directly afterwards.
                 $customnode->set_parent($lastparentnode);
 
-                // Get the user preference for the collapse state of the last parent node and set the hidden attribute accordingly.
-                $userprefcustomnode = get_user_preferences('local_boostnavigation-collapse_'.$lastparentnode->key.'node',
-                        $collapsedefault);
-                if ($userprefcustomnode == 1) {
-                    $customnode->hidden = true;
-                } else {
-                    $customnode->hidden = false;
-                }
+                // Set the hidden attribute according to the collapse state of the last parent node.
+                $customnode->hidden = $lastparentnode->collapse;
 
                 // For some strange reason, Moodle core does only compare the URL base when searching the active navigation node.
                 // This will result in the wrong node being highlighted if we add multiple nodes which only differ by the URL

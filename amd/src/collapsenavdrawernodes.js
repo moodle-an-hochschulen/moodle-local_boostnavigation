@@ -36,27 +36,60 @@ define(['jquery'], function($) {
 
             // If the parent node is currently expanded.
             if (node.attr('data-collapse') == 0) {
-                // Set the hidden attribute to true for all elements which have the nodename as their data-parent-key attribute.
-                $('.list-group-item[data-parent-key=' + nodename + ']').attr("data-hidden", "1");
-                // Change the collapse attribute of the node itself to true.
-                node.attr("data-collapse", "1");
-                // Change the aria-expanded attribute of the node itself to false.
-                node.attr("aria-expanded", "0");
-                // Save this state to the user preferences.
-                M.util.set_user_preference('local_boostnavigation-collapse_' + nodename + 'node', 1);
+                // Collapse the node.
+                collapseNode(node, nodename);
 
                 // If the parent node is currently collapsed.
             } else if (node.attr('data-collapse') == 1) {
-                // Set the hidden attribute to false for all elements which have the nodename as their data-parent-key attribute.
-                $('.list-group-item[data-parent-key=' + nodename + ']').attr("data-hidden", "0");
-                // Change the collapse attribute of the node itself to false.
-                node.attr("data-collapse", "0");
-                // Change the aria-expanded attribute of the node itself to true.
-                node.attr("aria-expanded", "1");
-                // Save this state to the user preferences.
-                M.util.set_user_preference('local_boostnavigation-collapse_' + nodename + 'node', 0);
+                // Expand the node.
+                expandNode(node, nodename);
+
+                // If the parent node is configured to act as accordion.
+                var accordionTarget = node.attr('data-localboostnavigation-accordion');
+                if (typeof accordionTarget !== "undefined") {
+                    // Collapse all sibling parent nodes.
+                    $('.list-group-item[data-key^="' + accordionTarget + '"][data-isexpandable="1"]')
+                            .each(/* @this */function() {
+                        // But not the node which has been clicked by the user.
+                        if ($(this).attr('data-key') !== node.attr('data-key')) {
+                            collapseNode($(this), $(this).attr('data-key'));
+                        }
+                    });
+                }
             }
         });
+    }
+
+    /**
+     * Helper function to collapse the given nav node.
+     * @param {Object} node The nav node which should be toggled.
+     * @param {string} nodename The nav node's nodename.
+     */
+    function collapseNode(node, nodename) {
+        // Set the hidden attribute to true for all elements which have the nodename as their data-parent-key attribute.
+        $('.list-group-item[data-parent-key=' + nodename + ']').attr("data-hidden", "1");
+        // Change the collapse attribute of the node itself to true.
+        node.attr("data-collapse", "1");
+        // Change the aria-expanded attribute of the node itself to false.
+        node.attr("aria-expanded", "0");
+        // Save this state to the user preferences.
+        M.util.set_user_preference('local_boostnavigation-collapse_' + nodename + 'node', 1);
+     }
+
+    /**
+     * Helper function to expand the given nav node.
+     * @param {Object} node The nav node which should be toggled.
+     * @param {string} nodename The nav node's nodename.
+     */
+    function expandNode(node, nodename) {
+        // Set the hidden attribute to false for all elements which have the nodename as their data-parent-key attribute.
+        $('.list-group-item[data-parent-key=' + nodename + ']').attr("data-hidden", "0");
+        // Change the collapse attribute of the node itself to false.
+        node.attr("data-collapse", "0");
+        // Change the aria-expanded attribute of the node itself to true.
+        node.attr("aria-expanded", "1");
+        // Save this state to the user preferences.
+        M.util.set_user_preference('local_boostnavigation-collapse_' + nodename + 'node', 0);
     }
 
     /**
@@ -146,10 +179,25 @@ define(['jquery'], function($) {
         }
     }
 
+    /**
+     * Init function of this AMD module which marks the accordion nodes.
+     * @param {string} nodename The nav node's nodename.
+     */
+    function initAccordionNodes(nodename) {
+        // Mark node as accordion.
+        $('.list-group-item[data-key^="' + nodename + '"][data-isexpandable="1"]')
+                .attr('data-localboostnavigation-accordion', nodename);
+    }
+
     return {
-        init: function(params) {
-            for (var i = 0, len = params.length; i < len; i++) {
-                initToggleNodes(params[i]);
+        init: function(toggleNodes, accordionNodes) {
+            // Initialize toggle nodes.
+            for (var i = 0, tLen = toggleNodes.length; i < tLen; i++) {
+                initToggleNodes(toggleNodes[i]);
+            }
+            // Initialize accordion nodes.
+            for (var j = 0, aLen = accordionNodes.length; j < aLen; j++) {
+                initAccordionNodes(accordionNodes[j]);
             }
         }
     };
