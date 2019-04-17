@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-04-17 - Bugfix: Collapse nodes didn't work on IE11.
 * 2019-04-12 - Add the possibility to remember the collapse status only for the current session.
 * 2019-04-12 - Add option to position custom nodes - Credits to Jean-Roch.
 * 2019-04-12 - Fix a wrong node example in the language pack.

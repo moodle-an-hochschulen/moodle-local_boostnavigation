@@ -73,7 +73,7 @@ define(['jquery'], function($) {
             // Get its data-key attribute (which should be unique) to be used as id attribute.
             var id = $(element).attr('data-key');
             // Prefix the id attribute if it wasn't built by us (or by our companion plugin local_boostcoc).
-            if (!id.startsWith('localboost')) {
+            if (id.substring(0, 10) !== 'localboost') {
                 id = 'localboostnavigation' + id;
             }
             // Set the id attribute.
