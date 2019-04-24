@@ -111,6 +111,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         $nodelanguage = null;
         $nodeicon = null;
         $nodebeforenodekey = null;
+        $nodebeforenodekeyparent = null;
 
         // Initialize the logical combination operator and stack.
         $logicalcombinationoperator = 'AND';
@@ -226,14 +227,18 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             $nodekey = $keyprefix.clean_param($setting, PARAM_ALPHANUM);
 
                             break;
-                        // Check for the optional eighth parameter: before node key.
+                        // Check for the optional ninth parameter: before node key.
                         case 9:
                             // Only proceed if some before node key is entered here. This parameter is optional.
-                            // If no before node key is given, the node will be added to the end of the navigation.
+                            // If no before node key (or "myhome" or "coursehome" key) is given, the node will be added to the end of the navigation.
                             $nodebeforenodekey = clean_param($setting, PARAM_ALPHANUM);
-
+                            // Resetting to null if given key is myhome or courehome.
+                            // "myhome" being the global navigation node it has no parent and thus it is not possible to position another node before it.
+                            // "coursehome" being only present in the flat navigation tree, it cannot be found in the global navigation.
+                            if ($nodebeforenodekey === 'myhome' || $nodebeforenodekey == 'coursehome') {
+                                $nodebeforenodekey = null;
+                            }
                             break;
-
                     }
                 }
             }
@@ -291,6 +296,13 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 $customnode->showinflatnavigation = true;
             }
 
+            // Find the parent of nodebeforenodekey to add custom node to it.
+            if ($nodebeforenodekey) {
+                $nodebeforenode = $node->find($nodebeforenodekey, global_navigation::TYPE_UNKNOWN);
+                if ($nodebeforenode) {
+                    $nodebeforenodekeyparent = $nodebeforenode->parent;
+                }
+            }
             // If it's a parent node.
             if (!$nodeischild) {
                 // If the nodes should be collapsed and collapsing hasn't been prepared yet, prepare collapsing of the parent node.
@@ -307,7 +319,13 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 }
 
                 // Add the custom node to the given navigation_node.
-                $node->add_node($customnode, $nodebeforenodekey);
+                if ($nodebeforenodekeyparent) {
+                    // Add the custom node to the parent node of the given navigation_node.
+                    $nodebeforenodekeyparent->add_node($customnode, $nodebeforenodekey);
+                } else {
+                    // Add the custom node to the given navigation_node.
+                    $node->add_node($customnode);
+                }
 
                 // Remember the node as a potential parent node for the next node.
                 $lastparentnode = $customnode;
@@ -353,8 +371,14 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
 
                 // For some crazy reason, if we add the child node directly to the parent node, it is not shown in the
                 // course navigation section.
+                // Add the custom node to the parent node of the given navigation_node.
                 // Thus, add the custom node to the given navigation_node.
-                $node->add_node($customnode, $nodebeforenodekey);
+                if ($nodebeforenodekeyparent) {
+                    $nodebeforenodekeyparent->add_node($customnode, $nodebeforenodekey);
+                } else {
+                    $node->add_node($customnode);
+                }
+
                 // And change the parent node directly afterwards.
                 $customnode->set_parent($lastparentnode);
 
