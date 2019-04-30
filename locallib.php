@@ -223,14 +223,14 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             }
 
                             break;
-                        // Check for the optional eighth parameter: id.
+                        // Check for the optional ninth parameter: id.
                         case 8:
                             // Only proceed if some id is entered here. This parameter is optional.
                             // If no id is given, the node will get an automatically created id later.
                             $nodekey = $keyprefix.clean_param($setting, PARAM_ALPHANUM);
 
                             break;
-                        // Check for the optional eighth parameter: before node key.
+                        // Check for the optional tenth parameter: before node key.
                         case 9:
                             // Only proceed if some before node key is entered here. This parameter is optional.
                             // If no before node key is given, the node will be added to the end of the navigation.
