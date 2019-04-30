@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-04-30 - Bugfix: If you added an ID attribute to the first bottom node, the bottom nodes did not get a margin-top anymore - Credits to Jean-Roch. 
 * 2019-04-30 - Add support for collapsing other custom nodes when a collapsible custom node is expanded (to produce an accordion).
 * 2019-04-17 - Bugfix: Collapse nodes didn't work on IE11.
 * 2019-04-12 - Add the possibility to remember the collapse status only for the current session.

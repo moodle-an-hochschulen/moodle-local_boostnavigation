@@ -65,9 +65,13 @@
     margin-left: 1rem !important;
 }
 /* Add a margin-top to the custom bottom nodes section because this isn't possible with Navigation node API. */
-.list-group-item[data-key="localboostnavigationcustombottomusers1"],
-.list-group-item[data-key="localboostnavigationcustombottomadmins1"] {
+.list-group-item[data-key^="localboostnavigationcustombottomusers"],
+.list-group-item[data-key^="localboostnavigationcustombottomadmins"] {
     margin-top: 1rem;
+}
+.list-group-item[data-key^="localboostnavigationcustombottomusers"] ~ [data-key^="localboostnavigationcustombottomusers"],
+.list-group-item[data-key^="localboostnavigationcustombottomadmins"] ~ [data-key^="localboostnavigationcustombottomadmins"] {
+    margin-top: 0;
 }
 /* Add a plugin-specific class to shrink fa-icons. This is needed for the custom nodes' icons.
    Font-Awesome 5 will contain a similar class officially, but currently Moodle still uses Font-Awesome 4.. */
