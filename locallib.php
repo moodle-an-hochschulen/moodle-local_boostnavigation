@@ -235,12 +235,12 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             // Only proceed if some before node key is entered here. This parameter is optional.
                             // If no before node key is given, the node will be added to the end of the navigation.
                             $nodebeforenodekey = clean_param($setting, PARAM_ALPHANUM);
-                            
+
                             // Nodes 'myhome' and 'coursehome' cannot be taken as "beforenode". The former because it is the root node of the hierarchy.
                             // The latter since it only exists in the boostnavigation context and this function is executed in the global navigation context.
                             if ($nodebeforenodekey === 'myhome' || $nodebeforenodekey === 'coursehome') {
                                 $nodebeforenodekey = null;
-                            // Handle "beforenodes" that are not direct children of $node but grand children.
+                                // Handle "beforenodes" that are not direct children of $node but grand children.
                             } else if (!array_key_exists($nodebeforenodekey, $node->get_children_key_list())) {
                                 $nodebeforenode = $node->find($nodebeforenodekey, global_navigation::TYPE_UNKNOWN);
 
