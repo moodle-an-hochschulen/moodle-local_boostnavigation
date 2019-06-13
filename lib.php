@@ -685,7 +685,7 @@ function local_boostnavigation_extend_navigation_course(navigation_node $navigat
                     navigation_node::TYPE_SETTING,
                     null,
                     'competencies2',
-                    null);
+                    new pix_icon('i/competencies', ''));
             // Add the competencies node.
             $navigation->add_node($competenciesnode);
         }
