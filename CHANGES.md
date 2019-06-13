@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2019-06-13 - Bugfix: String in language pack didn't work for Moodle installed in subdirectories - Credits to Tim Schroeder.
+
 ### v3.6-r4
 
 * 2019-04-30 - Bugfix: If you added an ID attribute to the first bottom node, the bottom nodes did not get a margin-top anymore - Credits to Jean-Roch. 

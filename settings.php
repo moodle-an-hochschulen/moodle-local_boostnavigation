@@ -26,6 +26,8 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__ . '/lib.php');
 
+global $CFG;
+
 if ($hassiteconfig) {
     // Create admin settings category.
     $ADMIN->add('appearance', new admin_category('local_boostnavigation',
@@ -178,7 +180,10 @@ if ($hassiteconfig) {
                 get_string('setting_collapsemycoursesnode', 'local_boostnavigation', null, true),
                 get_string('setting_collapsemycoursesnode_desc', 'local_boostnavigation', null, true).'<br /><br />'.
                         get_string('setting_collapsenodestechnicalhint', 'local_boostnavigation', null, true).'<br /><br />'.
-                        get_string('setting_collapsemycoursesnodeperformancehint', 'local_boostnavigation', null, true),
+                        get_string('setting_collapsemycoursesnodeperformancehint',
+                                'local_boostnavigation',
+                                array('url' => $CFG->wwwroot.'/admin/search.php?query=linkcoursesections'),
+                                true),
                 0));
 
         // Create my courses node collapse default widget.
