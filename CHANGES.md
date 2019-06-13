@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.6-r5
 
 * 2019-06-13 - Improvement: Enable custom nodes positioning for some more beforenodes - Credits to Jean-Roch.
 * 2019-06-13 - Bugfix: The competencies node which is added to the cog menu didn't have an icon - Credits to Sarah Cotton.
