@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-06-13 - Improvement: Enable custom nodes positioning for some more beforenodes - Credits to Jean-Roch.
 * 2019-06-13 - Bugfix: The competencies node which is added to the cog menu didn't have an icon - Credits to Sarah Cotton.
 * 2019-06-13 - Bugfix: String in language pack didn't work for Moodle installed in subdirectories - Credits to Tim Schroeder.
 

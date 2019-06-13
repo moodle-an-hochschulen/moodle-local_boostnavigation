@@ -236,8 +236,24 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             // If no before node key is given, the node will be added to the end of the navigation.
                             $nodebeforenodekey = clean_param($setting, PARAM_ALPHANUM);
 
-                            break;
+                            // The nodes 'myhome' and 'coursehome' cannot be taken as "beforenode".
+                            // The former because it is the root node of the hierarchy.
+                            // The latter since it only exists in the flatnavigation which can't be accessed here.
+                            if ($nodebeforenodekey === 'myhome' || $nodebeforenodekey === 'coursehome') {
+                                $nodebeforenodekey = null;
 
+                                // Handle "beforenodes" that are known to be not direct children of $node but grand children.
+                            } else if ($nodebeforenodekey === 'calendar' || $nodebeforenodekey === 'privatefiles') {
+                                $nodebeforenode = $node->find($nodebeforenodekey, global_navigation::TYPE_UNKNOWN);
+
+                                if ($nodebeforenode) {
+                                    $node = $nodebeforenode->parent;
+                                } else {
+                                    $nodebeforenodekey = null;
+                                }
+                            }
+
+                            break;
                     }
                 }
             }
