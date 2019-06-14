@@ -9,13 +9,13 @@ Moodle plugin which tries to overcome some fixed appearance behaviours of Boost'
 Requirements
 ------------
 
-This plugin requires Moodle 3.6+
+This plugin requires Moodle 3.7+
 
 
 Motivation for this plugin
 --------------------------
 
-Since the release of Moodle 3.2, Moodle core ships with a shiny new theme called "Boost". While Boost does many things right and better than the legacy theme Clean, it also has some fixed behaviours which don't make sense for all Moodle installations. One of these behaviours is the fact that the look and feel of the nav drawer (the menu which appears when you click on the hamburger menu button) is hardcoded and can hardly be configured by administrators.
+Since the release of Moodle 3.2, Moodle core ships with a shiny new theme called "Boost". While Boost does many things right, it also has some fixed behaviours which don't make sense for all Moodle installations. One of these behaviours is the fact that the look and feel of the nav drawer (the menu which appears when you click on the hamburger menu button) is hardcoded and can hardly be configured by administrators.
 
 
 Installation
@@ -84,8 +84,8 @@ This plugin lets you add a restriction for showing custom nodes based on a user'
 Theme support
 -------------
 
-This plugin is designed to work with Moodle core's Boost theme or child themes of Boost.
-It does not work with other themes which are not based on Boost.
+This plugin is developed and tested on Moodle Core's Boost theme.
+It should also work with Boost child themes. However, we can't support any other theme than Boost.
 
 
 Plugin repositories
@@ -158,6 +158,5 @@ Copyright
 ---------
 
 Ulm University
-kiz - Media Department
-Team Web & Teaching Support
+Communication and Information Centre (kiz)
 Alexander Bias

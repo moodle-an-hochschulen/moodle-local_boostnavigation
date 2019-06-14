@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2019-06-14 - Prepare compatibility for Moodle 3.7.
+
 ### v3.6-r7
 
 * 2019-06-15 - Bugfix: Two more strings in language pack didn't work for Moodle installed in subdirectories - Credits to Tim Schroeder.
