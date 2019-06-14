@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2019-06-14 - Bugfix: Using calendar and privatefiles as beforenode key broke subsequent lines using beforenode keys.
+
 ### v3.6-r5
 
 * 2019-06-13 - Improvement: Enable custom nodes positioning for some more beforenodes - Credits to Jean-Roch.
