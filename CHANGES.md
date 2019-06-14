@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.6-r6
 
 * 2019-06-14 - Bugfix: Using calendar and privatefiles as beforenode key broke subsequent lines using beforenode keys.
 
