@@ -42,14 +42,24 @@ if ($hassiteconfig) {
                 get_string('settingspage_rootnodes', 'local_boostnavigation', null, true));
         $ADMIN->add('local_boostnavigation', $page);
 
+        // Settings page: Custom root nodes.
+        $page = new admin_settingpage('local_boostnavigation_customrootnodes',
+                get_string('settingspage_customrootnodes', 'local_boostnavigation', null, true));
+        $ADMIN->add('local_boostnavigation', $page);
+
         // Settings page: Course nodes.
         $page = new admin_settingpage('local_boostnavigation_coursenodes',
                 get_string('settingspage_coursenodes', 'local_boostnavigation', null, true));
         $ADMIN->add('local_boostnavigation', $page);
 
-        // Settings page: Bottom nodes.
-        $page = new admin_settingpage('local_boostnavigation_bottomnodes',
-                get_string('settingspage_bottomnodes', 'local_boostnavigation', null, true));
+        // Settings page: Custom course nodes.
+        $page = new admin_settingpage('local_boostnavigation_customcoursenodes',
+                get_string('settingspage_customcoursenodes', 'local_boostnavigation', null, true));
+        $ADMIN->add('local_boostnavigation', $page);
+
+        // Settings page: Custom bottom nodes.
+        $page = new admin_settingpage('local_boostnavigation_custombottomnodes',
+                get_string('settingspage_custombottomnodes', 'local_boostnavigation', null, true));
         $ADMIN->add('local_boostnavigation', $page);
     }
 
@@ -145,33 +155,6 @@ if ($hassiteconfig) {
                         get_string('setting_removenodestechnicalhint', 'local_boostnavigation', null, true),
                 0));
 
-        // Add insert nodes heading.
-        $page->add(new admin_setting_heading('local_boostnavigation/insertnodesheading',
-                get_string('setting_insertnodesheading', 'local_boostnavigation', null, true),
-                ''));
-
-        // Create insert custom nodes for users widget.
-        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustomnodesusers',
-                get_string('setting_insertcustomnodesusers', 'local_boostnavigation', null, true),
-                get_string('setting_insertcustomnodesusers_desc', 'local_boostnavigation', null, true).'<br /><br />'.
-                        get_string('setting_customnodesusageusers', 'local_boostnavigation', null, true).
-                        get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
-                '',
-                PARAM_RAW);
-        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
-        $page->add($setting);
-
-        // Create insert custom nodes for admins widget.
-        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustomnodesadmins',
-                get_string('setting_insertcustomnodesadmins', 'local_boostnavigation', null, true),
-                get_string('setting_insertcustomnodesadmins_desc', 'local_boostnavigation', null, true).'<br /><br />'.
-                        get_string('setting_customnodesusageadmins', 'local_boostnavigation', null, true).
-                        get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
-                '',
-                PARAM_RAW);
-        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
-        $page->add($setting);
-
         // Add collapse nodes heading.
         $page->add(new admin_setting_heading('local_boostnavigation/collapsenodesheading',
                 get_string('setting_collapsenodesheading', 'local_boostnavigation', null, true),
@@ -203,6 +186,47 @@ if ($hassiteconfig) {
                 0));
         $page->hide_if('local_boostnavigation/collapsemycoursesnodesession',
                 'local_boostnavigation/collapsemycoursesnode', 'notchecked');
+
+        // Add settings page to the admin settings category.
+        $ADMIN->add('local_boostnavigation', $page);
+
+
+
+        // Settings page: Custom root nodes.
+        $page = new admin_settingpage('local_boostnavigation_customrootnodes',
+                get_string('settingspage_customrootnodes', 'local_boostnavigation', null, true));
+
+        // Add insert custom root nodes heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/insertcustomnodesheading',
+                get_string('setting_insertcustomnodesheading', 'local_boostnavigation', null, true),
+                ''));
+
+        // Create insert custom nodes for users widget.
+        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustomnodesusers',
+                get_string('setting_insertcustomnodesusers', 'local_boostnavigation', null, true),
+                get_string('setting_insertcustomnodesusers_desc', 'local_boostnavigation', null, true).'<br /><br />'.
+                get_string('setting_customnodesusageusers', 'local_boostnavigation', null, true).
+                get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
+                '',
+                PARAM_RAW);
+        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
+        $page->add($setting);
+
+        // Create insert custom nodes for admins widget.
+        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustomnodesadmins',
+                get_string('setting_insertcustomnodesadmins', 'local_boostnavigation', null, true),
+                get_string('setting_insertcustomnodesadmins_desc', 'local_boostnavigation', null, true).'<br /><br />'.
+                get_string('setting_customnodesusageadmins', 'local_boostnavigation', null, true).
+                get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
+                '',
+                PARAM_RAW);
+        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
+        $page->add($setting);
+
+        // Add collapse custom nodes heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/collapsecustomnodesheading',
+                get_string('setting_collapsecustomnodesheading', 'local_boostnavigation', null, true),
+                ''));
 
         // Create custom nodes for users collapse widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustomnodesusers',
@@ -337,28 +361,6 @@ if ($hassiteconfig) {
                 get_string('setting_insertresourcescoursenode_desc', 'local_boostnavigation', null, true),
                 0));
 
-        // Create insert custom course nodes for users widget.
-        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustomcoursenodesusers',
-                get_string('setting_insertcustomcoursenodesusers', 'local_boostnavigation', null, true),
-                get_string('setting_insertcustomcoursenodesusers_desc', 'local_boostnavigation', null, true).'<br /><br />'.
-                        get_string('setting_customnodesusageusers', 'local_boostnavigation', null, true).
-                        get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
-                '',
-                PARAM_RAW);
-        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
-        $page->add($setting);
-
-        // Create insert custom course nodes for admins widget.
-        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustomcoursenodesadmins',
-                get_string('setting_insertcustomcoursenodesadmins', 'local_boostnavigation', null, true),
-                get_string('setting_insertcustomcoursenodesadmins_desc', 'local_boostnavigation', null, true).'<br /><br />'.
-                        get_string('setting_customnodesusageadmins', 'local_boostnavigation', null, true).
-                        get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
-                '',
-                PARAM_RAW);
-        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
-        $page->add($setting);
-
         // Add collapse course nodes heading.
         $page->add(new admin_setting_heading('local_boostnavigation/collapsecoursenodesheading',
                 get_string('setting_collapsecoursenodesheading', 'local_boostnavigation', null, true),
@@ -368,7 +370,7 @@ if ($hassiteconfig) {
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecoursesectionscoursenode',
                 get_string('setting_collapsecoursesectionscoursenode', 'local_boostnavigation', null, true),
                 get_string('setting_collapsecoursesectionscoursenode_desc', 'local_boostnavigation', null, true).'<br /><br />'.
-                        get_string('setting_collapsenodestechnicalhint', 'local_boostnavigation', null, true),
+                get_string('setting_collapsenodestechnicalhint', 'local_boostnavigation', null, true),
                 0));
         $page->hide_if('local_boostnavigation/collapsecoursesectionscoursenode',
                 'local_boostnavigation/insertcoursesectionscoursenode', 'notchecked');
@@ -397,7 +399,7 @@ if ($hassiteconfig) {
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapseactivitiescoursenode',
                 get_string('setting_collapseactivitiescoursenode', 'local_boostnavigation', null, true),
                 get_string('setting_collapseactivitiescoursenode_desc', 'local_boostnavigation', null, true).'<br /><br />'.
-                        get_string('setting_collapsenodestechnicalhint', 'local_boostnavigation', null, true),
+                get_string('setting_collapsenodestechnicalhint', 'local_boostnavigation', null, true),
                 0));
         $page->hide_if('local_boostnavigation/collapseactivitiescoursenode',
                 'local_boostnavigation/insertactivitiescoursenode', 'notchecked');
@@ -421,6 +423,47 @@ if ($hassiteconfig) {
                 'local_boostnavigation/insertactivitiescoursenode', 'notchecked');
         $page->hide_if('local_boostnavigation/collapseactivitiescoursenodesession',
                 'local_boostnavigation/collapseactivitiescoursenode', 'notchecked');
+
+        // Add settings page to the admin settings category.
+        $ADMIN->add('local_boostnavigation', $page);
+
+
+
+        // Settings page: Custom course nodes.
+        $page = new admin_settingpage('local_boostnavigation_customcoursenodes',
+                get_string('settingspage_customcoursenodes', 'local_boostnavigation', null, true));
+
+        // Add insert custom course nodes heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/insertcustomcoursenodesheading',
+                get_string('setting_insertcustomcoursenodesheading', 'local_boostnavigation', null, true),
+                ''));
+
+        // Create insert custom course nodes for users widget.
+        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustomcoursenodesusers',
+                get_string('setting_insertcustomcoursenodesusers', 'local_boostnavigation', null, true),
+                get_string('setting_insertcustomcoursenodesusers_desc', 'local_boostnavigation', null, true).'<br /><br />'.
+                        get_string('setting_customnodesusageusers', 'local_boostnavigation', null, true).
+                        get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
+                '',
+                PARAM_RAW);
+        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
+        $page->add($setting);
+
+        // Create insert custom course nodes for admins widget.
+        $setting = new admin_setting_configtextarea('local_boostnavigation/insertcustomcoursenodesadmins',
+                get_string('setting_insertcustomcoursenodesadmins', 'local_boostnavigation', null, true),
+                get_string('setting_insertcustomcoursenodesadmins_desc', 'local_boostnavigation', null, true).'<br /><br />'.
+                        get_string('setting_customnodesusageadmins', 'local_boostnavigation', null, true).
+                        get_string('setting_customnodesusagechildnodes', 'local_boostnavigation', null, true),
+                '',
+                PARAM_RAW);
+        $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
+        $page->add($setting);
+
+        // Add collapse custom course nodes heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/collapsecustomcoursenodesheading',
+                get_string('setting_collapsecustomcoursenodesheading', 'local_boostnavigation', null, true),
+                ''));
 
         // Create custom course nodes for users collapse widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsecustomcoursenodesusers',
@@ -488,14 +531,14 @@ if ($hassiteconfig) {
         $ADMIN->add('local_boostnavigation', $page);
 
 
-        // Settings page: Bottom nodes.
-        $page = new admin_settingpage('local_boostnavigation_bottomnodes',
-                get_string('settingspage_bottomnodes', 'local_boostnavigation', null, true));
+        // Settings page: Custom bottom nodes.
+        $page = new admin_settingpage('local_boostnavigation_custombottomnodes',
+                get_string('settingspage_custombottomnodes', 'local_boostnavigation', null, true));
 
 
-        // Add insert bottom nodes heading.
-        $page->add(new admin_setting_heading('local_boostnavigation/insertbottomnodesheading',
-                get_string('setting_insertbottomnodesheading', 'local_boostnavigation', null, true),
+        // Add insert custom bottom nodes heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/insertcustombottomnodesheading',
+                get_string('setting_insertcustombottomnodesheading', 'local_boostnavigation', null, true),
                 ''));
 
         // Create insert custom bottom nodes for users widget.
@@ -520,9 +563,9 @@ if ($hassiteconfig) {
         $setting->set_updatedcallback('local_boostnavigation_reset_fontawesome_icon_map');
         $page->add($setting);
 
-        // Add collapse bottom nodes heading.
-        $page->add(new admin_setting_heading('local_boostnavigation/collapsebottomnodesheading',
-                get_string('setting_collapsebottomnodesheading', 'local_boostnavigation', null, true),
+        // Add collapse custom bottom nodes heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/collapsecustombottomnodesheading',
+                get_string('setting_collapsecustombottomnodesheading', 'local_boostnavigation', null, true),
                 ''));
 
         // Create custom bottom nodes for users collapse widget.
