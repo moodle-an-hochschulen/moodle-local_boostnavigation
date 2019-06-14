@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-06-14 - Improvement: Leverage the possibility to hide admin settings based on other admin settings' values from Moodle 3.7 on.
 * 2019-06-14 - Prepare compatibility for Moodle 3.7.
 
 ### v3.6-r7
