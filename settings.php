@@ -138,7 +138,9 @@ if ($hassiteconfig) {
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/removemycoursesnode',
                 get_string('setting_removemycoursesnode', 'local_boostnavigation', null, true),
                 get_string('setting_removemycoursesnode_desc', 'local_boostnavigation', null, true).'<br /><br />'.
-                        get_string('setting_removemycoursesnodeperformancehint', 'local_boostnavigation', null, true).
+                        get_string('setting_removemycoursesnodeperformancehint', 'local_boostnavigation',
+                                array('url' => $CFG->wwwroot.'/admin/search.php?query=linkcoursesections'),
+                                true).
                         '<br /><br />'.
                         get_string('setting_removenodestechnicalhint', 'local_boostnavigation', null, true),
                 0));
@@ -299,7 +301,9 @@ if ($hassiteconfig) {
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/insertcoursesectionscoursenode',
                 get_string('setting_insertcoursesectionscoursenode', 'local_boostnavigation', null, true),
                 get_string('setting_insertcoursesectionscoursenode_desc', 'local_boostnavigation', null, true).'<br /><br />'.
-                        get_string('setting_insertcoursesectionscoursenodecorehint', 'local_boostnavigation', null, true).
+                        get_string('setting_insertcoursesectionscoursenodecorehint', 'local_boostnavigation',
+                                array('url' => $CFG->wwwroot.'/admin/search.php?query=linkcoursesections'),
+                                true).
                         '<br /><br />'.
                         get_string('setting_insertnodescollapsehint', 'local_boostnavigation', null, true),
                 0));

@@ -198,7 +198,7 @@ $string['setting_insertbottomnodesheading'] = 'Insert bottom nodes to Boost\'s n
 $string['setting_insertcoursenodesheading'] = 'Insert course nodes to Boost\'s nav drawer';
 $string['setting_insertcoursesectionscoursenode_desc'] = 'Enabling this setting will insert a "Sections" node to Boost\'s nav drawer which will be placed above the first section of the current course.';
 $string['setting_insertcoursesectionscoursenode'] = 'Insert node "Sections"';
-$string['setting_insertcoursesectionscoursenodecorehint'] = 'Please note: This feature will only work if the setting <a href="/admin/search.php?query=linkcoursesections">linkcoursesections</a> is active. If you disabled linkcoursesections, this setting will be ignored and won\'t do anything.';
+$string['setting_insertcoursesectionscoursenodecorehint'] = 'Please note: This feature will only work if the setting <a href="{$a->url}">linkcoursesections</a> is active. If you disabled linkcoursesections, this setting will be ignored and won\'t do anything.';
 $string['setting_insertcustombottomnodesadmins_desc'] = 'With this setting, you can insert custom nodes to Boost\'s nav drawer which will be added below the main section in the nav drawer, similar to the "site administration" item. These custom nodes will only be shown to site administrators.';
 $string['setting_insertcustombottomnodesadmins'] = 'Insert custom bottom nodes for admins';
 $string['setting_insertcustombottomnodesusers_desc'] = 'With this setting, you can insert custom nodes to Boost\'s nav drawer which will be added below the main section in the nav drawer, similar to the "site administration" item. These custom nodes will be shown to all users.';
@@ -233,7 +233,7 @@ $string['setting_removehomenode_desc'] = 'Enabling this setting will remove the 
 $string['setting_removehomenode'] = 'Remove "Home" node';
 $string['setting_removemycoursesnode_desc'] = 'Enabling this setting will remove the "My courses" node from Boost\'s nav drawer.';
 $string['setting_removemycoursesnode'] = 'Remove "My courses" node';
-$string['setting_removemycoursesnodeperformancehint'] = 'Please note: If you enable this setting and have also enabled the setting <a href="/admin/search.php?query=navshowmycoursecategories">navshowmycoursecategories</a>, removing the "My courses" node takes more time and you should consider disabling the navshowmycoursecategories setting.';
+$string['setting_removemycoursesnodeperformancehint'] = 'Please note: If you enable this setting and have also enabled the setting <a href="{$a->url}">navshowmycoursecategories</a>, removing the "My courses" node takes more time and you should consider disabling the navshowmycoursecategories setting.';
 $string['setting_removenodesheading'] = 'Remove root nodes from Boost\'s nav drawer';
 $string['setting_removenodestechnicalhint'] = 'Technical background: This is done by setting the node\'s showinflatnavigation attribute to false. Thus, the node will only be hidden from the nav drawer, but it will remain in the navigation tree and can still be accessed by other parts of Moodle.';
 $string['setting_removeparticipantscoursenode_desc'] = 'Enabling this setting will remove the "Participants" node from Boost\'s nav drawer. It is removed for all users, regardless of a users capabilities.';
