@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2019-06-16 - Fix flaws in the english language pack.
+
 ### v3.7-r1
 
 * 2019-06-15 - Improvement: Make multiple usages of placeholders in custom nodes slightly more efficient.
