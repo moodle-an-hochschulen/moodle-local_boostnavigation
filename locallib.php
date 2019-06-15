@@ -481,19 +481,24 @@ function local_boostnavigation_cohort_is_member($userid, $setting) {
 function local_boostnavigation_build_node_url($url) {
     global $USER, $COURSE, $PAGE;
 
-    // Define placeholders which should be replaced later.
-    $placeholders = array('courseid' => (isset($COURSE->id) ? $COURSE->id : ''),
-            'courseshortname' => (isset($COURSE->shortname) ? $COURSE->shortname : ''),
-            'editingtoggle' => ($PAGE->user_is_editing() ? 'off' : 'on'),
-            'userid' => (isset($USER->id) ? $USER->id : ''),
-            'userusername' => (isset($USER->username) ? $USER->username : ''),
-            'pagecontextid' => (is_object($PAGE->context) ? $PAGE->context->id : ''),
-            'pagepath' => (is_object($PAGE->url) ? $PAGE->url->out_as_local_url() : ''),
-            'sesskey' => sesskey());
+    // Variable to hold the placeholders as soon as needed.
+    static $placeholders = null;
 
     // Check if there is any placeholder in the url.
     if (strpos($url, '{') !== false) {
-        // If yes, replace the placeholders in the url.
+        // If yes, create the placeholders array to be replaced later.
+        if ($placeholders == null) {
+            $placeholders = array('courseid' => (isset($COURSE->id) ? $COURSE->id : ''),
+                                  'courseshortname' => (isset($COURSE->shortname) ? $COURSE->shortname : ''),
+                                  'editingtoggle' => ($PAGE->user_is_editing() ? 'off' : 'on'),
+                                  'userid' => (isset($USER->id) ? $USER->id : ''),
+                                  'userusername' => (isset($USER->username) ? $USER->username : ''),
+                                  'pagecontextid' => (is_object($PAGE->context) ? $PAGE->context->id : ''),
+                                  'pagepath' => (is_object($PAGE->url) ? $PAGE->url->out_as_local_url() : ''),
+                                  'sesskey' => sesskey());
+        }
+
+        // And replace the placeholders in the url.
         foreach ($placeholders as $search => $replace) {
             $url = str_replace('{' . $search . '}', $replace, $url);
         }
@@ -511,16 +516,22 @@ function local_boostnavigation_build_node_url($url) {
 function local_boostnavigation_build_node_title($title) {
     global $USER, $COURSE, $PAGE;
 
-    // Define placeholders which should be replaced later.
-    $placeholders = array('coursefullname' => (isset($COURSE->fullname) ? format_string($COURSE->fullname) : ''),
-            'courseshortname' => (isset($COURSE->shortname) ? $COURSE->shortname : ''),
-            'editingtoggle' => ($PAGE->user_is_editing() ? get_string('turneditingoff') : get_string('turneditingon')),
-            'userfullname' => fullname($USER),
-            'userusername' => (isset($USER->username) ? $USER->username : ''));
+    // Variable to hold the placeholders as soon as needed.
+    static $placeholders = null;
 
     // Check if there is any placeholder in the title.
     if (strpos($title, '{') !== false) {
-        // If yes, replace the placeholders in the title.
+        // If yes, create the placeholders array to be replaced later.
+        if ($placeholders == null) {
+            $placeholders = array('coursefullname'  => (isset($COURSE->fullname) ? format_string($COURSE->fullname) : ''),
+                                  'courseshortname' => (isset($COURSE->shortname) ? $COURSE->shortname : ''),
+                                  'editingtoggle'   => ($PAGE->user_is_editing() ?
+                                          get_string('turneditingoff') : get_string('turneditingon')),
+                                  'userfullname'    => fullname($USER),
+                                  'userusername'    => (isset($USER->username) ? $USER->username : ''));
+        }
+
+        // And replace the placeholders in the title.
         foreach ($placeholders as $search => $replace) {
             $title = str_replace('{' . $search . '}', $replace, $title);
         }

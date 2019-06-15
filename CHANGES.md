@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2019-06-15 - Improvement: Make multiple usages of placeholders in custom nodes slightly more efficient.
 * 2019-06-15 - Refactor, modularize and parametrize the language pack.
                This was done to ease future additions and translations and to get rid of the existing duplicated substrings.
                Unfortunately, this refactoring means that existing translations have to be done mostly by copy & paste in AMOS.
