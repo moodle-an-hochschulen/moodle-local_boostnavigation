@@ -6,6 +6,10 @@ Changes
 
 ### Unreleased
 
+* 2019-06-15 - Refactor, modularize and parametrize the language pack.
+               This was done to ease future additions and translations and to get rid of the existing duplicated substrings.
+               Unfortunately, this refactoring means that existing translations have to be done mostly by copy & paste in AMOS.
+               Thanks in advance to all translators for your support and understanding.
 * 2019-06-14 - Improvement: Split the mix of core and custom nodes settings onto separate settings pages.
 * 2019-06-14 - Improvement: Leverage the possibility to hide admin settings based on other admin settings' values from Moodle 3.7 on.
 * 2019-06-14 - Prepare compatibility for Moodle 3.7.
