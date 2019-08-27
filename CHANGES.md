@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.7-r3
 
 * 2019-08-26 - Bugfix: After refactoring the language pack in v3.7-r1, the section node and activities node could not be checked / unchecked anymore in new and existing installations - Thanks to Ralf Krause.
 
