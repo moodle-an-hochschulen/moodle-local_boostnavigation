@@ -235,7 +235,7 @@ if ($hassiteconfig) {
                         get_string('setting_removerootnodestechnicalhint', 'local_boostnavigation', null, true).
                         '<br /><br />'.
                         get_string('setting_removemycoursesnodeperformancehint', 'local_boostnavigation',
-                                array('url' => $CFG->wwwroot.'/admin/search.php?query=linkcoursesections'),
+                                array('url' => $CFG->wwwroot.'/admin/search.php?query=navshowmycoursecategories'),
                                 true),
                 0));
 
@@ -260,7 +260,7 @@ if ($hassiteconfig) {
                         get_string('setting_collapsenodestechnicalhint', 'local_boostnavigation', null, true).
                         '<br /><br />'.
                         get_string('setting_collapsemycoursesnodeperformancehint', 'local_boostnavigation',
-                                array('url' => $CFG->wwwroot.'/admin/search.php?query=linkcoursesections'),
+                                array('url' => $CFG->wwwroot.'/admin/search.php?query=navshowmycoursecategories'),
                                 true),
                 0));
 
