@@ -43,6 +43,11 @@ if ($hassiteconfig) {
                 get_string('settingspage_rootnodes', 'local_boostnavigation', null, true));
         $ADMIN->add('local_boostnavigation', $page);
 
+        // Settings page: Mycourses root nodes.
+        $page = new admin_settingpage('local_boostnavigation_mycoursesrootnode',
+                get_string('settingspage_mycoursesrootnode', 'local_boostnavigation', null, true));
+        $ADMIN->add('local_boostnavigation', $page);
+
         // Settings page: Custom root nodes.
         $page = new admin_settingpage('local_boostnavigation_customrootnodes',
                 get_string('settingspage_customrootnodes', 'local_boostnavigation', null, true));
@@ -259,7 +264,23 @@ if ($hassiteconfig) {
                         get_string('setting_removerootnodestechnicalhint', 'local_boostnavigation', null, true),
                 0));
 
-        // Create remove mycourses node control widget.
+        // Add settings page to the admin settings category.
+        $ADMIN->add('local_boostnavigation', $page);
+
+
+
+        // Settings page: Mycourses root node.
+        $page = new admin_settingpage('local_boostnavigation_mycoursesrootnode',
+                get_string('settingspage_mycoursesrootnode', 'local_boostnavigation', null, true));
+
+        // Add remove mycourses root node heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/removerootnodesheading',
+                get_string('setting_removenodesheading', 'local_boostnavigation',
+                        array('what' => get_string('inc_mycoursesrootnode', 'local_boostnavigation', null, true)),
+                        true),
+                ''));
+
+        // Create remove mycourses root node control widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/removemycoursesnode',
                 get_string('setting_removenode', 'local_boostnavigation',
                         array('what' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
@@ -277,14 +298,55 @@ if ($hassiteconfig) {
                                 true),
                 0));
 
-        // Add collapse nodes heading.
-        $page->add(new admin_setting_heading('local_boostnavigation/collapsenodesheading',
-                get_string('setting_collapsenodesheading', 'local_boostnavigation',
-                        array('what' => get_string('inc_rootnodes', 'local_boostnavigation', null, true)),
+        // Add modify mycourses root nodes heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/modifymycoursesrootnodeheading',
+                get_string('setting_modifynodesheading', 'local_boostnavigation',
+                        array('what' => get_string('inc_mycoursesrootnode', 'local_boostnavigation', null, true)),
                         true),
                 ''));
 
-        // Create my courses node collapse widget.
+        // Create show filtered mycourses root nodes widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/modifymycoursesrootnodeshowfiltered',
+                get_string('setting_modifymycoursesrootnodeshowfiltered', 'local_boostnavigation', null, true),
+                get_string('setting_modifymycoursesrootnodeshowfiltered_desc', 'local_boostnavigation', null, true).
+                '<br /><br />'.
+                get_string('setting_modifymycoursesrootnodeshowfilterednavcourselimit', 'local_boostnavigation',
+                        array('url' => $CFG->wwwroot.'/admin/search.php?query=navcourselimit'),
+                        true).
+                '<br /><br />'.
+                get_string('setting_collapsemycoursesnodeperformancehint', 'local_boostnavigation',
+                        array('url' => $CFG->wwwroot.'/admin/search.php?query=navshowmycoursecategories'),
+                        true),
+                0));
+        $page->hide_if('local_boostnavigation/modifymycoursesrootnodeshowfiltered',
+                'local_boostnavigation/removemycoursesnode', 'checked');
+
+        // Create add active filters hint root node widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/modifymycoursesrootnodefilterhint',
+                get_string('setting_modifymycoursesrootnodefilterhint', 'local_boostnavigation', null, true),
+                get_string('setting_modifymycoursesrootnodefilterhint_desc', 'local_boostnavigation', null, true),
+                0));
+        $page->hide_if('local_boostnavigation/modifymycoursesrootnodefilterhint',
+                'local_boostnavigation/removemycoursesnode', 'checked');
+
+        // Create add change filter link root node widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/modifymycoursesrootnodefilterlink',
+                get_string('setting_modifymycoursesrootnodefilterlink', 'local_boostnavigation', null, true),
+                get_string('setting_modifymycoursesrootnodefilterlink_desc', 'local_boostnavigation', null, true),
+                0));
+        $page->hide_if('local_boostnavigation/modifymycoursesrootnodefilterlink',
+                'local_boostnavigation/removemycoursesnode', 'checked');
+        $page->hide_if('local_boostnavigation/modifymycoursesrootnodefilterlink',
+                'local_boostnavigation/modifymycoursesrootnodeshowfiltered', 'notchecked');
+
+        // Add collapse my courses root node heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/collapsenodesheading',
+                get_string('setting_collapsenodesheading', 'local_boostnavigation',
+                        array('what' => get_string('inc_mycoursesrootnode', 'local_boostnavigation', null, true)),
+                        true),
+                ''));
+
+        // Create my courses root node collapse widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsemycoursesnode',
                 get_string('setting_collapsenode', 'local_boostnavigation',
                         array('what' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
@@ -301,23 +363,27 @@ if ($hassiteconfig) {
                                 array('url' => $CFG->wwwroot.'/admin/search.php?query=navshowmycoursecategories'),
                                 true),
                 0));
+        $page->hide_if('local_boostnavigation/collapsemycoursesnode',
+                'local_boostnavigation/removemycoursesnode', 'checked');
 
-        // Create my courses node collapse icon widget.
+        // Create my courses root node collapse icon widget.
         $page->add(new admin_setting_configselect('local_boostnavigation/collapsemycoursesnodeicon',
                 get_string('setting_collapsenodeicon', 'local_boostnavigation',
-                        array('what' => get_string('inc_coursenode', 'local_boostnavigation', null, true),
+                        array('what' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
                                 'which' => get_string('mycourses', 'moodle')),
                         true),
                 get_string('setting_collapsenodeicon_desc', 'local_boostnavigation',
-                        array('what' => get_string('inc_coursenode', 'local_boostnavigation', null, true),
+                        array('what' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
                                 'which' => get_string('mycourses', 'moodle')),
                         true),
                 LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE,
                 $collapseiconoptions));
         $page->hide_if('local_boostnavigation/collapsemycoursesnodeicon',
+                'local_boostnavigation/removemycoursesnode', 'checked');
+        $page->hide_if('local_boostnavigation/collapsemycoursesnodeicon',
                 'local_boostnavigation/collapsemycoursesnode', 'notchecked');
 
-        // Create my courses node collapse default widget.
+        // Create my courses root node collapse default widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsemycoursesnodedefault',
                 get_string('setting_collapsenodedefault', 'local_boostnavigation',
                         array('what' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
@@ -331,9 +397,11 @@ if ($hassiteconfig) {
                         get_string('setting_collapsenodesdefaultexplanation', 'local_boostnavigation', null, true),
                 0));
         $page->hide_if('local_boostnavigation/collapsemycoursesnodedefault',
+                'local_boostnavigation/removemycoursesnode', 'checked');
+        $page->hide_if('local_boostnavigation/collapsemycoursesnodedefault',
                 'local_boostnavigation/collapsemycoursesnode', 'notchecked');
 
-        // Create my courses node collapse session widget.
+        // Create my courses root node collapse session widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/collapsemycoursesnodesession',
                 get_string('setting_collapsenodesession', 'local_boostnavigation',
                         array('what' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
@@ -346,6 +414,8 @@ if ($hassiteconfig) {
                         '<br />'.
                         get_string('setting_collapsenodessessionexplanation', 'local_boostnavigation', null, true),
                 0));
+        $page->hide_if('local_boostnavigation/collapsemycoursesnodesession',
+                'local_boostnavigation/removemycoursesnode', 'checked');
         $page->hide_if('local_boostnavigation/collapsemycoursesnodesession',
                 'local_boostnavigation/collapsemycoursesnode', 'notchecked');
 

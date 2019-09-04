@@ -70,3 +70,10 @@
 .jsenabled .list-group-item.localboostnavigationcollapsibleparentforcenoindent .icon {
     display: none;
 }
+
+/* Modify mycourses list feature. */
+/* Make active filters hint smaller and always non-bold. */
+.list-group-item[data-key="localboostnavigationactivefiltershint"] {
+    font-size: 80%;
+    font-weight: normal;
+}

@@ -108,7 +108,7 @@ define(['jquery'], function($) {
         $('.list-group-item[data-parent-key=' + nodename + ']').each(function(index, element) {
             // Get its data-key attribute (which should be unique) to be used as id attribute.
             var id = $(element).attr('data-key');
-            // Prefix the id attribute if it wasn't built by us (or by our companion plugin local_boostcoc).
+            // Prefix the id attribute if it wasn't built by us.
             if (id.substring(0, 10) !== 'localboost') {
                 id = 'localboostnavigation' + id;
             }

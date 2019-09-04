@@ -4,6 +4,12 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2020-11-11 - Feature: Adopt the features to modify the My courses nodes list from the plugin local_boostcoc to local_boostnavigation.
+               This allows admins to align the My courses list in the nav drawer with the (filteres) course list in the My Overview block on the Dashboard.
+               Please don't enable these new features when you still have local_boostcoc in production.
+
 ### v3.9-r1
 
 * 2020-11-09 - Feature: Add admin setting to remove the content bank nodes which are part of Moodle 3.9 - Credits to tblacker7 for the first draft.
