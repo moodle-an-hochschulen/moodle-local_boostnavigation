@@ -272,7 +272,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                         global_navigation::TYPE_CUSTOM,
                         null,
                         'localboostnavigationcoursesections',
-                        null);
+                        new pix_icon('i/folder', ''));
                 // Prevent that the coursesections course node is marked as active and added to the breadcrumb when showing the
                 // course home page.
                 $coursesectionsnode->make_inactive();

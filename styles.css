@@ -82,7 +82,6 @@
 
 /* Improve node icons. */
 /* Hide the (empty) node icon for heading nodes. */
-.list-group-item[data-key="localboostnavigationcoursesections"] .icon.fa-fw,
 .list-group-item[data-key="localboostnavigationactivities"] .icon.fa-fw {
     display: none;
 }
