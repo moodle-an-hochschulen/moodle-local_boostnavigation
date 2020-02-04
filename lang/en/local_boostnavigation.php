@@ -98,6 +98,7 @@ $string['setting_customnodesusagepleasenote'] = 'Please note:';
 $string['setting_customnodesusagepleasenotecss'] = 'Due to the way how Boost\'s nav drawer is built in Moodle core, all custom nodes are displayed equally. Adding custom CSS classes, custom HTML element ids or a target attribute to open the link in a new window is impossible.';
 $string['setting_customnodesusagepleasenotecheck'] = 'If the custom node does not show up in Boost\'s nav drawer, please check if all mandatory params are set correctly, if the optional language setting fits to your current Moodle user language and if your other optional parameters apply to your user.';
 $string['setting_customnodesusagepleasenotelink'] = 'The link parameter can contain placeholders, for example /course/edit.php?id={courseid} to create a node linking to the current course\'s settings page.';
+$string['setting_customnodesusagepleasenotemultilang'] = 'The title parameter can contain <a href="https://docs.moodle.org/en/Multi-language_content_filter">multilanguage strings</a> to create a node with a label depending on the user\'s current language.';
 $string['setting_customnodesusagepleasenotetitle'] = 'The title parameter can contain placeholders, for example {coursefullname} to create a node labeled with the current course\'s full name.';
 $string['setting_customnodesusagepleasenotephavailable'] = 'Available placeholders are:';
 $string['setting_customnodesusagepleasenotephcourseiddt'] = '{courseid}:';

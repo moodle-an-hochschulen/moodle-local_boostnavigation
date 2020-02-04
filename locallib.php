@@ -516,6 +516,9 @@ function local_boostnavigation_build_node_url($url) {
 function local_boostnavigation_build_node_title($title) {
     global $USER, $COURSE, $PAGE;
 
+    // Run the title through the filter processor to especially support multilanguage titles.
+    $title = format_string($title);
+
     // Variable to hold the placeholders as soon as needed.
     static $placeholders = null;
 
@@ -694,6 +697,7 @@ function local_boostnavigation_customnodesusageusers() {
             get_string('setting_customnodesusagepleasenote', 'local_boostnavigation', null, true).
             '<ul>'.
             '<li>'.get_string('setting_customnodesusagepleasenotepipes', 'local_boostnavigation', null, true).'</li>'.
+            '<li>'.get_string('setting_customnodesusagepleasenotemultilang', 'local_boostnavigation', null, true).'</li>'.
             '<li>'.get_string('setting_customnodesusagepleasenotetitle', 'local_boostnavigation', null, true).'<br />'.
             get_string('setting_customnodesusagepleasenotephexplanation', 'local_boostnavigation', null, true).''.
             get_string('setting_customnodesusagepleasenotephavailable', 'local_boostnavigation', null, true).
@@ -777,6 +781,7 @@ function local_boostnavigation_customnodesusageadmins() {
             get_string('setting_customnodesusagepleasenote', 'local_boostnavigation', null, true).
             '<ul>'.
             '<li>'.get_string('setting_customnodesusageadminsparameternote', 'local_boostnavigation', null, true).'</li>'.
+            '<li>'.get_string('setting_customnodesusagepleasenotemultilang', 'local_boostnavigation', null, true).'</li>'.
             '<li>'.get_string('setting_customnodesusagepleasenotetitle', 'local_boostnavigation', null, true).' '.
             get_string('setting_customnodesusagepleasenotephexplanation', 'local_boostnavigation', null, true).'<br />'.
             get_string('setting_customnodesusagepleasenotephavailable', 'local_boostnavigation', null, true).
