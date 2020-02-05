@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.7-r4
 
 * 2020-02-04 - Improvement: Support multilang strings in custom node titles - Thanks to Jean-Roch.
 * 2020-02-04 - Bugfix: A fatal error could have appeared during login as sessions - Credits to Adrian Perez.
