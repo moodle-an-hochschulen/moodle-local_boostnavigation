@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2020-02-12 - Added Behat tests to cover the individual features of the plugin.
 * 2020-02-10 - Improvement: The ID attribute for custom nodes is in fact a data-key attribute. This is now fixed in the language pack.
 
 ### v3.7-r4
