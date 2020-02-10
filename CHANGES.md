@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2020-02-10 - Improvement: The ID attribute for custom nodes is in fact a data-key attribute. This is now fixed in the language pack.
+
 ### v3.7-r4
 
 * 2020-02-04 - Improvement: Support multilang strings in custom node titles - Thanks to Jean-Roch.
