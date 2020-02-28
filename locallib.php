@@ -73,6 +73,9 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         $collapsedefault=false, $accordion=false) {
     global $USER, $FULLME;
 
+    // Fetch config.
+    $config = get_config('local_boostnavigation');
+
     // Build full page URL if we have it available to be used down below.
     if (!empty($FULLME)) {
         $pagefullurl = new moodle_url($FULLME);
@@ -373,10 +376,14 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
 
                 // Finally, if the node shouldn't be collapsed or if it does not have children, set the node icon.
                 if (!$collapse || $customnode->has_children() == false) {
-                    if ($nodeicon instanceof pix_icon) {
-                        $customnode->icon = $nodeicon;
-                    } else {
-                        $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
+                    // If we add a custom node and displayed setting is enabled, set the node icon.
+                    $customnodekey = preg_replace('/[0-9]+/', '', $customnode->key);
+                    if (!local_boostnavigation_hide_custom_node_icon($customnodekey, $config)) {
+                        if ($nodeicon instanceof pix_icon) {
+                            $customnode->icon = $nodeicon;
+                        } else {
+                            $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
+                        }
                     }
                 }
 
@@ -418,7 +425,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 if ($nodeicon instanceof pix_icon) {
                     $customnode->icon = $nodeicon;
                 } else {
-                    $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
+                    $customnode->icon = new pix_icon('customnodesm', '', 'local_boostnavigation');
                 }
             }
         }
@@ -836,4 +843,33 @@ function local_boostnavigation_customnodesusageadmins() {
             '</ul>';
 
     return $html;
+}
+
+/**
+ * Show or hide the custom node icon depending if displayed setting is enabled.
+ *
+ * @param $customnodekey
+ * @param $config
+ * @return bool
+ */
+function local_boostnavigation_hide_custom_node_icon($customnodekey, $config) {
+    if ($customnodekey == 'localboostnavigationcustomrootusers' && !$config->collapsecustomnodesusersicon) {
+        return true;
+    }
+    if ($customnodekey == 'localboostnavigationcustomrootadmins' && !$config->collapsecustomnodesadminsicon) {
+        return true;
+    }
+    if ($customnodekey == 'localboostnavigationcustomcourseusers' && !$config->collapsecustomcoursenodesusersicon) {
+        return true;
+    }
+    if ($customnodekey == 'localboostnavigationcustomcourseadmins' && !$config->collapsecustomcoursenodesadminsicon) {
+        return true;
+    }
+    if ($customnodekey == 'localboostnavigationcustombottomusers' && !$config->collapsecustombottomnodesusersicon) {
+        return true;
+    }
+    if ($customnodekey == 'localboostnavigationcustombottomadmins' && !$config->collapsecustombottomnodesadminsicon) {
+        return true;
+    }
+    return false;
 }

@@ -81,24 +81,19 @@
 }
 
 /* Improve node icons. */
-/* Hide the (empty) node icon for heading nodes. */
-.list-group-item[data-key="localboostnavigationcoursesections"] .icon.fa-fw,
-.list-group-item[data-key="localboostnavigationactivities"] .icon.fa-fw {
-    display: none;
-}
 /* Hide the icon for the mycourses node ... */
 .list-group-item[data-key="mycourses"] .icon {
     display: none;
+}
+/* ... and display the icon for the mycourses node if setting enabled. */
+.list-group-item[data-key="mycourses"].collapsemycoursesnodeicon .icon {
+    display: block;
 }
 /* ... and remove the indent of the mycourses child nodes. */
 .list-group-item[data-parent-key="mycourses"] > div {
     margin-left: 0 !important;
 }
-/* Hide the icon for collapsible custom parent nodes ... */
-.jsenabled .list-group-item[data-key^="localboostnavigationcustom"][data-isexpandable="1"] .icon {
-    display: none;
-}
-/* ... and remove the indent to the collapsed custom child nodes. Unfortunately, this has to be done for each custom node block
+/* Remove the indent to the collapsed custom child nodes. Unfortunately, this has to be done for each custom node block
    individually because the child node does not know (with a CSS-selectable attribute) if its parent node is collapsed or node. */
 .jsenabled .list-group-item[data-key^="localboostnavigationcustomcourseusers"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomcourseusers"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomcourseusers"] > div,
 .jsenabled .list-group-item[data-key^="localboostnavigationcustomcourseadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomcourseadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomcourseadmins"] > div,
