@@ -255,7 +255,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                         global_navigation::TYPE_CUSTOM,
                         null,
                         'localboostnavigationcoursesections',
-                        null);
+                        ($config->collapsecoursesectionscoursenodeicon) ? new pix_icon('i/folder', '') : null);
                 // Prevent that the coursesections course node is marked as active and added to the breadcrumb when showing the
                 // course home page.
                 $coursesectionsnode->make_inactive();
@@ -389,7 +389,8 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                         global_navigation::TYPE_CUSTOM,
                         null,
                         'localboostnavigationactivities',
-                        null);
+                        ($config->collapseactivitiescoursenodeicon) ? new pix_icon('activities', '', 'local_boostnavigation') :
+                                null);
                 // Prevent that the activities course node is marked as active and added to the breadcrumb when showing the
                 // course home page.
                 $activitiesnode->make_inactive();
@@ -621,12 +622,12 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         if (!empty($accordionnodesforjs)) {
             // Add JavaScript for collapsing nodes to the page and pass the $collapsenodesforjs and $accordionnodesforjs data.
             $PAGE->requires->js_call_amd('local_boostnavigation/collapsenavdrawernodes', 'init',
-                    [$collapsenodesforjs, $accordionnodesforjs]);
+                    [$collapsenodesforjs, $accordionnodesforjs, $config->collapsemycoursesnodeicon]);
             // Otherwise.
         } else {
             // Add JavaScript for collapsing nodes to the page and pass the $collapsenodesforjs data only.
             $PAGE->requires->js_call_amd('local_boostnavigation/collapsenavdrawernodes', 'init',
-                    [$collapsenodesforjs, []]);
+                    [$collapsenodesforjs, [], $config->collapsemycoursesnodeicon]);
         }
         // Allow updating the necessary user preferences via Ajax.
         foreach ($collapsenodesforjs as $node) {
@@ -680,7 +681,8 @@ function local_boostnavigation_get_fontawesome_icon_map() {
 
     // Create the icon map with the icons which are used in any case.
     $iconmapping = [
-            'local_boostnavigation:customnode' => 'fa-square local-boostnavigation-fa-sm',
+            'local_boostnavigation:customnode' => 'fa-square',
+            'local_boostnavigation:customnodesm' => 'fa-square local-boostnavigation-fa-sm',
             'local_boostnavigation:resources' => 'fa-archive',
             'local_boostnavigation:activities' => 'fa-share-alt',
     ];

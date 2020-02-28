@@ -52,24 +52,19 @@
 }
 
 /* Improve node icons. */
-/* Hide the (empty) node icon for heading nodes. */
-.list-group-item[data-key="localboostnavigationcoursesections"] .icon.fa-fw,
-.list-group-item[data-key="localboostnavigationactivities"] .icon.fa-fw {
-    display: none;
-}
 /* Hide the icon for the mycourses node ... */
 .list-group-item[data-key="mycourses"] .icon {
     display: none;
+}
+/* ... and display the icon for the mycourses node if setting enabled. */
+.list-group-item[data-key="mycourses"].collapsemycoursesnodeicon .icon {
+    display: block;
 }
 /* ... and remove the indent of the mycourses child nodes. */
 .list-group-item[data-parent-key="mycourses"] > div {
     margin-left: 0 !important;
 }
-/* Hide the icon for collapsible custom parent nodes ... */
-.jsenabled .list-group-item.localboostnavigationcollapsibleparent[data-key^="localboostnavigationcustom"] .icon {
-    display: none;
-}
-/* ... and remove the indent of the collapsible custom child nodes. */
+/* Remove the indent of the collapsible custom child nodes. */
 .jsenabled .list-group-item.localboostnavigationcollapsiblechild > div {
     margin-left: inherit !important;
 }
