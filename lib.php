@@ -497,8 +497,43 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             }
         }
     }
-
-    // Check if admin wants us to insert custom nodes for users in Boost's nav drawer.
+	
+	// Check if admin wants us to insert category nodes for users in Boost's nav drawer.
+    if( true === filter_var($config->showcategorynodestreeinnavdrawer, FILTER_VALIDATE_BOOLEAN ) ) {
+	
+    	// Edge case handling.
+	    if ( ! isset( $config->insertcustomnodesusers ) ) {
+		    $config->insertcustomnodesusers = '';
+	    }
+	
+	    if ( ! empty( $config->insertcustomnodesusers ) ) {
+		    $config->insertcustomnodesusers .= PHP_EOL;
+	    }
+	    
+	    // Append categories to $config->insertcustomnodesusers (string).
+		foreach ( core_course_category::make_categories_list() as $category_id => $category ) {
+			
+			// Get relevant category information.
+			$category_configuration = core_course_category::get( $category_id );
+			
+			// Hide category if nessessary.
+			if ( $category_configuration->visible == '0' ) {
+				continue;
+			}
+			
+			// Mapping to a two-level-menue while Using boostnavigation notations.
+			// Todo: this is just a tempoary fiddling.
+			if ( count( $category_configuration->get_parents() ) != 0 ) {
+				$config->insertcustomnodesusers .= '-' . $category_configuration->get_formatted_name();
+			} else {
+				$config->insertcustomnodesusers .= $category_configuration->get_formatted_name();
+			}
+			$config->insertcustomnodesusers .= '|' . new moodle_url( '/course/index.php' ) . '?categoryid=' . $category_id . PHP_EOL;
+			
+		}
+    }
+	
+	// Check if admin wants us to insert custom nodes for users in Boost's nav drawer.
     if (isset($config->insertcustomnodesusers) && !empty($config->insertcustomnodesusers)) {
         // If yes, do it.
         $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustomnodesusers, $navigation,
