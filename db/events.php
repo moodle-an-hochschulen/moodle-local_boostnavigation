@@ -33,4 +33,20 @@ $observers = [
                 'eventname' => '\core\event\user_loggedout',
                 'callback' => '\local_boostnavigation\eventobservers::user_loggedout'
         ],
+        [
+                'eventname' => '\core\event\cohort_member_added',
+                'callback' => '\local_boostnavigation\eventobservers::cohort_member_added',
+        ],
+        [
+                'eventname' => '\core\event\cohort_member_removed',
+                'callback' => '\local_boostnavigation\eventobservers::cohort_member_removed',
+        ],
+        [
+                'eventname' => '\core\event\cohort_updated',
+                'callback' => '\local_boostnavigation\eventobservers::cohort_updated',
+        ],
+        [
+                'eventname' => '\core\event\cohort_deleted',
+                'callback' => '\local_boostnavigation\eventobservers::cohort_deleted',
+        ],
 ];
