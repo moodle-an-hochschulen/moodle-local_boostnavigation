@@ -425,6 +425,12 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
 
                 // Create an activity course node for each activity type.
                 foreach ($modfullnames as $modname => $modfullname) {
+                    // If, for any reason, $modfullname is empty, skip this activity type as it would
+                    // crash navigation_node::create() otherwise.
+                    if (empty($modfullname)) {
+                        continue;
+                    }
+
                     // Process "Resources" activity type.
                     if ($modname === 'resources') {
                         // Do only if the admin does not want a dedicated resources node.

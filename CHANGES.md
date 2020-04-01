@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2020-04-01 - Bugfix: Prevent a fatal error when adding activity course nodes.
+
 ### v3.7-r5
 
 * 2020-02-12 - Added Behat tests to cover the individual features of the plugin.
