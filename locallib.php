@@ -848,8 +848,8 @@ function local_boostnavigation_customnodesusageadmins() {
 /**
  * Show or hide the custom node icon depending if displayed setting is enabled.
  *
- * @param $customnodekey
- * @param $config
+ * @param string $customnodekey
+ * @param mixed $config
  * @return bool
  */
 function local_boostnavigation_hide_custom_node_icon($customnodekey, $config) {
