@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2020-06-20 - Prepare compatibility for Moodle 3.8.
+
 ### v3.7-r6
 
 * 2020-04-01 - Bugfix: Prevent a fatal error when adding activity course nodes.
