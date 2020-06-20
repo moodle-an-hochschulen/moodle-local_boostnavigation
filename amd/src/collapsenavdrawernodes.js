@@ -17,6 +17,7 @@
  * Local plugin "Boost navigation fumbling" - JS code for collapsing nav drawer nodes
  *
  * @package    local_boostnavigation
+ * @copyright  2017 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
  * @copyright  2017 Kathrin Osswald, Ulm University <kathrin.osswald@uni-ulm.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
