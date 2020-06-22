@@ -808,11 +808,11 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
     And I log out
     And I log in as "student1"
     And I click on "Calendar" "link" in the "#nav-drawer" "css_element"
-    Then I should see "Calendar" in the "#page-content" "css_element"
+    Then I should see "Calendar" in the "#page-header" "css_element"
     And I should see "Current page" in the "#nav-drawer" "css_element"
     And the "href" attribute of "a[data-key='localboostnavigationcustomrootusers1']" "css_element" should contain "/calendar/view.php?view=month"
     And I click on "Current page" "link" in the "#nav-drawer" "css_element"
-    And I should see "Calendar" in the "#page-content" "css_element"
+    And I should see "Calendar" in the "#page-header" "css_element"
 
   Scenario: Custom node hierarchy
     Given the following "users" exist:
