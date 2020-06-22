@@ -875,3 +875,29 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
     And I should see "Elternknoten" in the "#nav-drawer" "css_element"
     And I should see "Kindknoten A" in the "#nav-drawer" "css_element"
     And I should see "Kindknoten B" in the "#nav-drawer" "css_element"
+
+  Scenario: Custom node classes for first bottom nodes
+    Given the following "users" exist:
+      | username |
+      | student1 |
+    And I log in as "admin"
+    And I navigate to "Appearance > Boost navigation fumbling > Custom bottom nodes" in site administration
+    And I set the field "Insert custom bottom nodes for all users" to multiline:
+    """
+    Bottom node for all users 1 |/admin/index.php
+    Bottom node for all users 2 |/admin/index.php
+    """
+    And I set the field "Insert custom bottom nodes for admins" to multiline:
+    """
+    Bottom node for admins 1 |/admin/index.php
+    Bottom node for admins 2 |/admin/index.php
+    """
+    And I press "Save changes"
+    Then I should see "Bottom node for all users 1" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1']" "css_element" should contain "localboostnavigationfirstcustombuttomusers"
+    And I should see "Bottom node for all users 2" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2']" "css_element" should not contain "localboostnavigationfirstcustombuttomusers"
+    And I should see "Bottom node for admins 1" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1']" "css_element" should contain "localboostnavigationfirstcustombuttomadmins"
+    And I should see "Bottom node for admins 2" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2']" "css_element" should not contain "localboostnavigationfirstcustombuttomadmins"

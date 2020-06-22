@@ -6,6 +6,8 @@ Changes
 
 ### Unreleased
 
+* 2020-06-20 - Bugfix: Collapsible nodes did not collapse under Moodle 3.8 anymore. This was fixed based on the work which was integrated into Moodle core in MDL-58964. That's why this patch raises the minimum Moodle core version to 3.8.2+ and not just 3.8.0.
+               As this bugfix also replaces the practice of abusing Moodle core navigation node attributes, this solves some minor side effects of the plugin on the navigation tree and breadcrumb on-the-fly.
 * 2020-06-20 - Release: Fix a Behat test which broke with changes in Moodle 3.8.
 * 2020-06-20 - Prepare compatibility for Moodle 3.8.
 
