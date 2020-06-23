@@ -377,24 +377,21 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                     $customnode->make_inactive();
                 }
 
-                // Finally, if the node shouldn't be collapsed or if it does not have children, set the node icon.
-                if (!$collapse || $customnode->has_children() == false) {
-                    // If we add a custom node and displayed setting is enabled, set the node icon.
-                    $customnodekey = preg_replace('/[0-9]+/', '', $customnode->key);
-                    if (!local_boostnavigation_hide_custom_node_icon($customnodekey, $config)) {
-                        if ($nodeicon instanceof pix_icon) {
-                            $customnode->icon = $nodeicon;
-                        } else {
-                            $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
-                        }
-                    }
+                // Finally, set the node icon.
+                // This covers the case that the node should not be collapsed
+                // as well as the case that the node should not be collapsed but does not have any children.
+                // Later, when the first child node is added, the node icon might be removed again if the admin told us to do so.
+                if ($nodeicon instanceof pix_icon) {
+                    $customnode->icon = $nodeicon;
+                } else {
+                    $customnode->icon = new pix_icon('customnodexs', '', 'local_boostnavigation');
                 }
 
                 // Otherwise, if it's a child node.
             } else {
                 // If the nodes should be collapsed and collapsing hasn't been prepared yet, prepare collapsing of the parent node.
                 // This is done here (in the first child node and not in the parent node) because parent nodes without any child
-                // node shouldn't be collapsible.
+                // node shouldn't be collapsible and should have an icon in any case.
                 if ($collapse && !$collapselastparentprepared) {
                     // Remember the node key for collapsing.
                     $collapsenodesforjs[] = $lastparentnode->key;
@@ -402,6 +399,20 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                     // Add the localboostnavigationcollapsibleparent class to the parent node.
                     $lastparentnode->add_class('localboostnavigationcollapsibleparent');
 
+                    // Check if admin really wanted to show an icon in the parent node and indent the parent node.
+                    // Get the relevant customnodeicon config.
+                    $customnodeiconconfig = local_boostnavigation_get_customnodeicon_config($keyprefix, $config);
+                    // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_YES) - Icon and indent is already fine.
+                    // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT - Icon has to be removed, but indent is fine.
+                    // Note that the icon is removed by setting it to i/navigationitem which is mapped it fa-fw
+                    // and which is the same as the navigation_node constructor sets if the icon is set to null.
+                    if ($customnodeiconconfig == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT) {
+                        $lastparentnode->icon = new pix_icon('i/navigationitem', '');
+                        // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE - Icon and indent have to be removed.
+                    } else if ($customnodeiconconfig == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE) {
+                        $lastparentnode->icon = new pix_icon('i/navigationitem', '');
+                        $lastparentnode->add_class('localboostnavigationcollapsibleparentforcenoindent');
+                    }
                     // Remember that we have prepared collapsing now.
                     $collapselastparentprepared = true;
                 }
@@ -436,7 +447,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 if ($nodeicon instanceof pix_icon) {
                     $customnode->icon = $nodeicon;
                 } else {
-                    $customnode->icon = new pix_icon('customnodesm', '', 'local_boostnavigation');
+                    $customnode->icon = new pix_icon('customnodexxs', '', 'local_boostnavigation');
                 }
             }
         }
@@ -857,30 +868,33 @@ function local_boostnavigation_customnodesusageadmins() {
 }
 
 /**
- * Show or hide the custom node icon depending if displayed setting is enabled.
+ * Get the relevant customnodeicon config for a given custom node key prefix.
  *
- * @param string $customnodekey
+ * @param string $customnodekeyprefix
  * @param mixed $config
  * @return bool
  */
-function local_boostnavigation_hide_custom_node_icon($customnodekey, $config) {
-    if ($customnodekey == 'localboostnavigationcustomrootusers' && !$config->collapsecustomnodesusersicon) {
-        return true;
+function local_boostnavigation_get_customnodeicon_config($customnodekeyprefix, $config = null) {
+    // Check all possible custom node key prefixes and return the relevant config.
+    if ($customnodekeyprefix == 'localboostnavigationcustomrootusers') {
+        return $config->collapsecustomnodesusersicon;
     }
-    if ($customnodekey == 'localboostnavigationcustomrootadmins' && !$config->collapsecustomnodesadminsicon) {
-        return true;
+    if ($customnodekeyprefix == 'localboostnavigationcustomrootadmins') {
+        return $config->collapsecustomnodesadminsicon;
     }
-    if ($customnodekey == 'localboostnavigationcustomcourseusers' && !$config->collapsecustomcoursenodesusersicon) {
-        return true;
+    if ($customnodekeyprefix == 'localboostnavigationcustomcourseusers') {
+        return $config->collapsecustomcoursenodesusersicon;
     }
-    if ($customnodekey == 'localboostnavigationcustomcourseadmins' && !$config->collapsecustomcoursenodesadminsicon) {
-        return true;
+    if ($customnodekeyprefix == 'localboostnavigationcustomcourseadmins') {
+        return $config->collapsecustomcoursenodesadminsicon;
     }
-    if ($customnodekey == 'localboostnavigationcustombottomusers' && !$config->collapsecustombottomnodesusersicon) {
-        return true;
+    if ($customnodekeyprefix == 'localboostnavigationcustombottomusers') {
+        return $config->collapsecustombottomnodesusersicon;
     }
-    if ($customnodekey == 'localboostnavigationcustombottomadmins' && !$config->collapsecustombottomnodesadminsicon) {
-        return true;
+    if ($customnodekeyprefix == 'localboostnavigationcustombottomadmins') {
+        return $config->collapsecustombottomnodesadminsicon;
     }
-    return false;
+
+    // As a fallback, which should not happen, return the default setting of the configs.
+    return LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE;
 }

@@ -165,9 +165,8 @@ define(['jquery'], function($) {
     /**
      * Init function of this AMD module which initializes the click handlers.
      * @param {string} nodename The nav node's nodename.
-     * @param {string} collapsemycoursesnodeicon The value of the setting (0=disabled, 1=enabled).
      */
-    function initToggleNodes(nodename, collapsemycoursesnodeicon) {
+    function initToggleNodes(nodename) {
         // Search node to be collapsible.
         var node = $('.list-group-item[data-key="' + nodename + '"]');
 
@@ -180,9 +179,6 @@ define(['jquery'], function($) {
         // Make the mycourses node accessible (all other nodes are fine).
         if (nodename == 'mycourses') {
             tabbableDiv(node);
-            if (collapsemycoursesnodeicon === '1') {
-                node.addClass('collapsemycoursesnodeicon');
-            }
         }
     }
 
@@ -197,10 +193,10 @@ define(['jquery'], function($) {
     }
 
     return {
-        init: function(toggleNodes, accordionNodes, collapsemycoursesnodeicon) {
+        init: function(toggleNodes, accordionNodes) {
             // Initialize toggle nodes.
             for (var i = 0, tLen = toggleNodes.length; i < tLen; i++) {
-                initToggleNodes(toggleNodes[i], collapsemycoursesnodeicon);
+                initToggleNodes(toggleNodes[i]);
             }
             // Initialize accordion nodes.
             for (var j = 0, aLen = accordionNodes.length; j < aLen; j++) {

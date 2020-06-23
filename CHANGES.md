@@ -6,6 +6,10 @@ Changes
 
 ### Unreleased
 
+* 2020-08-03 - Feature: Add admin settings to control how to display icons within collapsible parent nodes - Credits to Adrian Perez.
+               Please note: This change also makes sure that the information 'After installing the plugin, it does not do anything to Moodle yet' which is given in the README file is correct again. Up to now, the plugin removed the icon from the MyCourses parent node and changed the indent of the MyCourses child nodes even if the node was not set to be collapsed. This misbehaviour is now reverted.
+               Please also note: This change also adds an icon to the section and activities parent node and a small indent to their children in non-collapsible mode which wasn't the case before but which aligns with the MyCourses node having an icon again with this plugin and having a slight indent in Moodle core for some time now.
+               Please also note: This change also adds an icon to the custom parent nodes and a small indent to their children in non-collapsible mode which wasn't the case before but which aligns with MyCourses, sections and activities nodes then.
 * 2020-08-03 - Bugfix: New / changed custom node icons were not shown anymore after upstream change in MDL-69109.
 * 2020-06-20 - Bugfix: Collapsible nodes did not collapse under Moodle 3.8 anymore. This was fixed based on the work which was integrated into Moodle core in MDL-58964. That's why this patch raises the minimum Moodle core version to 3.8.2+ and not just 3.8.0.
                As this bugfix also replaces the practice of abusing Moodle core navigation node attributes, this solves some minor side effects of the plugin on the navigation tree and breadcrumb on-the-fly.

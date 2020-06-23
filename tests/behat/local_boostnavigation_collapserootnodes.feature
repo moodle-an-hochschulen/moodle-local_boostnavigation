@@ -62,6 +62,68 @@ Feature: The boost navigation fumbling allows admins to collapse root nodes with
     And the "class" attribute of "a[data-parent-key='mycourses']" "css_element" should contain "localboostnavigationcollapsiblechild"
     And the "class" attribute of "a[data-parent-key='mycourses']" "css_element" should not contain "localboostnavigationcollapsedchild"
 
+  Scenario: Display parent node icons in root node "My courses"
+    Given the following "users" exist:
+      | username |
+      | student1 |
+    And the following "courses" exist:
+      | fullname | shortname |
+      | Course 1 | C1        |
+    And the following "course enrolments" exist:
+      | user     | course | role    |
+      | student1 | C1     | student |
+    And the following config values are set as admin:
+      | config                       | value | plugin                |
+      | collapsemycoursesnode        | 0     | local_boostnavigation |
+    And I log in as "student1"
+    Then I should see "My courses" in the "#nav-drawer" "css_element"
+    And I should see "C1" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "div[data-key='mycourses'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "div[data-key='mycourses'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-parent-key='mycourses'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-parent-key='mycourses'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "div[data-key='mycourses']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-parent-key='mycourses']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                       | value | plugin                |
+      | collapsemycoursesnode        | 1     | local_boostnavigation |
+      | collapsemycoursesnodeicon    | 0     | local_boostnavigation |
+    And I reload the page
+    Then I should see "My courses" in the "#nav-drawer" "css_element"
+    And I should see "C1" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "div[data-key='mycourses'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "div[data-key='mycourses'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-parent-key='mycourses'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-parent-key='mycourses'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "div[data-key='mycourses']" "css_element" should contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-parent-key='mycourses']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                       | value | plugin                |
+      | collapsemycoursesnode        | 1     | local_boostnavigation |
+      | collapsemycoursesnodeicon    | 1     | local_boostnavigation |
+    And I reload the page
+    Then I should see "My courses" in the "#nav-drawer" "css_element"
+    And I should see "C1" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "div[data-key='mycourses'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "div[data-key='mycourses'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-parent-key='mycourses'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-parent-key='mycourses'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "div[data-key='mycourses']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-parent-key='mycourses']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                       | value | plugin                |
+      | collapsemycoursesnode        | 1     | local_boostnavigation |
+      | collapsemycoursesnodeicon    | 2     | local_boostnavigation |
+    And I reload the page
+    Then I should see "My courses" in the "#nav-drawer" "css_element"
+    And I should see "C1" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "div[data-key='mycourses'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "div[data-key='mycourses'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-parent-key='mycourses'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-parent-key='mycourses'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "div[data-key='mycourses']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-parent-key='mycourses']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+
   Scenario: Collapse root node "My courses" by default
     Given the following "users" exist:
       | username |

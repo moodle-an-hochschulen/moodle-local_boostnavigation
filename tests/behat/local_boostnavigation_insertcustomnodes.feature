@@ -15,9 +15,6 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
       | user     | course | role    |
       | admin    | C1     | student |
       | student1 | C1     | student |
-    And the following config values are set as admin:
-      | config                          | value | plugin                |
-      | collapsecustomnodesusersicon    | 0     | local_boostnavigation |
     When I log in as "admin"
     And I navigate to "Appearance > Boost navigation fumbling > Custom root nodes" in site administration
     And I set the field "Insert custom root nodes for all users" to multiline:
@@ -72,9 +69,6 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
       | user     | course | role    |
       | admin    | C1     | student |
       | student1 | C1     | student |
-    And the following config values are set as admin:
-      | config                           | value | plugin                |
-      | collapsecustomnodesadminsicon    | 0     | local_boostnavigation |
     When I log in as "admin"
     And I navigate to "Appearance > Boost navigation fumbling > Custom root nodes" in site administration
     And I set the field "Insert custom root nodes for admins" to multiline:
@@ -121,9 +115,6 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
       | user     | course | role    |
       | admin    | C1     | student |
       | student1 | C1     | student |
-    And the following config values are set as admin:
-      | config                                | value | plugin                |
-      | collapsecustomcoursenodesusersicon    | 0     | local_boostnavigation |
     When I log in as "admin"
     And I navigate to "Appearance > Boost navigation fumbling > Custom course nodes" in site administration
     And I set the field "Insert custom course nodes for all users" to multiline:
@@ -176,9 +167,6 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
       | user     | course | role    |
       | admin    | C1     | student |
       | student1 | C1     | student |
-    And the following config values are set as admin:
-      | config                                 | value | plugin                |
-      | collapsecustomcoursenodesadminsicon    | 0     | local_boostnavigation |
     When I log in as "admin"
     And I navigate to "Appearance > Boost navigation fumbling > Custom course nodes" in site administration
     And I set the field "Insert custom course nodes for admins" to multiline:
@@ -223,9 +211,6 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
       | user     | course | role    |
       | admin    | C1     | student |
       | student1 | C1     | student |
-    And the following config values are set as admin:
-      | config                                | value | plugin                |
-      | collapsecustombottomnodesusersicon    | 0     | local_boostnavigation |
     When I log in as "admin"
     And I navigate to "Appearance > Boost navigation fumbling > Custom bottom nodes" in site administration
     And I set the field "Insert custom bottom nodes for all users" to multiline:
@@ -280,9 +265,6 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
       | user     | course | role    |
       | admin    | C1     | student |
       | student1 | C1     | student |
-    And the following config values are set as admin:
-      | config                                 | value | plugin                |
-      | collapsecustombottomnodesadminsicon    | 0     | local_boostnavigation |
     When I log in as "admin"
     And I navigate to "Appearance > Boost navigation fumbling > Custom bottom nodes" in site administration
     And I set the field "Insert custom bottom nodes for admins" to multiline:
@@ -601,9 +583,6 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
 
   Scenario: Custom node icon
     When I log in as "admin"
-    And the following config values are set as admin:
-      | config                          | value | plugin                |
-      | collapsecustomnodesusersicon    | 1     | local_boostnavigation |
     And I navigate to "Appearance > Boost navigation fumbling > Custom root nodes" in site administration
     And I set the field "Insert custom root nodes for all users" to multiline:
     """
@@ -634,9 +613,6 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
     And the following "course enrolments" exist:
       | user     | course | role           |
       | teacher1 | C1     | editingteacher |
-    And the following config values are set as admin:
-      | config                          | value | plugin                |
-      | collapsecustomnodesusersicon    | 1     | local_boostnavigation |
     When I log in as "admin"
     And I navigate to "Appearance > Boost navigation fumbling > Custom course nodes" in site administration
     And I set the field "Insert custom course nodes for all users" to multiline:

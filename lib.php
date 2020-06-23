@@ -24,6 +24,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+// Define constants used by this plugin.
+define('LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE', 0);
+define('LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT', 1);
+define('LOCAL_BOOSTNAVIGATION_COLLAPSEICON_YES', 2);
+
 /**
  * Fumble with Moodle's global navigation by leveraging Moodle's *_extend_navigation() hook.
  *
@@ -135,6 +140,19 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                     $childnode = $mycoursesnode->get($k);
                     $childnode->add_class('localboostnavigationcollapsiblechild');
                 }
+            }
+
+            // Check if admin really wanted to show an icon in the parent node and indent the parent node.
+            // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_YES) - Icon and indent is already fine.
+            // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT - Icon has to be removed, but indent is fine.
+            // Note that the icon is removed by setting it to i/navigationitem which is mapped it fa-fw
+            // and which is the same as the navigation_node constructor sets if the icon is set to null.
+            if ($config->collapsemycoursesnodeicon == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT) {
+                $mycoursesnode->icon = new pix_icon('i/navigationitem', '');
+                // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE - Icon and indent have to be removed.
+            } else if ($config->collapsemycoursesnodeicon == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE) {
+                $mycoursesnode->icon = new pix_icon('i/navigationitem', '');
+                $mycoursesnode->add_class('localboostnavigationcollapsibleparentforcenoindent');
             }
         }
     }
@@ -255,7 +273,8 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                         global_navigation::TYPE_CUSTOM,
                         null,
                         'localboostnavigationcoursesections',
-                        ($config->collapsecoursesectionscoursenodeicon) ? new pix_icon('i/folder', '') : null);
+                        new pix_icon('i/folder', ''));
+
                 // Prevent that the coursesections course node is marked as active and added to the breadcrumb when showing the
                 // course home page.
                 $coursesectionsnode->make_inactive();
@@ -309,6 +328,39 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                                         $node->add_class('localboostnavigationcollapsiblechild');
                                     }
                                 }
+                            }
+                        }
+
+                        // Check if admin really wanted to show an icon in the parent node and indent the parent node.
+                        // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_YES) - Icon and indent is already fine.
+                        // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT - Icon has to be removed, but indent is fine.
+                        // Note that the icon is removed by setting it to i/navigationitem which is mapped it fa-fw
+                        // and which is the same as the navigation_node constructor sets if the icon is set to null.
+                        if ($config->collapsecoursesectionscoursenodeicon == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT) {
+                            $coursesectionsnode->icon = new pix_icon('i/navigationitem', '');
+                            // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE - Icon and indent have to be removed.
+                        } else if ($config->collapsecoursesectionscoursenodeicon == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE) {
+                            $coursesectionsnode->icon = new pix_icon('i/navigationitem', '');
+                            $coursesectionsnode->add_class('localboostnavigationcollapsibleparentforcenoindent');
+                        }
+                    }
+
+                    // If not, we have at least to reallocate the parent of the existing section nodes so that the section nodes
+                    // can be referenced in CSS.
+                } else {
+                    // Get the children nodes for the coursehome node.
+                    $coursehomenodechildrennodeskeys = $coursehomenode->get_children_key_list();
+                    // Reallocate the parent of the existing section nodes.
+                    foreach ($coursehomenodechildrennodeskeys as $k) {
+                        // As $coursehomenodechildrennodeskeys also contains some other nodes, we have to check the node's
+                        // action URL to see if we have a section node.
+                        $node = $coursehomenode->get($k);
+                        // If a node does not have an action URL, just skip it.
+                        if ($node->action) {
+                            $url = $node->action->out_as_local_url();
+                            $urlpath = parse_url($url, PHP_URL_PATH);
+                            if ($urlpath == '/course/view.php' && $node->key != 'localboostnavigationcoursesections') {
+                                $node->set_parent($coursesectionsnode);
                             }
                         }
                     }
@@ -389,8 +441,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                         global_navigation::TYPE_CUSTOM,
                         null,
                         'localboostnavigationactivities',
-                        ($config->collapseactivitiescoursenodeicon) ? new pix_icon('activities', '', 'local_boostnavigation') :
-                                null);
+                        new pix_icon('activities', '', 'local_boostnavigation'));
                 // Prevent that the activities course node is marked as active and added to the breadcrumb when showing the
                 // course home page.
                 $activitiesnode->make_inactive();
@@ -466,6 +517,27 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                                 $node->add_class('localboostnavigationcollapsiblechild');
                             }
                         }
+
+                        // Check if admin really wanted to show an icon in the parent node and indent the parent node.
+                        // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_YES) - Icon and indent is already fine.
+                        // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT - Icon has to be removed, but indent is fine.
+                        // Note that the icon is removed by setting it to i/navigationitem which is mapped it fa-fw
+                        // and which is the same as the navigation_node constructor sets if the icon is set to null.
+                        if ($config->collapseactivitiescoursenodeicon == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT) {
+                            $activitiesnode->icon = new pix_icon('i/navigationitem', '');
+                            // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE - Icon and indent have to be removed.
+                        } else if ($config->collapseactivitiescoursenodeicon == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE) {
+                            $activitiesnode->icon = new pix_icon('i/navigationitem', '');
+                            $activitiesnode->add_class('localboostnavigationcollapsibleparentforcenoindent');
+                        }
+                    }
+                        // If not, we have at least to reallocate the parent of the activities nodes so that the activities nodes
+                        // can be referenced in CSS.
+                } else {
+                    // Reallocate the parent of the activities nodes.
+                    foreach ($activitiesnodechildrennodeskeys as $k) {
+                        $node = $coursehomenode->get($k);
+                        $node->set_parent($activitiesnode);
                     }
                 }
             }
@@ -622,12 +694,12 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         if (!empty($accordionnodesforjs)) {
             // Add JavaScript for collapsing nodes to the page and pass the $collapsenodesforjs and $accordionnodesforjs data.
             $PAGE->requires->js_call_amd('local_boostnavigation/collapsenavdrawernodes', 'init',
-                    [$collapsenodesforjs, $accordionnodesforjs, $config->collapsemycoursesnodeicon]);
+                    [$collapsenodesforjs, $accordionnodesforjs]);
             // Otherwise.
         } else {
             // Add JavaScript for collapsing nodes to the page and pass the $collapsenodesforjs data only.
             $PAGE->requires->js_call_amd('local_boostnavigation/collapsenavdrawernodes', 'init',
-                    [$collapsenodesforjs, [], $config->collapsemycoursesnodeicon]);
+                    [$collapsenodesforjs, []]);
         }
         // Allow updating the necessary user preferences via Ajax.
         foreach ($collapsenodesforjs as $node) {
@@ -681,8 +753,8 @@ function local_boostnavigation_get_fontawesome_icon_map() {
 
     // Create the icon map with the icons which are used in any case.
     $iconmapping = [
-            'local_boostnavigation:customnode' => 'fa-square',
-            'local_boostnavigation:customnodesm' => 'fa-square local-boostnavigation-fa-sm',
+            'local_boostnavigation:customnodexxs' => 'fa-square local-boostnavigation-fa-xxs',
+            'local_boostnavigation:customnodexs' => 'fa-square local-boostnavigation-fa-xs',
             'local_boostnavigation:resources' => 'fa-archive',
             'local_boostnavigation:activities' => 'fa-share-alt',
     ];

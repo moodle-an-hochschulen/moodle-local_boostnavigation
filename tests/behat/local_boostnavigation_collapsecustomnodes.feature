@@ -64,6 +64,68 @@ Feature: The boost navigation fumbling allows admins to collapse custom nodes wi
     And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2']" "css_element" should contain "localboostnavigationcollapsiblechild"
     And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2']" "css_element" should not contain "localboostnavigationcollapsedchild"
 
+  Scenario: Display parent node icons in custom root nodes for all users
+    Given I log in as "admin"
+    And I navigate to "Appearance > Boost navigation fumbling > Custom root nodes" in site administration
+    And I set the field "Insert custom root nodes for all users" to multiline:
+    """
+    Parent node A|/admin/index.php||||||fa-graduation-cap
+    -Child node A|/admin/user.php||||||fa-star
+    """
+    And I press "Save changes"
+    And the following config values are set as admin:
+      | config                          | value | plugin                |
+      | collapsecustomnodesusers        | 0     | local_boostnavigation |
+    And I log out
+    And I log in as "admin"
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                          | value | plugin                |
+      | collapsecustomnodesusers        | 1     | local_boostnavigation |
+      | collapsecustomnodesusersicon    | 0     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1']" "css_element" should contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                          | value | plugin                |
+      | collapsecustomnodesusers        | 1     | local_boostnavigation |
+      | collapsecustomnodesusersicon    | 1     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                          | value | plugin                |
+      | collapsecustomnodesusers        | 1     | local_boostnavigation |
+      | collapsecustomnodesusersicon    | 2     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusers2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+
   Scenario: Collapse custom root nodes for all users by default
     Given I log in as "admin"
     And I navigate to "Appearance > Boost navigation fumbling > Custom root nodes" in site administration
@@ -255,6 +317,68 @@ Feature: The boost navigation fumbling allows admins to collapse custom nodes wi
     And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2']" "css_element" should not contain "localboostnavigationcollapsedparent"
     And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2']" "css_element" should contain "localboostnavigationcollapsiblechild"
     And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2']" "css_element" should not contain "localboostnavigationcollapsedchild"
+
+  Scenario: Display parent node icons in custom root nodes for admins
+    Given I log in as "admin"
+    And I navigate to "Appearance > Boost navigation fumbling > Custom root nodes" in site administration
+    And I set the field "Insert custom root nodes for admins" to multiline:
+    """
+    Parent node A|/admin/index.php||||||fa-graduation-cap
+    -Child node A|/admin/user.php||||||fa-star
+    """
+    And I press "Save changes"
+    And the following config values are set as admin:
+      | config                          | value | plugin                |
+      | collapsecustomnodesadmins       | 0     | local_boostnavigation |
+    And I log out
+    And I log in as "admin"
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                          | value | plugin                |
+      | collapsecustomnodesadmins       | 1     | local_boostnavigation |
+      | collapsecustomnodesadminsicon   | 0     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1']" "css_element" should contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                          | value | plugin                |
+      | collapsecustomnodesadmins       | 1     | local_boostnavigation |
+      | collapsecustomnodesadminsicon   | 1     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                          | value | plugin                |
+      | collapsecustomnodesadmins       | 1     | local_boostnavigation |
+      | collapsecustomnodesadminsicon   | 2     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootadmins2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
 
   Scenario: Collapse custom root nodes for admins by default
     Given I log in as "admin"
@@ -450,6 +574,72 @@ Feature: The boost navigation fumbling allows admins to collapse custom nodes wi
     And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2']" "css_element" should not contain "localboostnavigationcollapsedparent"
     And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2']" "css_element" should contain "localboostnavigationcollapsiblechild"
     And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2']" "css_element" should not contain "localboostnavigationcollapsedchild"
+
+  Scenario: Display parent node icons in custom course nodes for all users
+    Given the following "courses" exist:
+      | fullname | shortname |
+      | Course 1 | C1        |
+    And I log in as "admin"
+    And I navigate to "Appearance > Boost navigation fumbling > Custom course nodes" in site administration
+    And I set the field "Insert custom course nodes for all users" to multiline:
+    """
+    Parent node A|/admin/index.php||||||fa-graduation-cap
+    -Child node A|/admin/user.php||||||fa-star
+    """
+    And I press "Save changes"
+    And the following config values are set as admin:
+      | config                             | value | plugin                |
+      | collapsecustomcoursenodesusers     | 0     | local_boostnavigation |
+    And I log out
+    And I log in as "admin"
+    And I am on "Course 1" course homepage
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                             | value | plugin                |
+      | collapsecustomcoursenodesusers     | 1     | local_boostnavigation |
+      | collapsecustomcoursenodesusersicon | 0     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1']" "css_element" should contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                             | value | plugin                |
+      | collapsecustomcoursenodesusers     | 1     | local_boostnavigation |
+      | collapsecustomcoursenodesusersicon | 1     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                             | value | plugin                |
+      | collapsecustomcoursenodesusers     | 1     | local_boostnavigation |
+      | collapsecustomcoursenodesusersicon | 2     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseusers2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
 
   Scenario: Collapse custom course nodes for all users by default
     Given the following "courses" exist:
@@ -662,6 +852,72 @@ Feature: The boost navigation fumbling allows admins to collapse custom nodes wi
     And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2']" "css_element" should contain "localboostnavigationcollapsiblechild"
     And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2']" "css_element" should not contain "localboostnavigationcollapsedchild"
 
+  Scenario: Display parent node icons in custom course nodes for admins
+    Given the following "courses" exist:
+      | fullname | shortname |
+      | Course 1 | C1        |
+    And I log in as "admin"
+    And I navigate to "Appearance > Boost navigation fumbling > Custom course nodes" in site administration
+    And I set the field "Insert custom course nodes for admins" to multiline:
+    """
+    Parent node A|/admin/index.php||||||fa-graduation-cap
+    -Child node A|/admin/user.php||||||fa-star
+    """
+    And I press "Save changes"
+    And the following config values are set as admin:
+      | config                              | value | plugin                |
+      | collapsecustomcoursenodesadmins     | 0     | local_boostnavigation |
+    And I log out
+    And I log in as "admin"
+    And I am on "Course 1" course homepage
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                              | value | plugin                |
+      | collapsecustomcoursenodesadmins     | 1     | local_boostnavigation |
+      | collapsecustomcoursenodesadminsicon | 0     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1']" "css_element" should contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                              | value | plugin                |
+      | collapsecustomcoursenodesadmins     | 1     | local_boostnavigation |
+      | collapsecustomcoursenodesadminsicon | 1     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                              | value | plugin                |
+      | collapsecustomcoursenodesadmins     | 1     | local_boostnavigation |
+      | collapsecustomcoursenodesadminsicon | 2     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomcourseadmins2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+
   Scenario: Collapse custom course nodes for admins by default
     Given the following "courses" exist:
       | fullname | shortname |
@@ -870,6 +1126,68 @@ Feature: The boost navigation fumbling allows admins to collapse custom nodes wi
     And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2']" "css_element" should contain "localboostnavigationcollapsiblechild"
     And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2']" "css_element" should not contain "localboostnavigationcollapsedchild"
 
+  Scenario: Display parent node icons in custom bottom nodes for all users
+    Given I log in as "admin"
+    And I navigate to "Appearance > Boost navigation fumbling > Custom bottom nodes" in site administration
+    And I set the field "Insert custom bottom nodes for all users" to multiline:
+    """
+    Parent node A|/admin/index.php||||||fa-graduation-cap
+    -Child node A|/admin/user.php||||||fa-star
+    """
+    And I press "Save changes"
+    And the following config values are set as admin:
+      | config                             | value | plugin                |
+      | collapsecustombottomnodesusers     | 0     | local_boostnavigation |
+    And I log out
+    And I log in as "admin"
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                             | value | plugin                |
+      | collapsecustombottomnodesusers     | 1     | local_boostnavigation |
+      | collapsecustombottomnodesusersicon | 0     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1']" "css_element" should contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                             | value | plugin                |
+      | collapsecustombottomnodesusers     | 1     | local_boostnavigation |
+      | collapsecustombottomnodesusersicon | 1     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                             | value | plugin                |
+      | collapsecustombottomnodesusers     | 1     | local_boostnavigation |
+      | collapsecustombottomnodesusersicon | 2     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomusers2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+
   Scenario: Collapse custom bottom nodes for all users by default
     Given I log in as "admin"
     And I navigate to "Appearance > Boost navigation fumbling > Custom bottom nodes" in site administration
@@ -1061,6 +1379,68 @@ Feature: The boost navigation fumbling allows admins to collapse custom nodes wi
     And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2']" "css_element" should not contain "localboostnavigationcollapsedparent"
     And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2']" "css_element" should contain "localboostnavigationcollapsiblechild"
     And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2']" "css_element" should not contain "localboostnavigationcollapsedchild"
+
+  Scenario: Display parent node icons in custom bottom nodes for admins
+    Given I log in as "admin"
+    And I navigate to "Appearance > Boost navigation fumbling > Custom bottom nodes" in site administration
+    And I set the field "Insert custom bottom nodes for admins" to multiline:
+    """
+    Parent node A|/admin/index.php||||||fa-graduation-cap
+    -Child node A|/admin/user.php||||||fa-star
+    """
+    And I press "Save changes"
+    And the following config values are set as admin:
+      | config                              | value | plugin                |
+      | collapsecustombottomnodesadmins     | 0     | local_boostnavigation |
+    And I log out
+    And I log in as "admin"
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                              | value | plugin                |
+      | collapsecustombottomnodesadmins     | 1     | local_boostnavigation |
+      | collapsecustombottomnodesadminsicon | 0     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1']" "css_element" should contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                              | value | plugin                |
+      | collapsecustombottomnodesadmins     | 1     | local_boostnavigation |
+      | collapsecustombottomnodesadminsicon | 1     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1'] i.icon" "css_element" should not contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the following config values are set as admin:
+      | config                              | value | plugin                |
+      | collapsecustombottomnodesadmins     | 1     | local_boostnavigation |
+      | collapsecustombottomnodesadminsicon | 2     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Parent node A" in the "#nav-drawer" "css_element"
+    And I should see "Child node A" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1'] i.icon" "css_element" should contain "fa-graduation-cap"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2'] i.icon" "css_element" should contain "fa-star"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2'] i.icon" "css_element" should contain "fa-fw"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins1']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
+    And the "class" attribute of "a[data-key='localboostnavigationcustombottomadmins2']" "css_element" should not contain "localboostnavigationcollapsibleparentforcenoindent"
 
   Scenario: Collapse custom bottom nodes for admins by default
     Given I log in as "admin"
