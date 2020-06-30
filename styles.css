@@ -64,6 +64,9 @@
 .list-group-item[data-parent-key^="localboostnavigationcustom"] > div {
     margin-left: 1rem !important;
 }
+.list-group-item[data-parent-key^="localboostnavigationcustom"].localboostnavigationcustom_level_2 > div {
+    margin-left: 2rem!important;
+}
 /* Add a margin-top to the custom bottom nodes section because this isn't possible with Navigation node API. */
 .list-group-item[data-key^="localboostnavigationcustombottomusers"],
 .list-group-item[data-key^="localboostnavigationcustombottomadmins"] {
@@ -108,3 +111,4 @@
 .jsenabled .list-group-item[data-key^="localboostnavigationcustombottomadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustombottomadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustombottomadmins"] > div {
     margin-left: inherit !important;
 }
+

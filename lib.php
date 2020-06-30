@@ -523,13 +523,14 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
 			
 			// Mapping to a two-level-menue while Using boostnavigation notations.
 			// Todo: this is just a tempoary fiddling.
-			if ( count( $category_configuration->get_parents() ) != 0 ) {
+			if ( count( $category_configuration->get_parents() ) == 1 ) {
 				$config->insertcustomnodesusers .= '-' . $category_configuration->get_formatted_name();
-			} else {
+			} elseif ( count( $category_configuration->get_parents() ) == 2 ) {
+                $config->insertcustomnodesusers .= '--' . $category_configuration->get_formatted_name();
+            } else {
 				$config->insertcustomnodesusers .= $category_configuration->get_formatted_name();
 			}
 			$config->insertcustomnodesusers .= '|' . new moodle_url( '/course/index.php' ) . '?categoryid=' . $category_id . PHP_EOL;
-			
 		}
     }
 	

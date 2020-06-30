@@ -114,6 +114,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         $nodetitle = null;
         $nodevisible = false;
         $nodeischild = false;
+        $node_level_2 = false;
         $nodekey = null;
         $nodelanguage = null;
         $nodeicon = null;
@@ -137,7 +138,11 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                         // Check for the mandatory first param: title.
                         case 0:
                             // Check if this is a child node and get the node title.
-                            if (substr($setting, 0, 1) == '-') {
+                            if (substr($setting, 0, 2) == '--') {
+                                $nodeischild = true;
+                                $node_level_2 = true;
+                                $nodetitle = local_boostnavigation_build_node_title(substr($setting, 2));
+                            } elseif (substr($setting, 0, 1) == '-') {
                                 $nodeischild = true;
                                 $nodetitle = local_boostnavigation_build_node_title(substr($setting, 1));
                             } else {
@@ -418,7 +423,12 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 if ($nodeicon instanceof pix_icon) {
                     $customnode->icon = $nodeicon;
                 } else {
-                    $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
+                    if( $node_level_2 ) {
+                        $customnode->add_class('localboostnavigationcustom_level_2');
+                        $customnode->icon = new pix_icon('customnode2', '', 'local_boostnavigation');
+                    } else {
+                        $customnode->icon = new pix_icon('customnode', '', 'local_boostnavigation');
+                    }
                 }
             }
         }
