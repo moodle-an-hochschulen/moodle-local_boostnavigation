@@ -748,9 +748,10 @@ function local_boostnavigation_reset_fontawesome_icon_map() {
     // Reset the icon system cache.
     // There is the function \core\output\icon_system::reset_caches() which does seem to be only usable in unit tests.
     // Thus, we clear the icon system cache brutally.
-    $cache = \cache::make('core', 'fontawesomeiconmapping');
-    $cache->delete('mapping');
-    // And rebuild it brutally.
     $instance = \core\output\icon_system::instance(\core\output\icon_system::FONTAWESOME);
+    $cache = \cache::make('core', 'fontawesomeiconmapping');
+    $mapkey = 'mapping_'.preg_replace('/[^a-zA-Z0-9_]/', '_', get_class($instance));
+    $cache->delete($mapkey);
+    // And rebuild it brutally.
     $instance->get_icon_name_map();
 }
