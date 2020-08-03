@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.8-r1
 
 * 2020-08-03 - Improvement: Recreate the PNG + SVG fallback icons for the activities and resources nodes.
 * 2020-08-03 - Feature: Add admin settings to control how to display icons within collapsible parent nodes - Credits to Adrian Perez.
