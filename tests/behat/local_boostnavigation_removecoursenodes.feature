@@ -1,4 +1,4 @@
-@local @local_boostnavigation
+@local @local_boostnavigation @local_boostnavigation_removecoursenodes
 Feature: The boost navigation fumbling allows admins to remove course nodes from the Boost nav drawer
   In order to configure the nav drawer to my needs
   As an admin

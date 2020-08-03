@@ -1,4 +1,4 @@
-@local @local_boostnavigation @javascript
+@local @local_boostnavigation @local_boostnavigation_collapsecustomnodes @javascript
 Feature: The boost navigation fumbling allows admins to collapse custom nodes within the Boost nav drawer
   In order to configure the nav drawer to my needs
   As an admin
