@@ -1,3 +1,2 @@
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
-	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
-]><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="-2 -1 16 16" preserveAspectRatio="xMinYMid meet" overflow="visible"><path d="M12 11v2c0 1-2.7 1.9-6 1.9s-6-.8-6-1.9v-2c0 1 2.7 1.9 6 1.9s6-.8 6-1.9zM6 9.9c-3.3 0-6-.8-6-1.9v2c0 1 2.7 1.9 6 1.9s6-.8 6-1.9V8c0 1.1-2.7 1.9-6 1.9zm0-3c-3.3 0-6-.8-6-1.9v2c0 1 2.7 1.9 6 1.9s6-.8 6-1.9V5c0 1.1-2.7 1.9-6 1.9zm6-5C12 .8 9.3 0 6 0S0 .8 0 1.9V4c0 1 2.7 1.9 6 1.9s6-.8 6-1.9V1.9z" fill="#999"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1344 1024q133 0 226.5 93.5t93.5 226.5-93.5 226.5-226.5 93.5-226.5-93.5-93.5-226.5q0-12 2-34l-360-180q-92 86-218 86-133 0-226.5-93.5t-93.5-226.5 93.5-226.5 226.5-93.5q126 0 218 86l360-180q-2-22-2-34 0-133 93.5-226.5t226.5-93.5 226.5 93.5 93.5 226.5-93.5 226.5-226.5 93.5q-126 0-218-86l-360 180q2 22 2 34t-2 34l360 180q92-86 218-86z" fill="#999"/></svg>
