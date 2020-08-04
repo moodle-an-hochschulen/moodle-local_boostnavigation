@@ -216,11 +216,18 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // Only proceed if we are inside a course and we are _not_ on the frontpage.
         if ($PAGE->context->get_course_context(false) == true && $COURSE->id != SITEID) {
             if ($participantsnode = $navigation->find('participants', global_navigation::TYPE_CONTAINER)) {
+                // Check if we are on a user logs page.
                 if (strpos($PAGE->url, 'report/log/user.php') === false) {
-                    // Remove participants node (Just hiding it with the showinflatnavigation attribute does not work here).
+                    // If we are not, remove the participants node
+                    // (Just hiding it with the showinflatnavigation attribute does not work here).
                     $participantsnode->remove();
                 } else {
-                    // If we're on the user's logs page, don't render in the breadcrumbs.
+                    // If we are, we can't remove the node completely as this would result in an error when a teacher accesses the
+                    // user logs. However, the user logs just need the participants node to be there to add it to the breadcrumbs.
+                    // On a user logs page, the participants node won't be shown in the nav drawer as the page is outside the course
+                    // scope. So we use a trick and don't set the participants node not to be rendered in the breadcrumbs.
+                    // The end result in the nav drawer is the same as if we would remove the node completely, but the user logs
+                    // remain usable.
                     $participantsnode->mainnavonly = true;
                 }
             }

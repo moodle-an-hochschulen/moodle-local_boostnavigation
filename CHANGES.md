@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2020-08-04 - Bugfix: User logs can't be viewed anymore if the participants node was set to be removed - Credits to zpottie.
+
 ### v3.8-r1
 
 * 2020-08-03 - Improvement: Recreate the PNG + SVG fallback icons for the activities and resources nodes.

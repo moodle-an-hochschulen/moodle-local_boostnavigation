@@ -206,3 +206,24 @@ Feature: The boost navigation fumbling allows admins to remove course nodes from
       | removeparticipantscoursenode | 1     | local_boostnavigation |
     And I reload the page
     Then I should not see "Participants" in the "#nav-drawer" "css_element"
+
+  Scenario: User logs are still usable after the course node "Participants" is removed
+    Given the following "users" exist:
+      | username | firstname | lastname |
+      | teacher1 | Teacher   | 1        |
+      | student2 | Student   | 2        |
+    And the following "course enrolments" exist:
+      | user     | course | role           |
+      | teacher1 | C1     | editingteacher |
+      | student2 | C1     | student        |
+    When I log in as "teacher1"
+    And I am on "Course 1" course homepage
+    And I navigate to course participants
+    And the following config values are set as admin:
+      | config                       | value | plugin                |
+      | removeparticipantscoursenode | 1     | local_boostnavigation |
+    And I reload the page
+    Then I should not see "Participants" in the "#nav-drawer" "css_element"
+    And I follow "Student 2"
+    And I follow "All logs"
+    Then I should see "Select log reader"
