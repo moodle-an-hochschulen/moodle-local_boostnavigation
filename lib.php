@@ -216,8 +216,13 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // Only proceed if we are inside a course and we are _not_ on the frontpage.
         if ($PAGE->context->get_course_context(false) == true && $COURSE->id != SITEID) {
             if ($participantsnode = $navigation->find('participants', global_navigation::TYPE_CONTAINER)) {
-                // Remove participants node (Just hiding it with the showinflatnavigation attribute does not work here).
-                $participantsnode->remove();
+                if (strpos($PAGE->url, 'report/log/user.php') === false) {
+                    // Remove participants node (Just hiding it with the showinflatnavigation attribute does not work here).
+                    $participantsnode->remove();
+                } else {
+                    // If we're on the user's logs page, don't render in the breadcrumbs.
+                    $participantsnode->mainnavonly = true;
+                }
             }
         }
     }
