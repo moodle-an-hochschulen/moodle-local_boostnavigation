@@ -24,7 +24,11 @@
 
 namespace local_boostnavigation;
 
+use cache;
+
 defined('MOODLE_INTERNAL') || die();
+
+require_once(__DIR__ . '/../locallib.php');
 
 /**
  * Observer class containing methods monitoring various events.
@@ -208,5 +212,45 @@ class eventobservers
                 }
             }
         }
+    }
+
+    /**
+     * Cohort member added event observer.
+     *
+     * @param \core\event\cohort_member_added $event The event.
+     */
+    public static function cohort_member_added(\core\event\cohort_member_added $event) {
+
+        local_boostnavigation_update_cohort_version();
+    }
+
+    /**
+     * Cohort member removed event observer.
+     *
+     * @param \core\event\cohort_member_removed $event The event.
+     */
+    public static function cohort_member_removed(\core\event\cohort_member_removed $event) {
+
+        local_boostnavigation_update_cohort_version();
+    }
+
+    /**
+     * Cohort updated event observer.
+     *
+     * @param \core\event\cohort_updated $event The event.
+     */
+    public static function cohort_updated(\core\event\cohort_updated $event) {
+
+        local_boostnavigation_update_cohort_version();
+    }
+
+    /**
+     * Cohort deleted event observer.
+     *
+     * @param \core\event\cohort_deleted $event The event.
+     */
+    public static function cohort_deleted(\core\event\cohort_deleted $event) {
+
+        local_boostnavigation_update_cohort_version();
     }
 }

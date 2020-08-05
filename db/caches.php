@@ -15,18 +15,26 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Local plugin "Boost navigation fumbling" - Version file
+ * Boost navigation fumbling cache details.
  *
- * @package    local_boostnavigation
- * @copyright  2017 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   local_boostnavigation
+ * @author    2020 Anupama Dharmajan <anupamadharmajan@catalyst-au.net>
+ * @copyright Catalyst IT
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_boostnavigation';
-$plugin->version = 2020080401;
-$plugin->release = 'v3.8-r2';
-$plugin->requires = 2019111802.04;
-$plugin->maturity = MATURITY_STABLE;
-$plugin->dependencies = array('theme_boost' => 2019111800);
+$definitions = array(
+    'cohortversion' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => true,
+        'simpledata' => true,
+        'staticacceleration' => false,
+    ),
+    'usercohorts' => array(
+        'mode' => cache_store::MODE_SESSION,
+        'canuselocalstore' => true,
+        'staticacceleration' => false,
+    ),
+);
