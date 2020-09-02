@@ -1,4 +1,4 @@
-@local @local_boostnavigation
+@local @local_boostnavigation @local_boostnavigation_removerootnodes
 Feature: The boost navigation fumbling allows admins to remove root nodes from the Boost nav drawer
   In order to configure the nav drawer to my needs
   As an admin

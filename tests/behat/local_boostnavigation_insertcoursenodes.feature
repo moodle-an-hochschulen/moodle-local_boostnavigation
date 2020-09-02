@@ -1,4 +1,4 @@
-@local @local_boostnavigation
+@local @local_boostnavigation @local_boostnavigation_insertcoursenodes
 Feature: The boost navigation fumbling allows admins to insert course nodes to the Boost nav drawer
   In order to configure the nav drawer to my needs
   As an admin

@@ -24,6 +24,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+// Define constants used by this plugin.
+define('LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE', 0);
+define('LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT', 1);
+define('LOCAL_BOOSTNAVIGATION_COLLAPSEICON_YES', 2);
+
 /**
  * Fumble with Moodle's global navigation by leveraging Moodle's *_extend_navigation() hook.
  *
@@ -115,43 +120,39 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         if ($mycoursesnode) {
             // Remember the collapsible node for JavaScript.
             $collapsenodesforjs[] = 'mycourses';
-            // Change the isexpandable attribute for the mycourses node to true (it's the default in Moodle core, just to be safe).
-            $mycoursesnode->isexpandable = true;
-            // Get the user preference for the collapse state of the mycourses node and set the collapse and hidden
-            // node of the course nodes attributes accordingly.
-            // Note: We are somehow abusing the hidden node attribute here for our own purposes. In Boost core, it is
-            // set to true for invisible courses, but these are currently displayed just as visible courses in the
-            // nav drawer, so we accept this abuse.
-            // Additionally, for some crazy reason, the mycourses child nodes also have the isexpandable attribute set to true
-            // by default. We set this to false here as only the mycourses parent node should have isexpandable set to true.
+            // Add the localboostnavigationcollapsibleparent class to the mycourses node.
+            $mycoursesnode->add_class('localboostnavigationcollapsibleparent');
+            // Get the user preference for the collapse state of the mycourses node and add the localboostnavigationcollapsedparent
+            // and localboostnavigationcollapsedchild classes accordingly.
+            // Additionally, add the localboostnavigationcollapsiblechild class to all child nodes.
+            $mycoursesnode->add_class('localboostnavigationcollapsibleparent');
             $userprefmycoursesnode = get_user_preferences('local_boostnavigation-collapse_mycoursesnode',
                     $config->collapsemycoursesnodedefault);
             if ($userprefmycoursesnode == 1) {
-                $mycoursesnode->collapse = true;
+                $mycoursesnode->add_class('localboostnavigationcollapsedparent');
                 foreach ($mycourseschildrennodeskeys as $k) {
                     $childnode = $mycoursesnode->get($k);
-                    $childnode->hidden = true;
-                    $childnode->isexpandable = false;
+                    $childnode->add_class('localboostnavigationcollapsiblechild');
+                    $childnode->add_class('localboostnavigationcollapsedchild');
                 }
             } else {
-                $mycoursesnode->collapse = false;
                 foreach ($mycourseschildrennodeskeys as $k) {
                     $childnode = $mycoursesnode->get($k);
-                    $childnode->hidden = false;
-                    $childnode->isexpandable = false;
+                    $childnode->add_class('localboostnavigationcollapsiblechild');
                 }
             }
-        }
-        // If the node shouldn't be collapsed, set some node attributes to avoid side effects with the CSS styles
-        // which ship with this plugin.
-    } else {
-        if ($mycoursesnode) {
-            // Change the isexpandable attribute for the mycourses parent node to false.
-            $mycoursesnode->isexpandable = false;
-            // Change the isexpandable attribute for the mycourses child node to false.
-            foreach ($mycourseschildrennodeskeys as $k) {
-                $childnode = $mycoursesnode->get($k);
-                $childnode->isexpandable = false;
+
+            // Check if admin really wanted to show an icon in the parent node and indent the parent node.
+            // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_YES) - Icon and indent is already fine.
+            // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT - Icon has to be removed, but indent is fine.
+            // Note that the icon is removed by setting it to i/navigationitem which is mapped it fa-fw
+            // and which is the same as the navigation_node constructor sets if the icon is set to null.
+            if ($config->collapsemycoursesnodeicon == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT) {
+                $mycoursesnode->icon = new pix_icon('i/navigationitem', '');
+                // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE - Icon and indent have to be removed.
+            } else if ($config->collapsemycoursesnodeicon == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE) {
+                $mycoursesnode->icon = new pix_icon('i/navigationitem', '');
+                $mycoursesnode->add_class('localboostnavigationcollapsibleparentforcenoindent');
             }
         }
     }
@@ -215,8 +216,20 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // Only proceed if we are inside a course and we are _not_ on the frontpage.
         if ($PAGE->context->get_course_context(false) == true && $COURSE->id != SITEID) {
             if ($participantsnode = $navigation->find('participants', global_navigation::TYPE_CONTAINER)) {
-                // Remove participants node (Just hiding it with the showinflatnavigation attribute does not work here).
-                $participantsnode->remove();
+                // Check if we are on a user logs page.
+                if (strpos($PAGE->url, 'report/log/user.php') === false) {
+                    // If we are not, remove the participants node
+                    // (Just hiding it with the showinflatnavigation attribute does not work here).
+                    $participantsnode->remove();
+                } else {
+                    // If we are, we can't remove the node completely as this would result in an error when a teacher accesses the
+                    // user logs. However, the user logs just need the participants node to be there to add it to the breadcrumbs.
+                    // On a user logs page, the participants node won't be shown in the nav drawer as the page is outside the course
+                    // scope. So we use a trick and don't set the participants node not to be rendered in the breadcrumbs.
+                    // The end result in the nav drawer is the same as if we would remove the node completely, but the user logs
+                    // remain usable.
+                    $participantsnode->mainnavonly = true;
+                }
             }
         }
     }
@@ -272,7 +285,8 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                         global_navigation::TYPE_CUSTOM,
                         null,
                         'localboostnavigationcoursesections',
-                        null);
+                        new pix_icon('i/folder', ''));
+
                 // Prevent that the coursesections course node is marked as active and added to the breadcrumb when showing the
                 // course home page.
                 $coursesectionsnode->make_inactive();
@@ -287,18 +301,16 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                         $collapsenodesforjs[] = 'localboostnavigationcoursesections';
                         // Get the children nodes for the coursehome node.
                         $coursehomenodechildrennodeskeys = $coursehomenode->get_children_key_list();
-                        // Change the isexpandable attribute for the coursesections node to true.
-                        $coursesectionsnode->isexpandable = true;
-                        // Get the user preference for the collapse state of the coursesections node and set the collapse and hidden
-                        // node attributes of the existing section nodes accordingly. At the same time, reallocate the parent of the
-                        // existing section nodes.
-                        // Note: We are somehow abusing the hidden node attribute here for our own purposes. In Boost core, it is
-                        // set to true for invisible sections, but these are currently displayed just as visible sections in the
-                        // nav drawer, so we accept this abuse.
+                        // Add the localboostnavigationcollapsibleparent class to the coursesections node.
+                        $coursesectionsnode->add_class('localboostnavigationcollapsibleparent');
+                        // Get the user preference for the collapse state of the coursesections node and add the
+                        // localboostnavigationcollapsedparent and localboostnavigationcollapsedchild classes accordingly.
+                        // Additionally, add the localboostnavigationcollapsiblechild class to all child nodes.
+                        // At the same time, reallocate the parent of the existing section nodes.
                         $userprefcoursesectionsnode = get_user_preferences('local_boostnavigation-collapse_'.
                                 'localboostnavigationcoursesectionsnode', $config->collapsecoursesectionscoursenodedefault);
                         if ($userprefcoursesectionsnode == 1) {
-                            $coursesectionsnode->collapse = true;
+                            $coursesectionsnode->add_class('localboostnavigationcollapsedparent');
                             foreach ($coursehomenodechildrennodeskeys as $k) {
                                 // As $coursehomenodechildrennodeskeys also contains some other nodes, we have to check the node's
                                 // action URL to see if we have a section node.
@@ -309,12 +321,12 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                                     $urlpath = parse_url($url, PHP_URL_PATH);
                                     if ($urlpath == '/course/view.php' && $node->key != 'localboostnavigationcoursesections') {
                                         $node->set_parent($coursesectionsnode);
-                                        $node->hidden = true;
+                                        $node->add_class('localboostnavigationcollapsiblechild');
+                                        $node->add_class('localboostnavigationcollapsedchild');
                                     }
                                 }
                             }
                         } else {
-                            $coursesectionsnode->collapse = false;
                             foreach ($coursehomenodechildrennodeskeys as $k) {
                                 // As $coursehomenodechildrennodeskeys also contains some other nodes, we have to check the node's
                                 // action URL to see if we have a section node.
@@ -325,19 +337,44 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                                     $urlpath = parse_url($url, PHP_URL_PATH);
                                     if ($urlpath == '/course/view.php' && $node->key != 'localboostnavigationcoursesections') {
                                         $node->set_parent($coursesectionsnode);
-                                        $node->hidden = false;
+                                        $node->add_class('localboostnavigationcollapsiblechild');
                                     }
                                 }
                             }
                         }
+
+                        // Check if admin really wanted to show an icon in the parent node and indent the parent node.
+                        // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_YES) - Icon and indent is already fine.
+                        // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT - Icon has to be removed, but indent is fine.
+                        // Note that the icon is removed by setting it to i/navigationitem which is mapped it fa-fw
+                        // and which is the same as the navigation_node constructor sets if the icon is set to null.
+                        if ($config->collapsecoursesectionscoursenodeicon == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT) {
+                            $coursesectionsnode->icon = new pix_icon('i/navigationitem', '');
+                            // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE - Icon and indent have to be removed.
+                        } else if ($config->collapsecoursesectionscoursenodeicon == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE) {
+                            $coursesectionsnode->icon = new pix_icon('i/navigationitem', '');
+                            $coursesectionsnode->add_class('localboostnavigationcollapsibleparentforcenoindent');
+                        }
                     }
-                    // If the node shouldn't be collapsed, set some node attributes to avoid side effects with the CSS styles
-                    // which ship with this plugin.
+
+                    // If not, we have at least to reallocate the parent of the existing section nodes so that the section nodes
+                    // can be referenced in CSS.
                 } else {
-                    if ($coursesectionsnode) {
-                        // Change the isexpandable attribute for the coursesections node to false
-                        // (it's the default in Moodle core, just to be safe).
-                        $coursesectionsnode->isexpandable = false;
+                    // Get the children nodes for the coursehome node.
+                    $coursehomenodechildrennodeskeys = $coursehomenode->get_children_key_list();
+                    // Reallocate the parent of the existing section nodes.
+                    foreach ($coursehomenodechildrennodeskeys as $k) {
+                        // As $coursehomenodechildrennodeskeys also contains some other nodes, we have to check the node's
+                        // action URL to see if we have a section node.
+                        $node = $coursehomenode->get($k);
+                        // If a node does not have an action URL, just skip it.
+                        if ($node->action) {
+                            $url = $node->action->out_as_local_url();
+                            $urlpath = parse_url($url, PHP_URL_PATH);
+                            if ($urlpath == '/course/view.php' && $node->key != 'localboostnavigationcoursesections') {
+                                $node->set_parent($coursesectionsnode);
+                            }
+                        }
                     }
                 }
             }
@@ -416,7 +453,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                         global_navigation::TYPE_CUSTOM,
                         null,
                         'localboostnavigationactivities',
-                        null);
+                        new pix_icon('activities', '', 'local_boostnavigation'));
                 // Prevent that the activities course node is marked as active and added to the breadcrumb when showing the
                 // course home page.
                 $activitiesnode->make_inactive();
@@ -425,6 +462,12 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
 
                 // Create an activity course node for each activity type.
                 foreach ($modfullnames as $modname => $modfullname) {
+                    // If, for any reason, $modfullname is empty, skip this activity type as it would
+                    // crash navigation_node::create() otherwise.
+                    if (empty($modfullname)) {
+                        continue;
+                    }
+
                     // Process "Resources" activity type.
                     if ($modname === 'resources') {
                         // Do only if the admin does not want a dedicated resources node.
@@ -462,36 +505,51 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                     if ($activitiesnode) {
                         // Remember the collapsible node for JavaScript.
                         $collapsenodesforjs[] = 'localboostnavigationactivities';
-                        // Change the isexpandable attribute for the activities node to true.
-                        $activitiesnode->isexpandable = true;
-                        // Get the user preference for the collapse state of the activities node and set the collapse and hidden
-                        // node attributes of the activity nodes accordingly. At the same time, reallocate the parent of the
-                        // existing section nodes.
+                        // Add the localboostnavigationcollapsibleparent class to the activities node.
+                        $activitiesnode->add_class('localboostnavigationcollapsibleparent');
+                        // Get the user preference for the collapse state of the activities node and add the
+                        // localboostnavigationcollapsedparent and localboostnavigationcollapsedchild classes accordingly.
+                        // Additionally, add the localboostnavigationcollapsiblechild class to all child nodes.
+                        // At the same time, reallocate the parent of the existing activities nodes.
                         $userprefactivitiesnode = get_user_preferences('local_boostnavigation-collapse_'.
                                 'localboostnavigationactivitiesnode', $config->collapseactivitiescoursenodedefault);
                         if ($userprefactivitiesnode == 1) {
-                            $activitiesnode->collapse = true;
+                            $activitiesnode->add_class('localboostnavigationcollapsedparent');
                             foreach ($activitiesnodechildrennodeskeys as $k) {
                                 $node = $coursehomenode->get($k);
                                 $node->set_parent($activitiesnode);
-                                $node->hidden = true;
+                                $node->add_class('localboostnavigationcollapsiblechild');
+                                $node->add_class('localboostnavigationcollapsedchild');
                             }
                         } else {
                             $activitiesnode->collapse = false;
                             foreach ($activitiesnodechildrennodeskeys as $k) {
                                 $node = $coursehomenode->get($k);
                                 $node->set_parent($activitiesnode);
-                                $node->hidden = false;
+                                $node->add_class('localboostnavigationcollapsiblechild');
                             }
                         }
+
+                        // Check if admin really wanted to show an icon in the parent node and indent the parent node.
+                        // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_YES) - Icon and indent is already fine.
+                        // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT - Icon has to be removed, but indent is fine.
+                        // Note that the icon is removed by setting it to i/navigationitem which is mapped it fa-fw
+                        // and which is the same as the navigation_node constructor sets if the icon is set to null.
+                        if ($config->collapseactivitiescoursenodeicon == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT) {
+                            $activitiesnode->icon = new pix_icon('i/navigationitem', '');
+                            // Case: LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE - Icon and indent have to be removed.
+                        } else if ($config->collapseactivitiescoursenodeicon == LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE) {
+                            $activitiesnode->icon = new pix_icon('i/navigationitem', '');
+                            $activitiesnode->add_class('localboostnavigationcollapsibleparentforcenoindent');
+                        }
                     }
-                    // If the node shouldn't be collapsed, set some node attributes to avoid side effects with the CSS styles
-                    // which ship with this plugin.
+                        // If not, we have at least to reallocate the parent of the activities nodes so that the activities nodes
+                        // can be referenced in CSS.
                 } else {
-                    if ($activitiesnode) {
-                        // Change the isexpandable attribute for the activities node to false
-                        // (it's the default in Moodle core, just to be safe).
-                        $activitiesnode->isexpandable = false;
+                    // Reallocate the parent of the activities nodes.
+                    foreach ($activitiesnodechildrennodeskeys as $k) {
+                        $node = $coursehomenode->get($k);
+                        $node->set_parent($activitiesnode);
                     }
                 }
             }
@@ -743,7 +801,8 @@ function local_boostnavigation_get_fontawesome_icon_map() {
 
     // Create the icon map with the icons which are used in any case.
     $iconmapping = [
-            'local_boostnavigation:customnode' => 'fa-square local-boostnavigation-fa-sm',
+            'local_boostnavigation:customnodexxs' => 'fa-square local-boostnavigation-fa-xxs',
+            'local_boostnavigation:customnodexs' => 'fa-square local-boostnavigation-fa-xs',
             'local_boostnavigation:resources' => 'fa-archive',
             'local_boostnavigation:activities' => 'fa-share-alt',
     ];
@@ -811,9 +870,10 @@ function local_boostnavigation_reset_fontawesome_icon_map() {
     // Reset the icon system cache.
     // There is the function \core\output\icon_system::reset_caches() which does seem to be only usable in unit tests.
     // Thus, we clear the icon system cache brutally.
-    $cache = \cache::make('core', 'fontawesomeiconmapping');
-    $cache->delete('mapping');
-    // And rebuild it brutally.
     $instance = \core\output\icon_system::instance(\core\output\icon_system::FONTAWESOME);
+    $cache = \cache::make('core', 'fontawesomeiconmapping');
+    $mapkey = 'mapping_'.preg_replace('/[^a-zA-Z0-9_]/', '_', get_class($instance));
+    $cache->delete($mapkey);
+    // And rebuild it brutally.
     $instance->get_icon_name_map();
 }
