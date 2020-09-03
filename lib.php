@@ -578,17 +578,26 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
 			if ( $category_configuration->visible == '0' ) {
 				continue;
 			}
-			
-			// Mapping to a two-level-menue while Using boostnavigation notations.
-			// Todo: this is just a tempoary fiddling.
-			if ( count( $category_configuration->get_parents() ) == 1 ) {
-				$config->insertcustomnodesusers .= '-' . $category_configuration->get_formatted_name();
-			} elseif ( count( $category_configuration->get_parents() ) == 2 ) {
-                $config->insertcustomnodesusers .= '--' . $category_configuration->get_formatted_name();
-            } else {
-				$config->insertcustomnodesusers .= $category_configuration->get_formatted_name();
-			}
-			$config->insertcustomnodesusers .= '|' . new moodle_url( '/course/index.php' ) . '?categoryid=' . $category_id . PHP_EOL;
+
+            /**
+             * Append "-" as level identifier (recursive).
+             * @param        int $n Counted parents.
+             * @param string $s     .= "-" as level identifier.
+             *
+             * @return string (-,--,---,..., n*-) as level identifier.
+             */
+            $get_deep = function( $n, $s = '-' ) use ( &$get_deep ) {
+                if( $n == 0 ) return '';
+			    if( $n == 1 ) return $s;
+                return $get_deep( $n - 1, $s .= '-' );
+            };
+
+            // Mapping to a "multi"-level-menue while using native boostnavigation "notations".
+            $config->insertcustomnodesusers .= $get_deep( count( $category_configuration->get_parents() ) )
+                                               . $category_configuration->get_formatted_name()
+                                               . '|' . new moodle_url( '/course/index.php' )
+                                               . '?categoryid=' . $category_id
+                                               . PHP_EOL;
 		}
     }
 	
