@@ -21,13 +21,13 @@
 }
 
 .list-group-item[data-parent-key^="localboostnavigationcustom"].localboostnavigationcustom_level_2 > div {
-    margin-left: 2rem!important;
+    margin-left: 2rem !important;
 }
 .list-group-item[data-parent-key^="localboostnavigationcustom"].localboostnavigationcustom_level_3 > div {
-    margin-left: 3rem!important;
+    margin-left: 3rem !important;
 }
 .list-group-item[data-parent-key^="localboostnavigationcustom"].localboostnavigationcustom_level_4 > div {
-    margin-left: 4rem!important;
+    margin-left: 4rem !important;
 }
 
 /* Add a margin-top to the custom bottom nodes section because this isn't possible with Navigation node API. */

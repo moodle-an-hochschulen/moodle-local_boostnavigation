@@ -580,10 +580,8 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             }
 
             // Append "-" as level identifier (recursive).
-            // @param        int $n Counted parents.
-            // @param string $s     .= "-" as level identifier.
-            //
-            // @return string (-,--,---,..., n*-) as level identifier.
+            // int $n Counted parents. $s .= "-" as level identifier.
+            // return (-,--,---,..., n*-) as level identifier.
             $getdeep = function( $n, $s = '-' ) use ( &$getdeep ) {
                 if ( $n == 0 ) {
                     return '';
