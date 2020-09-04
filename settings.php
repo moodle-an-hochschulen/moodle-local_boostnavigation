@@ -248,26 +248,26 @@ if ($hassiteconfig) {
                                 array('url' => $CFG->wwwroot.'/admin/search.php?query=navshowmycoursecategories'),
                                 true),
                 0));
-	
-	    // Add category-nodes-tree heading.
-	    $page->add(new admin_setting_heading('local_boostnavigation/showcategorynodestreeheading',
-		    get_string('setting_showcategorynodestreeheading', 'local_boostnavigation',
-			    array('what' => get_string('categories', 'moodle', null, true)),
-			    true),
-		    ''));
-	
-	    // Add show category-nodes-tree.
-	    $page->add(new admin_setting_configcheckbox('local_boostnavigation/showcategorynodestreeinnavdrawer',
-		    get_string('setting_showcategorynodestree', 'local_boostnavigation',
-			    array('what' => get_string('categories', 'moodle', null, true)),
-			    true),
-		    get_string('setting_showcategorynodestree_desc', 'local_boostnavigation',
-			    array('what' => get_string('categories', 'moodle', null, true)),
-			    true) .
-		    '<br><br>' .
-		    get_string('setting_showcategorynodestreeexplanation', 'local_boostnavigation', null, true),
-		    0));
-        
+
+        // Add category-nodes-tree heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/showcategorynodestreeheading',
+        get_string('setting_showcategorynodestreeheading', 'local_boostnavigation',
+        array('what' => get_string('categories', 'moodle', null, true)),
+        true),
+        ''));
+
+        // Add show category-nodes-tree.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/showcategorynodestreeinnavdrawer',
+        get_string('setting_showcategorynodestree', 'local_boostnavigation',
+        array('what' => get_string('categories', 'moodle', null, true)),
+        true),
+        get_string('setting_showcategorynodestree_desc', 'local_boostnavigation',
+        array('what' => get_string('categories', 'moodle', null, true)),
+        true) .
+        '<br><br>' .
+        get_string('setting_showcategorynodestreeexplanation', 'local_boostnavigation', null, true),
+        0));
+
         // Add collapse nodes heading.
         $page->add(new admin_setting_heading('local_boostnavigation/collapsenodesheading',
                 get_string('setting_collapsenodesheading', 'local_boostnavigation',

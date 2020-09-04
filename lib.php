@@ -555,53 +555,55 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             }
         }
     }
-	
-	// Check if admin wants us to insert category nodes for users in Boost's nav drawer.
-    if( true === filter_var($config->showcategorynodestreeinnavdrawer, FILTER_VALIDATE_BOOLEAN ) ) {
-	
-    	// Edge case handling.
-	    if ( ! isset( $config->insertcustomnodesusers ) ) {
-		    $config->insertcustomnodesusers = '';
-	    }
-	
-	    if ( ! empty( $config->insertcustomnodesusers ) ) {
-		    $config->insertcustomnodesusers .= PHP_EOL;
-	    }
-	    
-	    // Append categories to $config->insertcustomnodesusers (string).
-		foreach ( core_course_category::make_categories_list() as $category_id => $category ) {
-			
-			// Get relevant category information.
-			$category_configuration = core_course_category::get( $category_id );
-			
-			// Hide category if nessessary.
-			if ( $category_configuration->visible == '0' ) {
-				continue;
-			}
 
-            /**
-             * Append "-" as level identifier (recursive).
-             * @param        int $n Counted parents.
-             * @param string $s     .= "-" as level identifier.
-             *
-             * @return string (-,--,---,..., n*-) as level identifier.
-             */
-            $get_deep = function( $n, $s = '-' ) use ( &$get_deep ) {
-                if( $n == 0 ) return '';
-			    if( $n == 1 ) return $s;
-                return $get_deep( $n - 1, $s .= '-' );
+    // Check if admin wants us to insert category nodes for users in Boost's nav drawer.
+    if ( true === filter_var( $config->showcategorynodestreeinnavdrawer, FILTER_VALIDATE_BOOLEAN ) ) {
+
+        // Edge case handling.
+        if ( ! isset( $config->insertcustomnodesusers ) ) {
+            $config->insertcustomnodesusers = '';
+        }
+
+        if ( ! empty( $config->insertcustomnodesusers ) ) {
+            $config->insertcustomnodesusers .= PHP_EOL;
+        }
+
+        // Append categories to $config->insertcustomnodesusers (string).
+        foreach (core_course_category::make_categories_list() as $categoryid => $category) {
+
+            // Get relevant category information.
+            $categoryconfiguration = core_course_category::get( $categoryid );
+
+            // Hide category if nessessary.
+            if ( $categoryconfiguration->visible == '0' ) {
+                continue;
+            }
+
+            // Append "-" as level identifier (recursive).
+            // @param        int $n Counted parents.
+            // @param string $s     .= "-" as level identifier.
+            //
+            // @return string (-,--,---,..., n*-) as level identifier.
+            $getdeep = function( $n, $s = '-' ) use ( &$getdeep ) {
+                if ( $n == 0 ) {
+                    return '';
+                }
+                if ( $n == 1 ) {
+                    return $s;
+                }
+                return $getdeep( $n - 1, $s .= '-' );
             };
 
             // Mapping to a "multi"-level-menue while using native boostnavigation "notations".
-            $config->insertcustomnodesusers .= $get_deep( count( $category_configuration->get_parents() ) )
-                                               . $category_configuration->get_formatted_name()
+            $config->insertcustomnodesusers .= $getdeep( count( $categoryconfiguration->get_parents() ) )
+                                               . $categoryconfiguration->get_formatted_name()
                                                . '|' . new moodle_url( '/course/index.php' )
-                                               . '?categoryid=' . $category_id
+                                               . '?categoryid=' . $categoryid
                                                . PHP_EOL;
-		}
+        }
     }
-	
-	// Check if admin wants us to insert custom nodes for users in Boost's nav drawer.
+
+    // Check if admin wants us to insert custom nodes for users in Boost's nav drawer.
     if (isset($config->insertcustomnodesusers) && !empty($config->insertcustomnodesusers)) {
         // If yes, do it.
         $customnodesret = local_boostnavigation_build_custom_nodes($config->insertcustomnodesusers, $navigation,
