@@ -79,6 +79,15 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         }
     }
 
+	// Check if admin wanted us to remove the contentbank node from Boost's nav drawer.
+	if (isset($config->removecontentbanknode) && $config->removecontentbanknode == true) {
+		// If yes, do it.
+		if ($contentbanknode = $navigation->find('contentbank', global_navigation::TYPE_CUSTOM)) {
+			// Hide contentbank node.
+			$contentbanknode->showinflatnavigation = false;
+		}
+	}
+
     // Next, we will need the mycourses node and the mycourses node children in any case and don't want to fetch them more
     // than once.
     $mycoursesnode = $navigation->find('mycourses', global_navigation::TYPE_ROOTNODE);

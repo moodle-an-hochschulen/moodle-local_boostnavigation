@@ -3,6 +3,10 @@ moodle-local_boostnavigation
 
 Changes
 -------
+### v3.9
+
+* 2020-09-09 - Prepare compatability for Moodle 3.9
+* 2020-09-09 Add in Content Bank display filter
 
 ### v3.8-r2
 

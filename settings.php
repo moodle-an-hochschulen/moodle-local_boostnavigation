@@ -231,7 +231,22 @@ if ($hassiteconfig) {
                         get_string('setting_removerootnodestechnicalhint', 'local_boostnavigation', null, true),
                 0));
 
-        // Create remove mycourses node control widget.
+	    // Create remove contentbank node control widget.
+	    $page->add(new admin_setting_configcheckbox('local_boostnavigation/removecontentbanknode',
+	                                                get_string('setting_removenode', 'local_boostnavigation',
+	                                                           array('what' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
+	                                                                 'which' => get_string('contentbank', 'contentbank')),
+	                                                           true),
+	                                                get_string('setting_removenode_desc', 'local_boostnavigation',
+	                                                           array('what' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
+	                                                                 'which' => get_string('contentbank', 'contentbank')),
+	                                                           true).
+	                                                '<br /><br />'.
+	                                                get_string('setting_removerootnodestechnicalhint', 'local_boostnavigation', null, true),
+	                                                0));
+
+
+	    // Create remove mycourses node control widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/removemycoursesnode',
                 get_string('setting_removenode', 'local_boostnavigation',
                         array('what' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
