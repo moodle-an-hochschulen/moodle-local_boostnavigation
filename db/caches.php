@@ -15,26 +15,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Boost navigation fumbling cache details.
+ * Local plugin "Boost navigation fumbling" - Caches
  *
- * @package   local_boostnavigation
- * @author    2020 Anupama Dharmajan <anupamadharmajan@catalyst-au.net>
- * @copyright Catalyst IT
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    local_boostnavigation
+ * @copyright  2020 Anupama Dharmajan <anupamadharmajan@catalyst-au.net>
+ *             on behalf of Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $definitions = array(
-    'cohortversion' => array(
+    'cohortrevision' => array(
         'mode' => cache_store::MODE_APPLICATION,
         'simplekeys' => true,
         'simpledata' => true,
-        'staticacceleration' => false,
+        'canuselocalstore' => false,
+        'staticacceleration' => true,
     ),
     'usercohorts' => array(
         'mode' => cache_store::MODE_SESSION,
+        'simplekeys' => true,
+        'simpledata' => true,
         'canuselocalstore' => true,
-        'staticacceleration' => false,
+        'staticacceleration' => false, // Session caches do not use static acceleration as the data is stored in $SESSION.
     ),
 );

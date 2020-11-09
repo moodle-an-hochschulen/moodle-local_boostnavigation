@@ -469,19 +469,18 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
 function local_boostnavigation_cohort_is_member($userid, $setting) {
     global $DB;
 
-    // Initialize variable for memberships.
-    static $allmemberships = null;
-
+    // Init user cohorts cache.
     $usercohortscache = cache::make('local_boostnavigation', 'usercohorts');
 
-    // Take cohort version.
-    $cohortversion = local_boostnavigation_get_cohort_version();
+    // Get cohort revision.
+    $cohortrevision = local_boostnavigation_get_cohort_revision();
 
-    $allmemberships = $usercohortscache->get('usercohorts' . $cohortversion);
+    // Get the cohorts of the user from the user cohorts cache with the given cohort revision.
+    $allmemberships = $usercohortscache->get('usercohorts'.$cohortrevision);
 
-    // First: Read user cohorts from db if the cohort version of the usercohorts cache is not set.
+    // If the user cohorts cache is not filled for the given cohort revision, read user cohorts from DB.
     if ($allmemberships === false) {
-        // Read cohorts from db.
+        // Prepare SQL statement.
         $sql = 'SELECT c.id,
                        c.idnumber
                   FROM {cohort_members} cm
@@ -490,17 +489,15 @@ function local_boostnavigation_cohort_is_member($userid, $setting) {
         $params = array($userid);
 
         // Run DB query.
-        $ret = $DB->get_records_sql_menu($sql, $params);
+        $allmemberships = $DB->get_records_sql_menu($sql, $params);
 
-        $allmemberships = $ret;
-
-        // Save memberships to the user cohorts cache.
-        $usercohortscache->set('usercohorts' . $cohortversion, $allmemberships);
+        // Save memberships to the user cohorts cache for the current session.
+        $usercohortscache->set('usercohorts'.$cohortrevision, $allmemberships);
     }
 
-    // Second: Check if the user if a member of the given cohort(s).
+    // Check if the user is a member of the given cohort(s).
     $cohortids = explode(',', $setting);
-    if ($cohortids < 2) {
+    if (count($cohortids) < 2) {
         $ismember = in_array($setting, $allmemberships);
     } else {
         $ismember = count(array_intersect($cohortids, $allmemberships)) > 0;
@@ -511,29 +508,36 @@ function local_boostnavigation_cohort_is_member($userid, $setting) {
 }
 
 /**
- * This function gets the cohort version timestamp
+ * This function gets the cohort revision timestamp.
  *
  * @return timestamp
  */
-function local_boostnavigation_get_cohort_version() {
-    $cache = cache::make('local_boostnavigation', 'cohortversion');
-    $cohortversion = $cache->get('cohortversion');
+function local_boostnavigation_get_cohort_revision() {
+    // Init cohort revision cache.
+    $cache = cache::make('local_boostnavigation', 'cohortrevision');
 
-    if (!$cohortversion) {
-        $cohortversion = time();
-        $cache->set('cohortversion', $cohortversion);
+    // Get the cohort revision from cache.
+    $cohortrevision = $cache->get('cohortrevision');
+
+    // If no cohort revision was stored in cache, set cohort revision to current timestamp and store it in cache.
+    if (!$cohortrevision) {
+        $cohortrevision = time();
+        $cache->set('cohortrevision', $cohortrevision);
     }
 
-    return $cohortversion;
+    // Return cohort revision.
+    return $cohortrevision;
 }
 
 /**
- * Update cohort version with current timestamp.
+ * Update cohort revision with current timestamp.
  */
-function local_boostnavigation_update_cohort_version() {
-    // Set cohort version cache with current timestamp.
-    $cache = cache::make('local_boostnavigation', 'cohortversion');
-    $cache->set('cohortversion', time());
+function local_boostnavigation_update_cohort_revision() {
+    // Init cohort revision cache.
+    $cache = cache::make('local_boostnavigation', 'cohortrevision');
+
+    // Set cohort revision to current timestamp and store it in cache.
+    $cache->set('cohortrevision', time());
 }
 
 /**

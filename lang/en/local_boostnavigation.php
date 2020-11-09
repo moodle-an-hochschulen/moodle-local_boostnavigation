@@ -25,6 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Boost navigation fumbling';
+$string['cachedef_cohortrevision'] = 'Boost navigation fumbling cohort revision cache';
+$string['cachedef_usercohorts'] = 'Boost navigation fumbling user cohorts cache';
 $string['inc_bottomnodes'] = 'bottom nodes';
 $string['inc_bottomnodeslocation'] = 'below the main section in the nav drawer (similar to the "site administration" node)';
 $string['inc_coursenode'] = 'course node';

@@ -15,12 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Boost navigation fumbling cohort is member PHP unit tests.
+ * Local plugin "Boost navigation fumbling" - Cohort is member PHP unit tests.
  *
- * @package   local_boostnavigation
- * @author    2020 Anupama Dharmajan <anupamadharmajan@catalyst-au.net>
- * @copyright Catalyst IT
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    local_boostnavigation
+ * @copyright  2020 Anupama Dharmajan <anupamadharmajan@catalyst-au.net>
+ *             on behalf of Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -32,10 +32,10 @@ global $CFG;
 /**
  * Unit tests for cohort is member.
  *
- * @package   local_boostnavigation
- * @author    2020 Anupama Dharmajan <anupamadharmajan@catalyst-au.net>
- * @copyright Catalyst IT
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    local_boostnavigation
+ * @copyright  2020 Anupama Dharmajan <anupamadharmajan@catalyst-au.net>
+ *             on behalf of Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class local_boostnavigation_test_cohort_is_member extends advanced_testcase {
 
@@ -43,10 +43,10 @@ class local_boostnavigation_test_cohort_is_member extends advanced_testcase {
      * Test user cohorts after cohort add member.
      */
     public function test_cohort_add_member() {
-        global $DB;
-
+        // Initial reset.
         $this->resetAfterTest();
 
+        // Create cohort and user.
         $cohort = $this->getDataGenerator()->create_cohort(array('idnumber' => '01'));
         $user = $this->getDataGenerator()->create_user();
 
@@ -73,10 +73,10 @@ class local_boostnavigation_test_cohort_is_member extends advanced_testcase {
      * Test user cohorts after cohort remove member.
      */
     public function test_cohort_remove_member() {
-        global $DB;
-
+        // Initial reset.
         $this->resetAfterTest();
 
+        // Create cohort and user.
         $cohort = $this->getDataGenerator()->create_cohort(array('idnumber' => '01'));
         $user = $this->getDataGenerator()->create_user();
 
@@ -106,10 +106,10 @@ class local_boostnavigation_test_cohort_is_member extends advanced_testcase {
      * Test user cohorts after cohort delete.
      */
     public function test_cohort_delete_cohort() {
-        global $DB;
-
+        // Initial reset.
         $this->resetAfterTest();
 
+        // Create cohort and user.
         $cohort = $this->getDataGenerator()->create_cohort(array('idnumber' => '01'));
         $user = $this->getDataGenerator()->create_user();
 
@@ -135,10 +135,10 @@ class local_boostnavigation_test_cohort_is_member extends advanced_testcase {
      * Test user cohorts after cohort update.
      */
     public function test_cohort_update_cohort() {
-        global $DB;
-
+        // Initial reset.
         $this->resetAfterTest();
 
+        // Create cohort and user.
         $cohort = $this->getDataGenerator()->create_cohort(array('idnumber' => '01'));
         $user = $this->getDataGenerator()->create_user();
 

@@ -221,7 +221,7 @@ class eventobservers
      */
     public static function cohort_member_added(\core\event\cohort_member_added $event) {
 
-        local_boostnavigation_update_cohort_version();
+        local_boostnavigation_update_cohort_revision();
     }
 
     /**
@@ -231,7 +231,7 @@ class eventobservers
      */
     public static function cohort_member_removed(\core\event\cohort_member_removed $event) {
 
-        local_boostnavigation_update_cohort_version();
+        local_boostnavigation_update_cohort_revision();
     }
 
     /**
@@ -241,7 +241,7 @@ class eventobservers
      */
     public static function cohort_updated(\core\event\cohort_updated $event) {
 
-        local_boostnavigation_update_cohort_version();
+        local_boostnavigation_update_cohort_revision();
     }
 
     /**
@@ -251,6 +251,6 @@ class eventobservers
      */
     public static function cohort_deleted(\core\event\cohort_deleted $event) {
 
-        local_boostnavigation_update_cohort_version();
+        local_boostnavigation_update_cohort_revision();
     }
 }
