@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2020-11-09 - Prepare compatibility for Moodle 3.9.
+
 ### v3.8-r2
 
 * 2020-08-04 - Bugfix: User logs can't be viewed anymore if the participants node was set to be removed - Credits to zpottie.
