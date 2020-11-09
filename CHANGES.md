@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2020-11-09 - Feature: Add admin setting to remove the content bank nodes which are part of Moodle 3.9 - Credits to tblacker7 for the first draft.
 * 2020-11-09 - Fix Behat tests which broke with Moodle 3.9.
 * 2020-11-09 - Prepare compatibility for Moodle 3.9.
 

@@ -79,6 +79,30 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         }
     }
 
+    // Check if admin wanted us to remove the contentbank node from Boost's nav drawer.
+    if (isset($config->removecontentbankcoursenode) && $config->removecontentbankcoursenode == true ||
+            isset($config->removecontentbanknoncoursenode) && $config->removecontentbanknoncoursenode == true) {
+        // If yes, do it.
+        if ($contentbanknode = $navigation->find('contentbank', global_navigation::TYPE_CUSTOM)) {
+            // Check if admin wanted us to remove the contentbank node in course context from Boost's nav drawer.
+            if (isset($config->removecontentbankcoursenode) && $config->removecontentbankcoursenode == true) {
+                // Only proceed if we are inside a course and we are _not_ on the frontpage.
+                if ($PAGE->context->get_course_context(false) == true && $COURSE->id != SITEID) {
+                    // Hide contentbank node.
+                    $contentbanknode->showinflatnavigation = false;
+                }
+            }
+            // Check if admin wanted us to remove the contentbank node in noncourse context from Boost's nav drawer.
+            if (isset($config->removecontentbanknoncoursenode) && $config->removecontentbanknoncoursenode == true) {
+                // Only proceed if we are not inside a course or if we are on the frontpage.
+                if ($PAGE->context->get_course_context(false) == false || $COURSE->id == SITEID) {
+                    // Hide contentbank node.
+                    $contentbanknode->showinflatnavigation = false;
+                }
+            }
+        }
+    }
+
     // Next, we will need the mycourses node and the mycourses node children in any case and don't want to fetch them more
     // than once.
     $mycoursesnode = $navigation->find('mycourses', global_navigation::TYPE_ROOTNODE);

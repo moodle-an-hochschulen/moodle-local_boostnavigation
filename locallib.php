@@ -253,7 +253,8 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                                 $nodebeforenodekey = null;
 
                                 // Handle "beforenodes" that are known to be not direct children of $node but grand children.
-                            } else if ($nodebeforenodekey === 'calendar' || $nodebeforenodekey === 'privatefiles') {
+                            } else if ($nodebeforenodekey === 'calendar' || $nodebeforenodekey === 'privatefiles' ||
+                                    $nodebeforenodekey === 'contentbank') {
                                 $nodebeforenode = $targetnode->find($nodebeforenodekey, global_navigation::TYPE_UNKNOWN);
 
                                 if ($nodebeforenode) {
