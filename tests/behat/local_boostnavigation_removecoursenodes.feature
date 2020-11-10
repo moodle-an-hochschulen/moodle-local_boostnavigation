@@ -80,7 +80,6 @@ Feature: The boost navigation fumbling allows admins to remove course nodes from
     And I set the following fields to these values:
       | Name        | Course Badge 1             |
       | Description | Course badge 1 description |
-      | issuername  | Tester of course badge     |
     And I upload "badges/tests/behat/badge.png" file to "Image" filemanager
     And I press "Create badge"
     And I am on "Course 1" course homepage

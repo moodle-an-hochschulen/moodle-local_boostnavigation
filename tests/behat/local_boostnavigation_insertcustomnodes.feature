@@ -312,10 +312,17 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
     And the "href" attribute of "a[data-key='localboostnavigationcustomrootusers1']" "css_element" should contain "http://www.moodle.org"
 
   Scenario: Custom node language restriction
+    # Please note:
+    # The short notation for the settings like
+    #     Given the following "users" exist:
+    #      | username | lang |
+    #      | student1 | de   |
+    # does not work since Moodle 3.9 anymore for a currently unknown reason,
+    # so the language is set manually after the studen has logged in.
     Given the following "users" exist:
-      | username | lang |
-      | student1 | en   |
-      | student2 | de   |
+      | username |
+      | student1 |
+      | student2 |
     When I log in as "admin"
     And I navigate to "Language > Language packs" in site administration
     When I set the field "Available language packs" to "de"
@@ -333,12 +340,20 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
     And I press "Save changes"
     And I log out
     And I log in as "student1"
+    And I follow "Preferences" in the user menu
+    And I click on "Preferred language" "link"
+    And I set the field "Preferred language" to "English ‎(en)‎"
+    And I press "Save changes"
     Then I should see "Moodle.all website" in the "#nav-drawer" "css_element"
     And I should not see "Moodle.de website" in the "#nav-drawer" "css_element"
     And I should see "Moodle.com website" in the "#nav-drawer" "css_element"
     And I should see "Moodle.org website" in the "#nav-drawer" "css_element"
     And I log out
     And I log in as "student2"
+    And I follow "Preferences" in the user menu
+    And I click on "Preferred language" "link"
+    And I set the field "Preferred language" to "Deutsch ‎(de)‎"
+    And I press "Save changes"
     And I should see "Moodle.all website" in the "#nav-drawer" "css_element"
     And I should see "Moodle.de website" in the "#nav-drawer" "css_element"
     And I should not see "Moodle.com website" in the "#nav-drawer" "css_element"
@@ -627,10 +642,17 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
     And "a[data-key='localboostnavigationcustomcourseusersediting']" "css_element" should appear before "a[data-key='participants']" "css_element"
 
   Scenario: Custom node multilang title
+    # Please note:
+    # The short notation for the settings like
+    #     Given the following "users" exist:
+    #      | username | lang |
+    #      | student1 | de   |
+    # does not work since Moodle 3.9 anymore for a currently unknown reason,
+    # so the language is set manually after the studen has logged in.
     Given the following "users" exist:
-      | username | lang |
-      | student1 | en   |
-      | student2 | de   |
+      | username |
+      | student1 |
+      | student2 |
     And the "multilang" filter is "on"
     And the "multilang" filter applies to "content and headings"
     When I log in as "admin"
@@ -647,10 +669,18 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
     And I press "Save changes"
     And I log out
     And I log in as "student1"
+    And I follow "Preferences" in the user menu
+    And I click on "Preferred language" "link"
+    And I set the field "Preferred language" to "English ‎(en)‎"
+    And I press "Save changes"
     And I should not see "Moodle.de website" in the "#nav-drawer" "css_element"
     And I should see "Moodle.en website" in the "#nav-drawer" "css_element"
     And I log out
     And I log in as "student2"
+    And I follow "Preferences" in the user menu
+    And I click on "Preferred language" "link"
+    And I set the field "Preferred language" to "Deutsch ‎(de)‎"
+    And I press "Save changes"
     And I should see "Moodle.de website" in the "#nav-drawer" "css_element"
     And I should not see "Moodle.en website" in the "#nav-drawer" "css_element"
 
@@ -838,10 +868,17 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
     And the "data-parent-key" attribute of "a[data-key='localboostnavigationcustomrootusers3']" "css_element" should contain "localboostnavigationcustomrootusers1"
 
   Scenario: Custom node hierarchy inheritance
+    # Please note:
+    # The short notation for the settings like
+    #     Given the following "users" exist:
+    #      | username | lang |
+    #      | student1 | de   |
+    # does not work since Moodle 3.9 anymore for a currently unknown reason,
+    # so the language is set manually after the studen has logged in.
     Given the following "users" exist:
-      | username | lang |
-      | student1 | en   |
-      | student2 | de   |
+      | username |
+      | student1 |
+      | student2 |
     When I log in as "admin"
     And I navigate to "Language > Language packs" in site administration
     When I set the field "Available language packs" to "de"
@@ -861,6 +898,10 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
     And I press "Save changes"
     And I log out
     And I log in as "student1"
+    And I follow "Preferences" in the user menu
+    And I click on "Preferred language" "link"
+    And I set the field "Preferred language" to "English ‎(en)‎"
+    And I press "Save changes"
     Then I should see "Parent node" in the "#nav-drawer" "css_element"
     And I should see "Child node A" in the "#nav-drawer" "css_element"
     And I should see "Child node B" in the "#nav-drawer" "css_element"
@@ -869,6 +910,10 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
     And I should not see "Kindknoten B" in the "#nav-drawer" "css_element"
     And I log out
     And I log in as "student2"
+    And I follow "Preferences" in the user menu
+    And I click on "Preferred language" "link"
+    And I set the field "Preferred language" to "Deutsch ‎(de)‎"
+    And I press "Save changes"
     And I should not see "Parent node" in the "#nav-drawer" "css_element"
     And I should not see "Child node A" in the "#nav-drawer" "css_element"
     And I should not see "Child node B" in the "#nav-drawer" "css_element"

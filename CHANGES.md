@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2020-11-09 - Fix Behat tests which broke with Moodle 3.9.
 * 2020-11-09 - Prepare compatibility for Moodle 3.9.
 
 ### v3.8-r2
