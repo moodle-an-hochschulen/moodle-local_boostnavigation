@@ -59,7 +59,6 @@ Feature: The boost navigation fumbling allows admins to remove root nodes from t
     And I reload the page
     Then I should not see "Private files" in the "#nav-drawer" "css_element"
 
-  @testme
   Scenario: Remove root node "Content bank" neither in course context nor in non-course context
     Given the following "users" exist:
       | username |
@@ -82,7 +81,6 @@ Feature: The boost navigation fumbling allows admins to remove root nodes from t
     And I follow "Dashboard" in the user menu
     Then I should see "Content bank" in the "#nav-drawer" "css_element"
 
-  @testme
   Scenario: Remove root node "Content bank" in course context but not in non-course context
     Given the following "users" exist:
       | username |
@@ -105,7 +103,6 @@ Feature: The boost navigation fumbling allows admins to remove root nodes from t
     And I follow "Dashboard" in the user menu
     Then I should see "Content bank" in the "#nav-drawer" "css_element"
 
-  @testme
   Scenario: Remove root node "Content bank" in non-course context but not in course context
     Given the following "users" exist:
       | username |
@@ -128,7 +125,6 @@ Feature: The boost navigation fumbling allows admins to remove root nodes from t
     And I follow "Dashboard" in the user menu
     Then I should not see "Content bank" in the "#nav-drawer" "css_element"
 
-  @testme
   Scenario: Remove root node "Content bank" in course context and in non-course context
     Given the following "users" exist:
       | username |
