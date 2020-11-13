@@ -33,41 +33,33 @@ Usage & Settings
 After installing the plugin, it does not do anything to Moodle yet.
 
 To configure the plugin and its behaviour, please visit:
-Site administration -> Appearance -> Boost navdrawer fumbling.
+Site administration -> Appearance.
 
-There, you find four sections:
+There, you find a section "Boost navigation fumbling" and multiple settings pages:
 
-### 1. Remove root nodes from Boost's nav drawer
+### 1. Root nodes
 
-Enabling any of these settings will remove nodes from Boost's nav drawer. 
+On this page, you can remove root nodes.
 
-### 2. Insert root nodes to Boost's nav drawer
+### 2. My courses root node
 
-Enabling any of these settings will insert additional nodes to Boost's nav drawer.
+On this page, you can remove, modify and collapse the my courses root node.
 
-### 3. Collapse root nodes in Boost's nav drawer
+### 3. Custom root nodes
 
-Enabling any of these settings will let users collapse root nodes in Boost's nav drawer. 
+On this page, you can insert and collapse custom root nodes.
 
-### 4. Remove course nodes from Boost's nav drawer
+### 4. Course nodes
 
-Similar to the "Remove root nodes from Boost's nav drawer" section, enabling any of these settings will remove nodes from the course navigation section of Boost's nav drawer.
+On this page, you can remove, insert and collapse course nodes.
 
-### 5. Insert course nodes to Boost's nav drawer
+### 5. Custom course nodes
 
-Similar to the "Remove root nodes from Boost's nav drawer" section, enabling any of these settings will insert additional nodes to the course navigation section of Boost's nav drawer.
+On this page, you can insert and collapse custom course nodes.
 
-### 6. Collapse course nodes in Boost's nav drawer
+### 6. Custom bottom nodes
 
-Similar to the "Collapse root odes in Boost's nav drawer" section, enabling any of these settings will let users collapse nodes in the course navigation section of Boost's nav drawer. 
-
-### 7. Insert bottom nodes to Boost's nav drawer
-
-Similar to the "Remove root nodes from Boost's nav drawer" section, enabling any of these settings will insert additional nodes add the end of Boost's nav drawer.
-
-### 8. Collapse bottom nodes in Boost's nav drawer
-
-Similar to the "Collapse root odes in Boost's nav drawer" section, enabling any of these settings will let users collapse nodes at the end of Boost's nav drawer. 
+On this page, you can insert and collapse custom bottom nodes.
 
 
 How this plugin works

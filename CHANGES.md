@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2020-11-13 - Update README.md to reflect the latest structure of the plugin's settings.
 * 2020-11-11 - Feature: Adopt the features to modify the My courses nodes list from the plugin local_boostcoc to local_boostnavigation.
                This allows admins to align the My courses list in the nav drawer with the (filteres) course list in the My Overview block on the Dashboard.
                Please don't enable these new features when you still have local_boostcoc in production.
