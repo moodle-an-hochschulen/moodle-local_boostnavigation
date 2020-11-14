@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2020-11-14 - Feature: Support custom CSS classes when creating custom nodes.
 * 2020-11-14 - Improvement: Improve performance of the check if badges exist in the course before removing the badges course node.
 * 2020-11-13 - Update README.md to reflect the latest structure of the plugin's settings.
 * 2020-11-11 - Feature: Adopt the features to modify the My courses nodes list from the plugin local_boostcoc to local_boostnavigation.

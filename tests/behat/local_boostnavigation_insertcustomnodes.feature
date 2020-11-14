@@ -618,6 +618,18 @@ Feature: The boost navigation fumbling allows admins to insert custom nodes to t
     Then I should see "Moodle.org website" in the "#nav-drawer" "css_element"
     And "a[data-key='localboostnavigationcustomrootusersmynode']" "css_element" should exist
 
+  Scenario: Custom node classes
+    When I log in as "admin"
+    And I navigate to "Appearance > Boost navigation fumbling > Custom root nodes" in site administration
+    And I set the field "Insert custom root nodes for all users" to multiline:
+    """
+    Moodle.org website|http://www.moodle.org|||||||my_node||text-danger text-right
+    """
+    And I press "Save changes"
+    Then I should see "Moodle.org website" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusersmynode']" "css_element" should contain "text-danger"
+    And the "class" attribute of "a[data-key='localboostnavigationcustomrootusersmynode']" "css_element" should contain "text-right"
+
   Scenario: Custom node before node key
     Given the following "users" exist:
       | username |

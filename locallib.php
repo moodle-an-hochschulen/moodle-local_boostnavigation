@@ -136,7 +136,7 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
         // Check for the mandatory conditions first.
         // If array contains too less or too many settings, do not proceed and therefore do not create the node.
         // Furthermore check it at least the first two mandatory params are not an empty string.
-        if (count($settings) >= 2 && count($settings) <= 10 && $settings[0] !== '' && $settings[1] !== '') {
+        if (count($settings) >= 2 && count($settings) <= 11 && $settings[0] !== '' && $settings[1] !== '') {
             foreach ($settings as $i => $setting) {
                 $setting = trim($setting);
                 if (!empty($setting)) {
@@ -263,6 +263,16 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             }
 
                             break;
+                        // Check for the optional eleventh parameter: css class.
+                        case 10:
+                            // Only proceed if some class is entered here. This parameter is optional.
+                            // If no class is given, the node will just get the classes which are needed for collapsing custom
+                            // nodes.
+                            $nodeclass = clean_param($setting, PARAM_NOTAGS); // More precisely, we would have needed
+                                                                              // PARAM_ALPHANUMEXT with spaces, but that does not
+                                                                              // exist unfortunately.
+
+                            break;
                     }
                 }
             }
@@ -318,6 +328,11 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
             // Show the custom node in Boost's nav drawer if requested.
             if ($showinflatnavigation) {
                 $customnode->showinflatnavigation = true;
+            }
+
+            // Add custom class if any class was given.
+            if (!empty($nodeclass)) {
+                $customnode->add_class($nodeclass);
             }
 
             // If it's a parent node.
@@ -722,6 +737,8 @@ function local_boostnavigation_customnodesusageusers() {
             '<dd>'.get_string('setting_customnodesusageparameteriddd', 'local_boostnavigation', null, true).'</dd>'.
             '<dt>'.get_string('setting_customnodesusageparameterbeforenodedt', 'local_boostnavigation', null, true).'</dt>'.
             '<dd>'.get_string('setting_customnodesusageparameterbeforenodedd', 'local_boostnavigation', null, true).'</dd>'.
+            '<dt>'.get_string('setting_customnodesusageparameterclassdt', 'local_boostnavigation', null, true).'</dt>'.
+            '<dd>'.get_string('setting_customnodesusageparameterclassdd', 'local_boostnavigation', null, true).'</dd>'.
             '</dl>'.
             '<hr />'.
             get_string('setting_customnodesusagepleasenote', 'local_boostnavigation', null, true).
