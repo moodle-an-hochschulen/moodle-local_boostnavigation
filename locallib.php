@@ -899,3 +899,25 @@ function local_boostnavigation_get_customnodeicon_config($customnodekeyprefix, $
     // As a fallback, which should not happen, return the default setting of the configs.
     return LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE;
 }
+
+/**
+ * Check if there is any badge in the course.
+ *
+ * @param int $courseid
+ *
+ * @return bool
+ */
+function local_boostnavigation_course_has_badges($courseid) {
+    global $DB, $CFG;
+
+    require_once($CFG->dirroot . '/lib/badgeslib.php');
+
+    $sql = "SELECT id FROM {badge}
+            WHERE status != :deleted AND type = :type AND courseid = :courseid";
+    $params = array('deleted' => BADGE_STATUS_ARCHIVED,
+            'type' => BADGE_TYPE_COURSE,
+            'courseid' => $courseid);
+    $recordexists = $DB->record_exists_sql($sql, $params);
+
+    return $recordexists;
+}

@@ -361,13 +361,10 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         // Only proceed if we are inside a course and we are _not_ on the frontpage.
         if ($PAGE->context->get_course_context(false) == true && $COURSE->id != SITEID) {
             // Check if there is any badge in the course.
-            require_once($CFG->dirroot . '/lib/badgeslib.php');
-
-            // Get number of badges in course.
-            $totalbadges = count(badges_get_badges(BADGE_TYPE_COURSE, $PAGE->course->id, '', '' , 0, 0));
+            $coursehasbadges = local_boostnavigation_course_has_badges($PAGE->course->id);
 
             // Only proceed if there are no badges in course.
-            if ($totalbadges == 0) {
+            if ($coursehasbadges == false) {
                 if ($badgesnode = $navigation->find('badgesview', global_navigation::TYPE_SETTING)) {
                     // Remove badges node (Just hiding it with the showinflatnavigation attribute does not work here).
                     $badgesnode->remove();
