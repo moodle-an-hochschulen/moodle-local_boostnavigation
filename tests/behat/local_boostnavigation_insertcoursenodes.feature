@@ -493,3 +493,36 @@ Feature: The boost navigation fumbling allows admins to insert course nodes to t
     And I am on "Course 1" course homepage
     And I click on "Forums" "link" in the "#nav-drawer" "css_element"
     And "Forums" "text" should exist in the ".breadcrumb" "css_element"
+
+  Scenario: Use indeividual activity icons
+    Given the following config values are set as admin:
+      | config                              | value | plugin                |
+      | insertactivitiescoursenode          | 1     | local_boostnavigation |
+      | insertactivitiescoursenoderealicons | 0     | local_boostnavigation |
+    When I log in as "teacher1"
+    And I am on "Course 1" course homepage
+    And I turn editing mode on
+    And I add a "Assignment" to section "1" and I fill the form with:
+      | Assignment name                     | Test assignment name    |
+      | Description                         | Submit your online text |
+      | assignsubmission_onlinetext_enabled | 1                       |
+      | assignsubmission_file_enabled       | 0                       |
+    And I add a "Forum" to section "1" and I fill the form with:
+      | Forum name  | Test forum name                |
+      | Forum type  | Standard forum for general use |
+      | Description | Test forum description         |
+    And I turn editing mode off
+    Then I should see "Activities" in the "#nav-drawer" "css_element"
+    And I should see "Assignments" in the "#nav-drawer" "css_element"
+    And I should see "Forums" in the "#nav-drawer" "css_element"
+    And the "class" attribute of "a[data-key='localboostnavigationactivityassign'] i.icon" "css_element" should contain "fa-share-alt"
+    And the "class" attribute of "a[data-key='localboostnavigationactivityforum'] i.icon" "css_element" should contain "fa-share-alt"
+    And the following config values are set as admin:
+      | config                              | value | plugin                |
+      | insertactivitiescoursenoderealicons | 1     | local_boostnavigation |
+    And I reload the page
+    Then I should see "Activities" in the "#nav-drawer" "css_element"
+    And I should see "Assignments" in the "#nav-drawer" "css_element"
+    And I should see "Forums" in the "#nav-drawer" "css_element"
+    And the "src" attribute of "a[data-key='localboostnavigationactivityassign'] img.icon" "css_element" should contain "boost/assign"
+    And the "src" attribute of "a[data-key='localboostnavigationactivityforum'] img.icon" "css_element" should contain "boost/forum"

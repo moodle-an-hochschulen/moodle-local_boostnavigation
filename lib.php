@@ -667,6 +667,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                     if ($modname === 'resources') {
                         // Do only if the admin does not want a dedicated resources node.
                         if ($config->insertresourcescoursenode == false) {
+                            // Create the node.
                             $activitynode = navigation_node::create($modfullname,
                                     new moodle_url('/course/resources.php', array('id' => $COURSE->id)),
                                     global_navigation::TYPE_ACTIVITY,
@@ -681,12 +682,20 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
 
                         // Process all other activity types.
                     } else {
+                        // Create the node.
                         $activitynode = navigation_node::create($modfullname,
                                 new moodle_url('/mod/'.$modname.'/index.php', array('id' => $COURSE->id)),
                                 global_navigation::TYPE_ACTIVITY,
                                 null,
-                                'localboostnavigationactivity'.$modname,
-                                new pix_icon('activities', '', 'local_boostnavigation'));
+                                'localboostnavigationactivity'.$modname);
+
+                        // Set the icon.
+                        if ($config->insertactivitiescoursenoderealicons == true) {
+                            $activitynode->icon = new pix_icon('icon', '', $modname);
+                        } else {
+                            $activitynode->icon = new pix_icon('activities', '', 'local_boostnavigation');
+                        }
+
                         // Add the activity course node to the coursehome node.
                         $coursehomenode->add_node($activitynode);
                         // Remember the activity course node's key for collapsing it later.

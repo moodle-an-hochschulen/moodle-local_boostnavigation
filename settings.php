@@ -755,6 +755,14 @@ if ($hassiteconfig) {
                         get_string('setting_insertnodescollapsehint', 'local_boostnavigation', null, true),
                 0));
 
+        // Create insert activities course node real icons widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/insertactivitiescoursenoderealicons',
+                get_string('setting_insertactivitiescoursenoderealicons', 'local_boostnavigation', null, true),
+                get_string('setting_insertactivitiescoursenoderealicons_desc', 'local_boostnavigation', null, true),
+                0));
+        $page->hide_if('local_boostnavigation/insertactivitiescoursenoderealicons',
+                'local_boostnavigation/insertactivitiescoursenode', 'notchecked');
+
         // Create insert resources course node widget.
         $page->add(new admin_setting_configcheckbox('local_boostnavigation/insertresourcescoursenode',
                 get_string('setting_insertnode', 'local_boostnavigation',
