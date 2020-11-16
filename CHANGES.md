@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.9-r2
 
 * 2020-11-15 - Feature: Use individual activity icons for activity course nodes.
 * 2020-11-14 - Feature: Support custom CSS classes when creating custom nodes.
