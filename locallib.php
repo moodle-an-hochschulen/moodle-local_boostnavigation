@@ -938,3 +938,50 @@ function local_boostnavigation_course_has_badges($courseid) {
 
     return $recordexists;
 }
+
+/**
+ * Get the string of the selected custom field value.
+ * This is a downsized version of get_customfield_values_for_export() with the only goal to get a single string.
+ *
+ * @param string $customfieldname The shortname of the custom field.
+ * @param int $customfieldvalue The value of the selected custom field.
+ *
+ * @return string
+ */
+function local_boostnavigation_get_customfield_valuestring($customfieldname, $customfieldvalue) {
+    global $CFG, $DB;
+
+    // Include block_myoverview library which contains the BLOCK_MYOVERVIEW_CUSTOMFIELD_EMPTY constant which is needed for
+    // calling the course_grouping_format_values() function later.
+    require_once($CFG->dirroot.'/blocks/myoverview/lib.php');
+
+    // Get the customfield record (which holds all available options).
+    $fieldrecord = $DB->get_record('customfield_field', ['shortname' => $customfieldname]);
+    // The field did not exist, we can't continue.
+    if (!$fieldrecord) {
+        return '';
+    }
+
+    // Get the field object and make sure that the field can be used for filtering courses at all.
+    $field = \core_customfield\field_controller::create($fieldrecord->id);
+    $isvisible = $field->get_configdata_property('visibility') == \core_course\customfield\course_handler::VISIBLETOALL;
+    // Only visible fields to everybody supporting course grouping will be displayed.
+    if (!$field->supports_course_grouping() || !$isvisible) {
+        return ''; // The field shouldn't have been selectable in the global settings, but just skip it now.
+    }
+
+    // Finally, get the string of the selected custom field value.
+    // We have to pass an array of value IDs to get (in this case: Just one single value) and we get back an array of the requested
+    // string plus the string for "No value selected".
+    $values = $field->course_grouping_format_values(array($customfieldvalue));
+    // Make sure that the array contains the string we need.
+    if (!is_array($values) || !array_key_exists($customfieldvalue, $values)) {
+        return '';
+    }
+
+    // Pick the string of the single value from the array.
+    $customfieldstring = $values[$customfieldvalue];
+
+    // Return the string.
+    return $customfieldstring;
+}

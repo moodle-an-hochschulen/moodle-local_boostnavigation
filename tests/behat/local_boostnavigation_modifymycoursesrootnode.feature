@@ -170,7 +170,7 @@ Feature: The boost navigation fumbling allows admins to modify the mycourses roo
     And I should not see "C4" in the "#nav-drawer" "css_element"
     And I should see "C5" in the "#nav-drawer" "css_element"
 
-  Scenario: Add course filter hint node (when modifymycoursesrootnodeshowfiltered is enabled)
+  Scenario: Add course filter hint node with standard filters (when modifymycoursesrootnodeshowfiltered is enabled)
     Given the following config values are set as admin:
       | config                              | value | plugin                |
       | modifymycoursesrootnodeshowfiltered | 1     | local_boostnavigation |
@@ -188,6 +188,47 @@ Feature: The boost navigation fumbling allows admins to modify the mycourses roo
     And I reload the page
     Then "[data-key='localboostnavigationactivefiltershint']" "css_element" should exist
     And I should see "Current course filter: Past" in the "[data-key='localboostnavigationactivefiltershint']" "css_element"
+
+  Scenario: Add course filter hint node with custom field filter (when modifymycoursesrootnodeshowfiltered is enabled)
+    Given the following config values are set as admin:
+      | config                              | value | plugin                |
+      | modifymycoursesrootnodeshowfiltered | 1     | local_boostnavigation |
+      | modifymycoursesrootnodefilterhint   | 1     | local_boostnavigation |
+    And the following "custom field categories" exist:
+      | name          | component   | area   | itemid |
+      | Course fields | core_course | course | 0      |
+    And the following "custom fields" exist:
+      | name         | category      | type   | shortname   | configdata                       |
+      | Select field | Course fields | select | selectfield | {"options":"Option 1\nOption 2"} |
+    And the following "courses" exist:
+      | fullname | shortname | category | customfield_selectfield |
+      | Course 4 | C4        | 0        | 1                       |
+      | Course 5 | C5        | 0        | 2                       |
+    And the following "course enrolments" exist:
+      | user      | course | role    |
+      | student1  | C4     | student |
+      | student1  | C5     | student |
+    And the following config values are set as admin:
+      | displaygroupingcustomfield | 1           | block_myoverview |
+      | customfiltergrouping       | selectfield | block_myoverview |
+    When I log in as "student1"
+    Then "[data-key='localboostnavigationactivefiltershint']" "css_element" should exist
+    And I should see "Current course filter: All (except removed from view)" in the "[data-key='localboostnavigationactivefiltershint']" "css_element"
+    And I click on "All (except removed from view)" "button" in the "Course overview" "block"
+    And I click on "Option 1" "link" in the "Course overview" "block"
+    And I reload the page
+    Then "[data-key='localboostnavigationactivefiltershint']" "css_element" should exist
+    And I should see "Current course filter: Option 1" in the "[data-key='localboostnavigationactivefiltershint']" "css_element"
+    And I click on "Option 1" "button" in the "Course overview" "block"
+    And I click on "Option 2" "link" in the "Course overview" "block"
+    And I reload the page
+    Then "[data-key='localboostnavigationactivefiltershint']" "css_element" should exist
+    And I should see "Current course filter: Option 2" in the "[data-key='localboostnavigationactivefiltershint']" "css_element"
+    And I click on "Option 2" "button" in the "Course overview" "block"
+    And I click on "No Select field" "link" in the "Course overview" "block"
+    And I reload the page
+    Then "[data-key='localboostnavigationactivefiltershint']" "css_element" should exist
+    And I should see "Current course filter: No Select field" in the "[data-key='localboostnavigationactivefiltershint']" "css_element"
 
   Scenario: Add course filter hint node (when modifymycoursesrootnodeshowfiltered is disabled)
     Given the following config values are set as admin:

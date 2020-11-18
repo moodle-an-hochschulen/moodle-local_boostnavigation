@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2020-11-18 - Improvement: Show the value of the selected custom field in the filter hint node
+
 ### v3.9-r2
 
 * 2020-11-15 - Feature: Use individual activity icons for activity course nodes.

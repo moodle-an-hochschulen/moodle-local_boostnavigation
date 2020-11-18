@@ -254,10 +254,19 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                                     COURSE_TIMELINE_ALL);
 
                             // Build the active filters hint.
+                            if ($currentfilter == COURSE_CUSTOMFIELD) {
+                                $customfieldname = get_config('block_myoverview', 'customfiltergrouping');
+                                $customfieldvalue =
+                                        get_user_preferences('block_myoverview_user_grouping_customfieldvalue_preference');
+                                $currentfieldstring =
+                                        local_boostnavigation_get_customfield_valuestring($customfieldname, $customfieldvalue);
+                            } else {
+                                $currentfieldstring = get_string($currentfilter, 'block_myoverview');
+                            }
                             $mycourseshintstring = get_string('mycoursesrootnodefilterhintenabledcurrentfilter',
                                     'local_boostnavigation');
                             $mycourseshintstring .= ' ';
-                            $mycourseshintstring .= get_string($currentfilter, 'block_myoverview');
+                            $mycourseshintstring .= $currentfieldstring;
 
                             // Otherwise hardcode the inprogress filter.
                         } else {
