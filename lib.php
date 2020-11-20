@@ -300,8 +300,8 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
                     if ($mycourseshintstring != '') {
                         // Create new navigation node.
                         // (use TYPE_COURSE to get the correct indent instead of TYPE_CUSTOM which would be semantically correct).
-                        $mycourseshintnode = navigation_node::create($mycourseshintstring, null, global_navigation::TYPE_COURSE, null,
-                            'localboostnavigationactivefiltershint', new pix_icon('i/filter', ''));
+                        $mycourseshintnode = navigation_node::create($mycourseshintstring, null, global_navigation::TYPE_COURSE,
+                                null, 'localboostnavigationactivefiltershint', new pix_icon('i/filter', ''));
 
                         // Show the navigation node in Boost's nav drawer.
                         $mycourseshintnode->showinflatnavigation = true;
