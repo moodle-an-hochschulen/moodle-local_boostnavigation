@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2021-01-05 - Bugfix: Collapsing custom course nodes had side effects to the my courses list.
+
 ### v3.10-r1
 
 * 2020-12-07 - Prepare compatibility for Moodle 3.10.
