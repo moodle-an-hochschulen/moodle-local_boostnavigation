@@ -390,7 +390,19 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                 // If the node should be collapsed, remove the active status in any case because otherwise it might get highlighted
                 // as active which does not make sense for collapse parent nodes.
                 if ($collapse) {
-                    $customnode->make_inactive();
+                    // If we are dealing with a custom course node.
+                    if (substr($keyprefix, 0, 32) == 'localboostnavigationcustomcourse') {
+                        // Basically, we could just call $customnode->make_inactive();
+                        // However, it has been shown that, if we do this to custom course nodes, there are side effects to the
+                        // my courses list as make_inactive() also makes the parent node (in this case: the course node) inactive.
+                        // So we make just this custom node inactive manually, just like make_inactive() would do it.
+                        $customnode->isactive = false;
+                        $customnode->remove_class('active_tree_node');
+
+                        // Otherwise.
+                    } else {
+                        $customnode->make_inactive();
+                    }
                 }
 
                 // Finally, set the node icon.
