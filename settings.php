@@ -264,6 +264,56 @@ if ($hassiteconfig) {
                         get_string('setting_removerootnodestechnicalhint', 'local_boostnavigation', null, true),
                 0));
 
+        // Add move root nodes heading.
+        $page->add(new admin_setting_heading('local_boostnavigation/moverootnodesheading',
+                get_string('setting_movenodesheading', 'local_boostnavigation',
+                        array('what' => get_string('inc_rootnodes', 'local_boostnavigation', null, true)),
+                        true),
+                ''));
+
+        // Create move contentbank node in course context control widget.
+        $page->add(new admin_setting_configcheckbox('local_boostnavigation/movecontentbankcoursenode',
+                get_string('setting_movecontentbanknodeincoursecontext', 'local_boostnavigation',
+                        array('rootnode' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
+                              'contentbank' => get_string('contentbank', 'contentbank')),
+                true),
+                get_string('setting_movecontentbanknodeincoursecontext_desc', 'local_boostnavigation',
+                        array('rootnode' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
+                              'contentbank' => get_string('contentbank', 'contentbank')),
+                        true).
+                '<br /><br />'.
+                get_string('setting_movenodestechnicalhint', 'local_boostnavigation', null, true),
+                0));
+        $page->hide_if('local_boostnavigation/movecontentbankcoursenode',
+                'local_boostnavigation/removecontentbankcoursenode', 'checked');
+
+        // Create move contentbank node in course context beforenode control widget.
+        $movebeforeoptions = array(
+                // Don't use string lazy loading because the string will be directly used
+                // and would produce a PHP warning otherwise.
+                LOCAL_BOOSTNAVIGATION_MOVEBEFORE_GRADES => get_string('grades', 'moodle'),
+                LOCAL_BOOSTNAVIGATION_MOVEBEFORE_BADGES => get_string('badges', 'moodle'),
+                LOCAL_BOOSTNAVIGATION_MOVEBEFORE_COMPETENCIES => get_string('competencies', 'core_competency'),
+        );
+        $page->add(new admin_setting_configselect('local_boostnavigation/movecontentbankcoursenodebefore',
+                get_string('setting_movecontentbanknodeincoursecontextbefore', 'local_boostnavigation',
+                        array('rootnode' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
+                              'coursenode' => get_string('inc_coursenode', 'local_boostnavigation', null, true),
+                              'contentbank' => get_string('contentbank', 'contentbank')),
+                        true),
+                get_string('setting_movecontentbanknodeincoursecontextbefore_desc', 'local_boostnavigation',
+                        array('rootnode' => get_string('inc_rootnode', 'local_boostnavigation', null, true),
+                              'coursenode' => get_string('inc_coursenode', 'local_boostnavigation', null, true),
+                              'contentbank' => get_string('contentbank', 'contentbank')),
+                        true),
+                LOCAL_BOOSTNAVIGATION_MOVEBEFORE_GRADES,
+                $movebeforeoptions));
+        unset($movebeforeoptions);
+        $page->hide_if('local_boostnavigation/movecontentbankcoursenodebefore',
+                'local_boostnavigation/removecontentbankcoursenode', 'checked');
+        $page->hide_if('local_boostnavigation/movecontentbankcoursenodebefore',
+                'local_boostnavigation/movecontentbankcoursenode', 'notchecked');
+
         // Add settings page to the admin settings category.
         $ADMIN->add('local_boostnavigation', $page);
 

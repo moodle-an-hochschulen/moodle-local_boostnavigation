@@ -6,6 +6,7 @@ Changes
 
 ### Unreleased
 
+* 2021-01-05 - Feature: Move the content bank node from the root nodes section to the course nodes section.
 * 2021-01-05 - Bugfix: Collapsing custom course nodes had side effects to the my courses list.
 
 ### v3.9-r4
