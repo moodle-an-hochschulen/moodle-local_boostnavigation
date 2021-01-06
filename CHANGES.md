@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.10-r2
 
 * 2021-01-05 - Feature: Move the content bank node from the root nodes section to the course nodes section.
 * 2021-01-05 - Bugfix: Collapsing custom course nodes had side effects to the my courses list.
