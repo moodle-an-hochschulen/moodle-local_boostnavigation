@@ -29,6 +29,10 @@ define('LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE', 0);
 define('LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT', 1);
 define('LOCAL_BOOSTNAVIGATION_COLLAPSEICON_YES', 2);
 
+define('LOCAL_BOOSTNAVIGATION_MOVEBEFORE_GRADES', 'grades');
+define('LOCAL_BOOSTNAVIGATION_MOVEBEFORE_BADGES', 'badgesview');
+define('LOCAL_BOOSTNAVIGATION_MOVEBEFORE_COMPETENCIES', 'competencies');
+
 /**
  * Fumble with Moodle's global navigation by leveraging Moodle's *_extend_navigation() hook.
  *
@@ -76,30 +80,6 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
         if ($privatefilesnode = $navigation->find('privatefiles', global_navigation::TYPE_SETTING)) {
             // Hide privatefiles node.
             $privatefilesnode->showinflatnavigation = false;
-        }
-    }
-
-    // Check if admin wanted us to remove the contentbank node from Boost's nav drawer.
-    if (isset($config->removecontentbankcoursenode) && $config->removecontentbankcoursenode == true ||
-            isset($config->removecontentbanknoncoursenode) && $config->removecontentbanknoncoursenode == true) {
-        // If yes, do it.
-        if ($contentbanknode = $navigation->find('contentbank', global_navigation::TYPE_CUSTOM)) {
-            // Check if admin wanted us to remove the contentbank node in course context from Boost's nav drawer.
-            if (isset($config->removecontentbankcoursenode) && $config->removecontentbankcoursenode == true) {
-                // Only proceed if we are inside a course and we are _not_ on the frontpage.
-                if ($PAGE->context->get_course_context(false) == true && $COURSE->id != SITEID) {
-                    // Hide contentbank node.
-                    $contentbanknode->showinflatnavigation = false;
-                }
-            }
-            // Check if admin wanted us to remove the contentbank node in noncourse context from Boost's nav drawer.
-            if (isset($config->removecontentbanknoncoursenode) && $config->removecontentbanknoncoursenode == true) {
-                // Only proceed if we are not inside a course or if we are on the frontpage.
-                if ($PAGE->context->get_course_context(false) == false || $COURSE->id == SITEID) {
-                    // Hide contentbank node.
-                    $contentbanknode->showinflatnavigation = false;
-                }
-            }
         }
     }
 
@@ -452,15 +432,58 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
     // Check if admin wants us to insert the coursesections node in Boost's nav drawer.
     // Or if admin wants us to insert the activities and / or resources node in Boost's nav drawer.
     // Or if admin wants us to insert custom course nodes in Boost's nav drawer.
-    // If one of these four settings is activated, we will need the coursehome node and don't want
+    // Or if admin wanted us to move the contentbank node in Boost's nav drawer.
+    // If one of these settings is activated, we will need the coursehome node and don't want
     // to fetch these more than once.
     if (isset($config->insertcoursesectionscoursenode) && $config->insertcoursesectionscoursenode == true ||
             isset($config->insertactivitiescoursenode) && $config->insertactivitiescoursenode == true ||
             isset($config->insertresourcescoursenode) && $config->insertresourcescoursenode == true ||
             isset($config->insertcustomcoursenodesusers) && $config->insertcustomcoursenodesusers == true ||
-            isset($config->insertcustomcoursenodesadmins) && $config->insertcustomcoursenodesadmins == true) {
+            isset($config->insertcustomcoursenodesadmins) && $config->insertcustomcoursenodesadmins == true ||
+            isset($config->movecontentbankcoursenode) && $config->movecontentbankcoursenode == true) {
         // Fetch course home node.
         $coursehomenode = $PAGE->navigation->find($COURSE->id, navigation_node::TYPE_COURSE);
+    }
+
+    // Check if admin wanted us to remove the contentbank node from Boost's nav drawer or
+    // if admin wanted us to move the contentbank node in Boost's nav drawer.
+    if (isset($config->removecontentbankcoursenode) && $config->removecontentbankcoursenode == true ||
+            isset($config->removecontentbanknoncoursenode) && $config->removecontentbanknoncoursenode == true ||
+            isset($config->movecontentbankcoursenode) && $config->movecontentbankcoursenode == true) {
+        // If yes, do it.
+        if ($contentbanknode = $navigation->find('contentbank', global_navigation::TYPE_CUSTOM)) {
+            // Check if admin wanted us to remove the contentbank node in course context from Boost's nav drawer.
+            if (isset($config->removecontentbankcoursenode) && $config->removecontentbankcoursenode == true) {
+                // Only proceed if we are inside a course and we are _not_ on the frontpage.
+                if ($PAGE->context->get_course_context(false) == true && $COURSE->id != SITEID) {
+                    // Hide contentbank node.
+                    $contentbanknode->showinflatnavigation = false;
+                }
+
+                // Otherwise check if admin wanted us to move the contentbank node in course context in Boost's nav drawer.
+            } else if (isset($config->movecontentbankcoursenode) && $config->movecontentbankcoursenode == true) {
+                // Only proceed if we are inside a course and we are _not_ on the frontpage.
+                if ($PAGE->context->get_course_context(false) == true && $COURSE->id != SITEID) {
+                    // Remove the content bank node from the navigation tree (but do not destroy the node object).
+                    $contentbanknode->remove();
+
+                    // Hide the node from the flat navigation like we do for custom course nodes which we add to the course section.
+                    $contentbanknode->showinflatnavigation = false;
+
+                    // Re-add the node to the course section before the configure course node.
+                    $coursehomenode->add_node($contentbanknode, $config->movecontentbankcoursenodebefore);
+                }
+            }
+
+            // Check if admin wanted us to remove the contentbank node in noncourse context from Boost's nav drawer.
+            if (isset($config->removecontentbanknoncoursenode) && $config->removecontentbanknoncoursenode == true) {
+                // Only proceed if we are not inside a course or if we are on the frontpage.
+                if ($PAGE->context->get_course_context(false) == false || $COURSE->id == SITEID) {
+                    // Hide contentbank node.
+                    $contentbanknode->showinflatnavigation = false;
+                }
+            }
+        }
     }
 
     // Check if admin wants us to insert the coursesections node in Boost's nav drawer.
