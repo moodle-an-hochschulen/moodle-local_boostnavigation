@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2021-02-05 - Move Moodle Plugin CI from Travis CI to Github actions
+
 ### v3.10-r2
 
 * 2021-01-05 - Feature: Move the content bank node from the root nodes section to the course nodes section.

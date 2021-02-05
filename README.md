@@ -1,7 +1,7 @@
 moodle-local_boostnavigation
 ============================
 
-[![Build Status](https://travis-ci.com/moodleuulm/moodle-local_boostnavigation.svg?branch=master)](https://travis-ci.com/moodleuulm/moodle-local_boostnavigation)
+[![Moodle Plugin CI](https://github.com/moodleuulm/moodle-local_boostnavigation/workflows/Moodle%20Plugin%20CI/badge.svg?branch=MOODLE_310_STABLE)](https://github.com/moodleuulm/moodle-local_boostnavigation/actions?query=workflow%3A%22Moodle+Plugin+CI%22+branch%3AMOODLE_310_STABLE)
 
 Moodle plugin which tries to overcome some fixed appearance behaviours of Boost's nav drawer in a clean way
 
