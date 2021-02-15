@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.9-r6
 
 * 2021-02-05 - Make codechecker fully happy
 * 2021-02-05 - Move Moodle Plugin CI from Travis CI to Github actions
