@@ -114,6 +114,8 @@ Feature: The boost navigation fumbling allows admins to modify the mycourses roo
       | config                              | value | plugin                |
       | modifymycoursesrootnodeshowfiltered | 1     | local_boostnavigation |
     When I log in as "student1"
+    # This is added to overcome a problem with Chrome 88 temporarily - See https://bugs.chromium.org/p/chromedriver/issues/detail?id=3682
+    And I change window size to "small"
     And I click on ".coursemenubtn" "css_element" in the "//div[@class='card dashboard-card' and contains(.,'C1')]" "xpath_element"
     And I click on "Star this course" "link" in the "//div[@class='card dashboard-card' and contains(.,'C1')]" "xpath_element"
     And I click on ".coursemenubtn" "css_element" in the "//div[@class='card dashboard-card' and contains(.,'C3')]" "xpath_element"
