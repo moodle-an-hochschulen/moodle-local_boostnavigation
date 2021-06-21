@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### v3.11-r1
+
+* 2021-06-21 - Prepare compatibility for Moodle 3.11.
+
 ### v3.10-r3
 
 * 2021-02-05 - Make codechecker fully happy
