@@ -6,7 +6,7 @@ Changes
 
 ### v3.11-r1
 
-* 2021-06-21 - Prepare compatibility for Moodle 3.11.
+* 2021-06-24 - Prepare compatibility for Moodle 3.11.
 
 ### v3.10-r3
 
