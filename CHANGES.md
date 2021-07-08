@@ -4,6 +4,10 @@ moodle-local_boostnavigation
 Changes
 -------
 
+### Unreleased
+
+* 2021-07-08 - Improvement: Issue #86 - "System role "user" not working"
+
 ### v3.11-r1
 
 * 2021-06-24 - Prepare compatibility for Moodle 3.11.

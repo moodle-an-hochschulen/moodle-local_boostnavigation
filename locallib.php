@@ -702,6 +702,12 @@ function local_boostnavigation_user_has_role_on_system($userid, $setting) {
             array_push($rolesinsystemshortnames, $role->shortname);
         }
 
+        // Is the user logged in?
+        if (isloggedin()) {
+            // Add it to the list of system roles.
+            array_push($rolesinsystemshortnames, 'user');
+        }
+    
         // Is the user an admin?
         if (is_siteadmin($userid)) {
             // Add it to the list of system roles.
