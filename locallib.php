@@ -24,6 +24,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+// make conditions easier to read; assuming length of 3
+define('CONDITION_IS_LOGGED_IN', '!u!');
+define('CONTITION_NOT_LOGGED_IN', '!U!');
+define('CONDITION_IS_GUEST','!g!');
+define('CONTITION_IS_ADMIN', '!a!');
+
 /**
  * Moodle core does not have a built-in functionality to get all keys of all children of a navigation node,
  * so we need to get these ourselves.
@@ -143,6 +149,36 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                     switch ($i) {
                         // Check for the mandatory first param: title.
                         case 0:
+
+                            // check for line conditionals
+                            $ok = true;
+                            $hasconditional = false;
+                            if (substr($setting, 0, 3) === CONDITION_IS_LOGGED_IN) {
+                                $hasconditional = true;
+                                $ok = isloggedin();
+                            } else if (substr($setting, 0, 3) === CONTITION_NOT_LOGGED_IN) {
+                                $hasconditional = true;
+                                $ok = !isloggedin();
+                            } else if (substr($setting, 0, 3) === CONDITION_IS_GUEST) {
+                                $hasconditional = true;
+                                $ok = isguestuser();
+                            } else if (substr($setting, 0, 3) === CONTITION_IS_ADMIN) {
+                                $hasconditional = true;
+                                $ok = is_siteadmin();
+                            }
+                            // if a conditional was found ..
+                            if ($hasconditional) {
+                                // .. modify the remaining string by removing the conditional clause
+                                $setting = substr($setting, 3);
+
+                                // if conditional didn't pass ...
+                                if (!$ok) {
+                                    // .. this node isn't visible
+                                    $nodevisible = false;
+                                    break 2; // exit out of foreach
+                                }
+                            }
+
                             // Check if this is a child node and get the node title.
                             if (substr($setting, 0, 1) == '-') {
                                 $nodeischild = true;
@@ -728,6 +764,7 @@ function local_boostnavigation_customnodesusageusers() {
             get_string('setting_customnodesusageexamples', 'local_boostnavigation', null, true).'<br />'.
             '<code>'.get_string('setting_customnodesusageusersexample', 'local_boostnavigation', null, true).'</code><br />'.
             '<hr />'.
+            get_string('setting_conditionals', 'local_boostnavigation', null, true).'<br />'.
             get_string('setting_customnodesusageparameters', 'local_boostnavigation', null, true).'<br />'.
             '<dl>'.
             '<dt>'.get_string('setting_customnodesusageparametertitledt', 'local_boostnavigation', null, true).'</dt>'.
@@ -778,6 +815,7 @@ function local_boostnavigation_customnodesusageadmins() {
             get_string('setting_customnodesusageexamples', 'local_boostnavigation', null, true).'<br />'.
             '<code>'.get_string('setting_customnodesusageadminsexample', 'local_boostnavigation', null, true).'</code><br />'.
             '<hr />'.
+            get_string('setting_conditionals', 'local_boostnavigation', null, true).'<br />'.
             get_string('setting_customnodesusageparameters', 'local_boostnavigation', null, true).'<br />'.
             '<dl>'.
             '<dt>'.get_string('setting_customnodesusageparametertitledt', 'local_boostnavigation', null, true).'</dt>'.
