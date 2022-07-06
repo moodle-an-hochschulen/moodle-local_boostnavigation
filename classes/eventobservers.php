@@ -24,8 +24,6 @@
 
 namespace local_boostnavigation;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Observer class containing methods monitoring various events.
  *
@@ -33,8 +31,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2019 Alexander Bias, Ulm University <alexander.bias@uni-ulm.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class eventobservers
-{
+class eventobservers {
 
     /**
      * User loggedin event observer.
