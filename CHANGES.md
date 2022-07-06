@@ -4,7 +4,7 @@ moodle-local_boostnavigation
 Changes
 -------
 
-### Unreleased
+### v3.9-r7
 
 * 2022-06-26 - Make codechecker happy again
 * 2022-06-26 - Updated Moodle Plugin CI to latest upstream recommendations
