@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 // Define constants used by this plugin.
 define('LOCAL_BOOSTNAVIGATION_COLLAPSEICON_NONE', 0);
 define('LOCAL_BOOSTNAVIGATION_COLLAPSEICON_JUSTINDENT', 1);

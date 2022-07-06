@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Moodle core does not have a built-in functionality to get all keys of all children of a navigation node,
  * so we need to get these ourselves.
