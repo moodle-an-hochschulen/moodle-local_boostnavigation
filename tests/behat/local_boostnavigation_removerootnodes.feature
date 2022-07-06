@@ -16,7 +16,7 @@ Feature: The boost navigation fumbling allows admins to remove root nodes from t
     When I log in as "student1"
     Then I should see "Dashboard" in the "#nav-drawer" "css_element"
     # The following steps will detect a PHP notice and will therefore fail.
-    # They are disabled until https://github.com/moodleuulm/moodle-local_boostnavigation/issues/40 is fixed.
+    # They are disabled until https://github.com/moodle-an-hochschulen/moodle-local_boostnavigation/issues/40 is fixed.
     # And the following config values are set as admin:
     #   | config                 | value | plugin                |
     #   | removemyhomenode       | 1     | local_boostnavigation |
