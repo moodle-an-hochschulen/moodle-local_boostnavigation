@@ -62,6 +62,12 @@ On this page, you can insert and collapse custom course nodes.
 On this page, you can insert and collapse custom bottom nodes.
 
 
+Capabilities
+------------
+
+This plugin does not add any additional capabilities.
+
+
 How this plugin works
 ---------------------
 
