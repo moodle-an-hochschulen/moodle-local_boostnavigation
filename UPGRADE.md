@@ -27,5 +27,10 @@ Manual tests
 ------------
 
 * There aren't any manual tests needed to upgrade this plugin.
-* However, it might be advisable to have a look at the output of the nav drawer in the Moodle GUI as Moodle themes can always change small details in this area.
-* Additionally, if you look at the Behat feature files, you will see that there are some scenarios still commented out. If you have time, you should test them manually or write a working Behat test for them.
+* However, if you look at the Behat feature files, you will see that there are some scenarios still commented out. If you have time, you should test them manually or write a working Behat test for them.
+
+
+Visual checks
+-------------
+
+* It might be advisable to have a look at the output of the nav drawer in the Moodle GUI as Moodle themes can always change small details in this area.
