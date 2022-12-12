@@ -618,7 +618,7 @@ function local_boostnavigation_extend_navigation(global_navigation $navigation) 
             $archetypes = array();
             foreach ($modinfo->cms as $cm) {
                 // Exclude activities which are not visible or have no link (=label).
-                if (!$cm->uservisible or !$cm->has_view()) {
+                if (!$cm->uservisible || !$cm->has_view()) {
                     continue;
                 }
                 if (array_key_exists($cm->modname, $modfullnames)) {
