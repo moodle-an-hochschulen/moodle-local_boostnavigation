@@ -194,4 +194,4 @@ $string['settingspage_customcoursenodes'] = 'Custom course nodes';
 $string['settingspage_customrootnodes'] = 'Custom root nodes';
 $string['settingspage_mycoursesrootnode'] = 'My courses root node';
 $string['settingspage_rootnodes'] = 'Root nodes';
-$string['setting_conditionals'] = '<b>Conditionally showing items.</b><br />You can prefix a link title with a special 3-character code to affect the visibility of the custom node.<br />Use <code>!a!</code> to target only site admins.<br />Use <code>!u!</code> to specify logged on users only.<br />Use <code>!U!</code> to specify logged off users only.<br />Use <code>!g!</code> to target only guest users.<br />';
+$string['setting_conditionals'] = '<b>Conditionally showing items.</b><br />You can prefix a link title with a special 3-character code to affect the visibility of the custom node.<br />Use <code>!a!</code> to target only site admins.<br />Use <code>!u!</code> to specify logged on users only.<br />Use <code>!U!</code> to specify logged off users only.<br />Use <code>!g!</code> to target only guest users.<br />Use <code>!1234!</code> to target user with ID 1234.';
