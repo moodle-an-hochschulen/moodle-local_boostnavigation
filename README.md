@@ -5,6 +5,11 @@ moodle-local_boostnavigation
 
 Moodle plugin which tries to overcome some fixed appearance behaviours of Boost's nav drawer in a clean way
 
+MY FORK
+-------
+
+Conditionals - the ability to target logged-on or non-logged-on users, guests, admins outside admin nodes, or exact users by the id.
+
 
 Requirements
 ------------
