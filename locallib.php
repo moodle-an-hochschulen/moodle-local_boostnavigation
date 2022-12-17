@@ -165,6 +165,12 @@ function local_boostnavigation_build_custom_nodes($customnodes, navigation_node 
                             } else if (substr($setting, 0, 3) === CONTITION_IS_ADMIN) {
                                 $hasconditional = true;
                                 $ok = is_siteadmin();
+                            } else if (preg_match('/^!(\d{1,10})!.+/', $setting, $regmatch)) {
+                                $setting = substr($setting, 2+ strlen($regmatch[1]));
+                                if ($USER->id != $regmatch[1]) {
+                                    $nodevisible = false;
+                                    break 2;
+                                }
                             }
                             // if a conditional was found ..
                             if ($hasconditional) {
