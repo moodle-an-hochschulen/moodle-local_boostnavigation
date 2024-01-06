@@ -6,6 +6,14 @@ moodle-local_boostnavigation
 Moodle plugin which tries to overcome some fixed appearance behaviours of Boost's nav drawer in a clean way
 
 
+:warning: End of life
+---------------------
+
+**This plugin has reached end of life.**
+
+This plugin will not be upgraded for Moodle 4.x. Please consider using our Moodle 4 theme theme_boost_union which supports several aspects of this plugin's feature set.
+
+
 Requirements
 ------------
 
